@@ -1,4 +1,4 @@
 # Fake Store
-Ecommerce Website with React JS And Tailwind CSS /n
-API form "http://fakestoreapi.com/"
+Ecommerce Website with React JS And Tailwind CSS <space><space>
+API form <http://fakestoreapi.com/>
 
