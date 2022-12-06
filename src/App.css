@@ -1,0 +1,17 @@
+.rhap_play-pause-button {
+    color: white;
+}
+
+.rhap_time {
+    color: white;
+}
+
+.rhap_progress-filled {
+    background-color: white;
+}
+.rhap_download-progress {
+    background-color: #a3a3a3;
+}
+.rhap_skip-button:hover {
+    color: white;
+}
