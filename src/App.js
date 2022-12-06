@@ -3,9 +3,6 @@ import { Fragment } from 'react'; //Component chỉ để chứa
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from './Layout';
-// import Data from '~/data/songs.json';
-// import './App.css';
-
 function App() {
     // const [song, setSong] = useState(Data[0]);
     // console.log(Data.length);

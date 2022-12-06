@@ -1,79 +1,53 @@
 import config from '~/config';
-import { Link } from 'react-router-dom';
+import { Link, NavLink } from 'react-router-dom';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faSpotify } from '@fortawesome/free-brands-svg-icons';
 
 import { HomeIcon, LibraryActive, Search } from '~/components/Icons';
 import Menu, { MenuItem } from './Menu';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { faBars, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
-    const [isNavMenuMobileOpen, setIsNavMenuMobileOpen] = useState(false);
-    const handleOpenMenu = () => {
-        if (!isNavMenuMobileOpen) {
-            setIsNavMenuMobileOpen(true);
-        } else {
-            setIsNavMenuMobileOpen(false);
-        }
-    };
+    const [categories, setCategories] = useState([]);
+    useEffect(() => {
+        fetch('https://fakestoreapi.com/products/categories')
+            .then((res) => res.json())
+            .then((res) => setCategories(res));
+    }, []);
+    // console.log(categories[0]);
+
     return (
-        <aside className="h-[100px] md:h-full md:col-span-1 z-[100] bg-black ">
-            <div className="w-full">
-                <div className="grid grid-cols-2 md:block text-white p-8">
-                    <div className="col-span-1">
-                        <Link
-                            to={config.routes.home}
-                            className="items-center text-3xl md: flex"
-                        >
-                            <FontAwesomeIcon
-                                className="text-5xl"
-                                icon={faSpotify}
-                            />
-                            <span className="font-semibold text-3xl pl-2">
-                                Spotify
-                            </span>
-                        </Link>
-                    </div>
-                    <div className="col-span-1">
-                        <div
-                            className="block ml-[170px] mt-5 md:hidden"
-                            onClick={handleOpenMenu}
-                        >
-                            <FontAwesomeIcon
-                                className="text-3xl"
-                                icon={faEllipsisVertical}
-                            />
-                        </div>
-                        <div
-                            className={`${
-                                isNavMenuMobileOpen ? ' ' : 'hidden'
-                            } rounded-2xl bg-black  md:border-none  md:block md:ml-[1px] pt-5 font-semibold mt-5`}
-                        >
-                            <Menu>
-                                <MenuItem
-                                    to={config.routes.home}
-                                    title="Home"
-                                    icon={<HomeIcon />}
-                                />
-                                <MenuItem
-                                    to={config.routes.search}
-                                    title="Search"
-                                    icon={<Search />}
-                                />
-                                <MenuItem
-                                    to={config.routes.library}
-                                    title="Your Library"
-                                    icon={<LibraryActive />}
-                                />
-                            </Menu>
-                        </div>
-                    </div>
-                </div>
-                {/* <div className="col-span-1 w-[0px]"></div> */}
+        <div className="grid grid-cols-10 h-[82px] bg-black text-white ">
+            <div className="col-span-2 h-[82px] text-center ">
+                <Link className="w-[100px] h-[82px] " to={config.routes.home}>
+                    <img
+                        className="w-[100px] md:ml-16 mt-2"
+                        src="https://seeklogo.com/images/O/off-white-virgilabloh-logo-766416FD87-seeklogo.com.png"
+                        alt="logo"
+                    />
+                </Link>
             </div>
-        </aside>
+            <div className="col-span-6 grid grid-cols-4 pt-8">
+                {categories.map((category) => (
+                    // <a href={`/${category}`} className="uppercase col-span-1">
+                    //     {category}
+                    // </a>
+                    <NavLink
+                        to={`/${category}`}
+                        className="uppercase col-span-1 w-[170px]"
+                    >
+                        {category}
+                    </NavLink>
+                ))}
+                {/* <h2 className="uppercase col-span-1">electronics</h2>
+                <h2 className="uppercase col-span-1">jewelery</h2>
+                <h2 className="uppercase col-span-1">men's clothing</h2>
+                <h2 className="uppercase col-span-1">women's clothing</h2> */}
+            </div>
+            <div className="col-span-2 p-8">basket</div>
+        </div>
     );
 }
 

@@ -7,38 +7,29 @@ export const DataMusics = createContext();
 function DefaultLayout({ children }) {
     const [data, setData] = useState([]);
     useEffect(() => {
-        fetch('http://localhost:8000/for_you')
+        fetch('https://fakestoreapi.com/products')
             .then((data) => data.json())
             .then((data) => {
                 setData(data);
             })
             .catch((err) => console.error(err));
     }, []);
-
-    // console.log(data);
-
-    // const [song, setSong] = useState([]);
-
-    // const handleSetSong = (idSong) => {
-    //     const song = data.find((song) => song.id === idSong);
-    //     setSong(song);
-    // };
-    
-    // const [pauseTest, setPauseTest] = useState(false)
+    console.log(data);
     return (
         <DataMusics.Provider 
             value={{ data}}
         >
+            <Sidebar />
             <div className="grid md:grid-cols-7">
-                <Sidebar />
+                
                 <div className="md:col-span-6">
-                    <Header />
+                    {/* <Header /> */}
                     <div>{children}</div>
                 </div>
             </div>
-            <div className="w-[100%]">
+            {/* <div className="w-[100%]">
                 <Playing />
-            </div>
+            </div> */}
         </DataMusics.Provider>
     );
 }

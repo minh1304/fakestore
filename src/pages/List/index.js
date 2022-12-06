@@ -11,7 +11,7 @@ function List() {
     const { name } = useParams(); // get nickname
 
     useEffect(() => {
-        fetch(`http://localhost:8000/for_you/${name}`)
+        fetch(`https://fakestoreapi.com/products/category/${name}`)
             .then((data) => data.json())
             .then((data) => {
                 setData(data);
@@ -29,24 +29,6 @@ function List() {
             </div>
             <div className="bg-primary pl-8 pt-8">
                 <section>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
                     <div className="grid grid-cols-3 ">
                         <h1>album nè</h1>
                     </div>
