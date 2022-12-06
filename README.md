@@ -1,4 +1,4 @@
 # Fake Store
-Ecommerce Website with React JS And Tailwind CSS <space><space>
+<space>Ecommerce Website with React JS And Tailwind CSS <space>
 API form <http://fakestoreapi.com/>
 
