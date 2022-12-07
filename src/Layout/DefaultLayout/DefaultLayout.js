@@ -1,6 +1,4 @@
 import Sidebar from '../components/Sidebar';
-import Header from '../components/Header';
-import Playing from '../components/Playing';
 import { createContext, useEffect, useState } from 'react';
 
 export const Data = createContext();
