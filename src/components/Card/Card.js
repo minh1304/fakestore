@@ -1,12 +1,13 @@
 import { useContext, useEffect, useState, createContext } from 'react';
 import config from '~/config';
-import { Link } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import { PauseIcon, PlayIcon } from '../Icons';
 import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 
 // export const DataAlbum = createContext();
 
 function Card({ data }) {
+    const { name } = useParams();
     const [onSee, setOnSee] = useState(false);
     const [playing, setPlaying] = useState(false);
 
@@ -17,8 +18,7 @@ function Card({ data }) {
         setOnSee(false);
     };
     const [idSong, setIdSong] = useState(0);
-    const { handleSetSong, song, pauseTest, setPauseTest } =
-        useContext(Data);
+    const { handleSetSong, song, pauseTest, setPauseTest } = useContext(Data);
 
     // useEffect(() => {
     //     setIdSong(song.id);
@@ -49,6 +49,7 @@ function Card({ data }) {
                             <a href={`/categories/${data.category}`}>
                                 <h4 className="pt-2">{data.category}</h4>
                             </a>
+
                             <a href={`/${data.id}`}>
                                 <h3 className="pt-2 h-[60px] overflow-y-hidden">
                                     {data.title}

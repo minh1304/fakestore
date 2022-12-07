@@ -4,12 +4,10 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PlayIcon } from '~/components/Icons';
 import Card from '~/components/Card';
-import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 
 function List() {
     const [data, setData] = useState([]);
     const { name } = useParams();
-    console.log(name);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/category/${name}`)
             .then((data) => data.json())
@@ -18,7 +16,6 @@ function List() {
             })
             .catch((err) => console.error(err));
     }, [name]);
-    console.log(data);
     return (
         <div className="bg-white grid grid-cols-10">
             <div className="col-span-2"></div>
