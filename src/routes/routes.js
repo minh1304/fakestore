@@ -5,6 +5,7 @@ import config from '~/config';
 import Search from '~/pages/Search';
 import Library from '~/pages/Library';
 import List from '~/pages/List';
+import Detail from '~/pages/Detail';
 // import Personal from '~/pages/Personal';
 const publicRoutes = [
     // { path: config.routes.personal, component: Personal},
@@ -12,6 +13,7 @@ const publicRoutes = [
     { path: config.routes.search, component: Search },
     { path: config.routes.library, component: Library },
     { path: config.routes.list, component: List},
+    { path: config.routes.detail, component: Detail},
     // { path: config.routes.follow, component: Follow },
     // { path: '/liveradio', component: LiveRadio, layout: null },
 ];

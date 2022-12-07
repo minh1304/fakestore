@@ -29,8 +29,9 @@ function Sidebar() {
                 </Link>
             </div>
             <div className="col-span-6 grid grid-cols-4 pt-8">
-                {categories.map((category) => (
+                {categories.map((category, index) => (
                     <NavLink
+                        key={index}
                         to={`/categories/${category}`}
                         className="uppercase col-span-1 w-[170px]"
                     >

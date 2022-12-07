@@ -20,10 +20,6 @@ function Card({ data }) {
     const [idSong, setIdSong] = useState(0);
     const { handleSetSong, song, pauseTest, setPauseTest } = useContext(Data);
 
-    // useEffect(() => {
-    //     setIdSong(song.id);
-    // }, [song]);
-    // console.log(song.id);
 
     return (
         // <DataAlbum.Provider value={{data}}>
@@ -36,7 +32,7 @@ function Card({ data }) {
                 >
                     <div className="col-span-1"></div>
                     <div className="col-span-6">
-                        <a href={`/${data.id}`}>
+                        <a href={`/product/${data.id}`}>
                             <div className="relative h-[350px] w-[245px] overflow-y-hidden">
                                 <img
                                     className="object-cover"

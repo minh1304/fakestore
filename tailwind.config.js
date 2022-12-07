@@ -18,6 +18,7 @@ module.exports = {
                 Inter: ['Inter', 'sans-serif'],
             },
             colors: {
+                
                 color_header: '#1a1a1a',
                 decorative: '#b3b3b3',
                 hover_color: '#2c2c2c',
@@ -25,7 +26,7 @@ module.exports = {
                 transparent: '#00000000',
                 color_green: '#1fdf64',
                 color_player_music: '#181818',
-                primary: '#121212',
+                primary: '#ef546b',
                 secondary: '##ffffff80',
                 queue_player_popup: '#5d218c',
                 layout: '#37075d',

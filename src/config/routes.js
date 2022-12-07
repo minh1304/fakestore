@@ -3,6 +3,7 @@ const routes = {
     search: '/search',
     library: '/library',
     list: '/categories/:name',
+    detail: '/product/:name',
 };
 
 export default routes;
