@@ -2,10 +2,10 @@ import { useContext, useRef } from 'react';
 import AudioPlayer from 'react-h5-audio-player';
 import 'react-h5-audio-player/lib/styles.css';
 
-import { DataMusics } from '~/Layout/DefaultLayout/DefaultLayout';
+import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 
 function Playing() {
-    const { song, pauseTest, setPauseTest } = useContext(DataMusics);
+    const { song, pauseTest, setPauseTest } = useContext(Data);
     // console.log(pauseTest);
     // const player = useRef();
     // const audiofunction = () => {

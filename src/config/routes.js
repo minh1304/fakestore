@@ -2,7 +2,7 @@ const routes = {
     home: '/',
     search: '/search',
     library: '/library',
-    list: '/:name',
+    list: '/categories/:name',
 };
 
 export default routes;

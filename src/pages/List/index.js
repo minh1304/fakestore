@@ -4,12 +4,12 @@ import { useContext, useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import { PlayIcon } from '~/components/Icons';
 import Card from '~/components/Card';
-// import { DataAlbum } from '~/components/Card/Card';
+import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 
 function List() {
     const [data, setData] = useState([]);
-    const { name } = useParams(); // get nickname
-
+    const { name } = useParams();
+    console.log(name);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/category/${name}`)
             .then((data) => data.json())
@@ -17,137 +17,25 @@ function List() {
                 setData(data);
             })
             .catch((err) => console.error(err));
-    }, []);
-
+    }, [name]);
     console.log(data);
-
     return (
-        <div className='bg-primary overflow-auto h-screen-navbar-player'>
-            <div className="p-8 h-[260px] bg-background-test bg-center bg-cover">
-                <h1 className="pt-20 text-8xl font-extrabold">{data.name}</h1>
-                <h2 className="text-white text-base font-normal">100,000 monthly listeners</h2>
-            </div>
-            <div className="bg-primary pl-8 pt-8">
+        <div className="bg-white grid grid-cols-10">
+            <div className="col-span-2"></div>
+            <div className="col-span-6">
+                {/* <img
+                    src="https://cmsv2.yame.vn/uploads/d806db26-a099-4ff9-b921-176bb160f16d/Banner_web_MB_9.12.jpg?quality=80&w=0&h=0"
+                    alt="img"
+                /> */}
                 <section>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
-                    </div>
-                    <div className="grid grid-cols-3 ">
-                        <h1>album nè</h1>
+                    <div className="grid grid-cols-3">
+                        {data.map((card, index) => (
+                            <Card data={card} key={index} />
+                        ))}
                     </div>
                 </section>
             </div>
+            <div className="col-span-2"></div>
         </div>
     );
 }

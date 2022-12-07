@@ -3,10 +3,10 @@ import { Link } from 'react-router-dom';
 import { useContext } from 'react';
 import { PlayIcon } from '~/components/Icons';
 import Card from '~/components/Card';
-import { DataMusics } from '~/Layout/DefaultLayout/DefaultLayout';
+import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 
 function Home() {
-    const { data } = useContext(DataMusics);
+    const { data } = useContext(Data);
     return (
         <div className="bg-white grid grid-cols-10">
             <div className='col-span-2'></div>

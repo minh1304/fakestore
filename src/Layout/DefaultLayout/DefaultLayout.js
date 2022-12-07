@@ -3,7 +3,7 @@ import Header from '../components/Header';
 import Playing from '../components/Playing';
 import { createContext, useEffect, useState } from 'react';
 
-export const DataMusics = createContext();
+export const Data = createContext();
 function DefaultLayout({ children }) {
     const [data, setData] = useState([]);
     useEffect(() => {
@@ -14,9 +14,8 @@ function DefaultLayout({ children }) {
             })
             .catch((err) => console.error(err));
     }, []);
-    console.log(data);
     return (
-        <DataMusics.Provider value={{ data }}>
+        <Data.Provider value={{ data }}>
             <div className='overflow-y-auto'>
                 <Sidebar />
                 <div className='mt-[82px] w-full'>
@@ -24,7 +23,7 @@ function DefaultLayout({ children }) {
                     <div>{children}</div>
                 </div>
             </div>
-        </DataMusics.Provider>
+        </Data.Provider>
     );
 }
 

@@ -20,7 +20,7 @@ function Sidebar() {
     return (
         <div className="grid grid-cols-10 h-[82px] bg-black text-white fixed w-full z-10">
             <div className="col-span-2 h-[82px] text-center ">
-                <Link className="w-[100px] h-[82px] " to={config.routes.home}>
+                <Link className="w-[100px] h-[82px]" to={config.routes.home}>
                     <img
                         className="w-[100px] md:ml-16 mt-2"
                         src="https://seeklogo.com/images/O/off-white-virgilabloh-logo-766416FD87-seeklogo.com.png"
@@ -31,7 +31,7 @@ function Sidebar() {
             <div className="col-span-6 grid grid-cols-4 pt-8">
                 {categories.map((category) => (
                     <NavLink
-                        to={`/${category}`}
+                        to={`/categories/${category}`}
                         className="uppercase col-span-1 w-[170px]"
                     >
                         {category}
