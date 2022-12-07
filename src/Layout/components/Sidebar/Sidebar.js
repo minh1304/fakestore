@@ -16,10 +16,9 @@ function Sidebar() {
             .then((res) => res.json())
             .then((res) => setCategories(res));
     }, []);
-    // console.log(categories[0]);
 
     return (
-        <div className="grid grid-cols-10 h-[82px] bg-black text-white ">
+        <div className="grid grid-cols-10 h-[82px] bg-black text-white fixed w-full z-10">
             <div className="col-span-2 h-[82px] text-center ">
                 <Link className="w-[100px] h-[82px] " to={config.routes.home}>
                     <img
@@ -31,9 +30,6 @@ function Sidebar() {
             </div>
             <div className="col-span-6 grid grid-cols-4 pt-8">
                 {categories.map((category) => (
-                    // <a href={`/${category}`} className="uppercase col-span-1">
-                    //     {category}
-                    // </a>
                     <NavLink
                         to={`/${category}`}
                         className="uppercase col-span-1 w-[170px]"
@@ -41,12 +37,8 @@ function Sidebar() {
                         {category}
                     </NavLink>
                 ))}
-                {/* <h2 className="uppercase col-span-1">electronics</h2>
-                <h2 className="uppercase col-span-1">jewelery</h2>
-                <h2 className="uppercase col-span-1">men's clothing</h2>
-                <h2 className="uppercase col-span-1">women's clothing</h2> */}
             </div>
-            <div className="col-span-2 p-8">basket</div>
+            <div className="col-span-2 pt-8">basket</div>
         </div>
     );
 }

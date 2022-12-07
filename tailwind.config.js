@@ -5,7 +5,7 @@ module.exports = {
         extend: {
             height: {
                 'screen-navbar-player-mobile': 'calc(100vh - 6rem - 6rem )',
-                'screen-navbar-player': 'calc(100vh - 6rem - 57px )',
+                'screen-navbar-player': 'calc(100vh - 82px )',
                 'screen-side-player': 'calc(100vh - 6rem)',
             },
             backgroundImage: {

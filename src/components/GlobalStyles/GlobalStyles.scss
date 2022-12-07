@@ -5,7 +5,6 @@
 @tailwind utilities;
 
 @layer base {
-    
     // h3 {
     //     @apply text-3xl;
     // }
@@ -13,10 +12,13 @@
     //     @apply text-2xl;
     // }
     h1 {
-        @apply text-3xl font-bold text-white
+        @apply text-3xl font-bold text-white;
     }
     h3 {
-        @apply text-base font-bold text-white
+        @apply text-base font-bold text-black;
+    }
+    h4 {
+        @apply text-base font-medium text-decorative;
     }
 }
 
@@ -28,7 +30,7 @@
         @apply text-white bg-hover_color cursor-pointer;
     }
     .noneHover {
-        @apply bg-slate-50 text-black
+        @apply bg-slate-50 text-black;
     }
     .player-music {
         @apply bg-color_player_music h-full box-border;
@@ -52,7 +54,7 @@ body {
     font-family: var(--font-family);
 }
 * {
-    overflow: hidden;
+    overflow-x: hidden;
     box-sizing: border-box;
 }
 
@@ -64,10 +66,10 @@ html *::-webkit-scrollbar {
 
 html *::-webkit-scrollbar-thumb {
     border-radius: 4px;
-    background-color: rgba(44, 44, 44, 1);
+    background-color: rgb(167, 165, 165);
 }
 
 html *::-webkit-scrollbar-track {
     border-radius: 0;
-    background-color: rgba(0, 0, 0, 0);
+    background-color: rgba(196, 196, 196, 0);
 }

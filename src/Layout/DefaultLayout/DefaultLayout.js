@@ -16,20 +16,14 @@ function DefaultLayout({ children }) {
     }, []);
     console.log(data);
     return (
-        <DataMusics.Provider 
-            value={{ data}}
-        >
-            <Sidebar />
-            <div className="grid md:grid-cols-7">
-                
-                <div className="md:col-span-6">
+        <DataMusics.Provider value={{ data }}>
+            <div className='overflow-y-auto'>
+                <Sidebar />
+                <div className='mt-[82px] w-full'>
                     {/* <Header /> */}
                     <div>{children}</div>
                 </div>
             </div>
-            {/* <div className="w-[100%]">
-                <Playing />
-            </div> */}
         </DataMusics.Provider>
     );
 }

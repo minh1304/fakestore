@@ -19,22 +19,7 @@ function Card({ data }) {
     const [idSong, setIdSong] = useState(0);
     const { handleSetSong, song, pauseTest, setPauseTest } =
         useContext(DataMusics);
-    const handlePlaySong = (idSong) => {
-        // console.log(keySong);
-        setIdSong(idSong);
-        handleSetSong(idSong);
-        console.log('Lấy đc đang phát là:', idSong);
-        if (playing) setPlaying(true);
-        setPauseTest(true);
-    };
-    const handlePauseSong = (idSong) => {
-        setIdSong(idSong);
-        handleSetSong(idSong);
-        console.log('Lấy đc tắt là:', idSong);
 
-        setPlaying(false);
-        setPauseTest(false);
-    };
     // useEffect(() => {
     //     setIdSong(song.id);
     // }, [song]);
@@ -42,27 +27,33 @@ function Card({ data }) {
 
     return (
         // <DataAlbum.Provider value={{data}}>
-            <div className="flex">
-                <a href={`/${data.id}`}>
-                    <div
-                        className="col-span-1 bg-hover_color h-[80px] relative duration-300 w-[395px] mb-4 rounded hover:bg-hover_2"
-                        onMouseOver={handleOnHover}
-                        onMouseLeave={handleOffHover}
-                    >
-                        <div className="flex">
-                            <div className="w-[80px] h-[80px] bg-[url('https://i.scdn.co/image/ab676186000010169b8cf21ce09745ada7cea1d7')]">
-                                <div className="items-center h-full w-full relative">
-                                    <img src={data.thumbnail} alt="img" />
-                                </div>
+        <div className="flex mt-7">
+            <div>
+                <div
+                    className="grid grid-cols-8 bg-white h-[500px] relative duration-300 w-[345px] hover:bg-hover_2 overflow-y-hidden"
+                    onMouseOver={handleOnHover}
+                    onMouseLeave={handleOffHover}
+                >
+                    <div className="col-span-1"></div>
+                    <div className="col-span-6">
+                        <a href={`/${data.id}`}>
+                            <div className="relative h-[350px] w-[245px] overflow-y-hidden">
+                                <img
+                                    className="object-cover"
+                                    src={data.image}
+                                    alt="img"
+                                />
                             </div>
-                            <div className="flex flex-1 items-center justify-between pl-4 pr-4">
-                                {/* <Link to={config.routes.home}>
-                                                <p>Kan</p>
-                                            </Link> */}
+                        </a>
+                        <div className="items-center justify-between pl-4 pr-4">
+                            <a href={`/${data.category}`}> 
+                                <h4 className='pt-2'>{data.category}</h4>
+                            </a>
+                            <a href={`/${data.id}`}>
+                                <h3 className='pt-2 h-[60px] truncate'>{data.title}</h3>
+                            </a>
 
-                                <h3>{data.name}</h3>
-
-                                {/* {pauseTest && idSong === song.id ? (
+                            {/* {pauseTest && idSong === song.id ? (
                                 <div
                                     className="relative cursor-pointer w-[48px] h-[48px] rounded-[500px] pointer-events-auto"
                                     onClick={(e) => {
@@ -99,14 +90,15 @@ function Card({ data }) {
                                 )
                             )} */}
 
-                                {/* {onPlay && (
+                            {/* {onPlay && (
                                         
                                     )} */}
-                            </div>
                         </div>
                     </div>
-                </a>
+                    <div className="col-span-1"></div>
+                </div>
             </div>
+        </div>
         // </DataAlbum.Provider>
     );
 }
