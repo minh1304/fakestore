@@ -1,11 +1,18 @@
-import PropTypes from 'prop-types';
+import { NavLink } from 'react-router-dom';
 
-function Menu({ children }) {
-    return <nav>{children}</nav>;
+function MenuItem({ data }) {
+    return (
+        <>
+            <NavLink
+                to={`/categories/${data}`}
+                className="uppercase col-span-1 w-[170px] hover:text-primary duration-300"
+
+                end
+            >
+                {data}
+            </NavLink>
+        </>
+    );
 }
 
-Menu.propTypes = {
-    children: PropTypes.node.isRequired,
-};
-
-export default Menu;
+export default MenuItem;

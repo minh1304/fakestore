@@ -3,6 +3,8 @@ import config from '~/config';
 import { Link, useParams } from 'react-router-dom';
 import { PauseIcon, PlayIcon } from '../Icons';
 import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 // export const DataAlbum = createContext();
 
@@ -20,7 +22,6 @@ function Card({ data }) {
     const [idSong, setIdSong] = useState(0);
     const { handleSetSong, song, pauseTest, setPauseTest } = useContext(Data);
 
-
     return (
         // <DataAlbum.Provider value={{data}}>
         <div className="flex mt-7">
@@ -32,8 +33,20 @@ function Card({ data }) {
                 >
                     <div className="col-span-1"></div>
                     <div className="col-span-6">
+                        <div className='flex pb-2'>
+                            <span className="text-yellow-300 pr-1 font-medium">
+                                {data.rating.rate}
+                            </span>
+                            <span className='pr-1'>
+                                <FontAwesomeIcon className='text-xs pb-[2px] text-yellow-300' icon={faStar}/>
+                            </span>
+                            <span className='text-black font-medium'>
+                                ({data.rating.count})
+                            </span>
+                        </div>
                         <a href={`/product/${data.id}`}>
                             <div className="relative h-[350px] w-[245px] overflow-y-hidden">
+
                                 <img
                                     className="object-cover"
                                     src={data.image}
@@ -43,7 +56,7 @@ function Card({ data }) {
                         </a>
                         <div className="items-center justify-between pl-4 pr-4">
                             <a href={`/categories/${data.category}`}>
-                                <h4 className="pt-2">{data.category}</h4>
+                                <h4 className="pt-2 hover:text-blue-800">{data.category}</h4>
                             </a>
 
                             <a href={`/${data.id}`}>

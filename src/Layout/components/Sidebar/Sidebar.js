@@ -1,13 +1,7 @@
 import config from '~/config';
 import { Link, NavLink } from 'react-router-dom';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faSpotify } from '@fortawesome/free-brands-svg-icons';
-
-import { HomeIcon, LibraryActive, Search } from '~/components/Icons';
-import Menu, { MenuItem } from './Menu';
 import { useEffect, useState } from 'react';
-import { faBars, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
-
+import Menu from './Menu';
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
     const [categories, setCategories] = useState([]);
@@ -30,13 +24,20 @@ function Sidebar() {
             </div>
             <div className="col-span-6 grid grid-cols-4 pt-8">
                 {categories.map((category, index) => (
-                    <NavLink
-                        key={index}
-                        to={`/categories/${category}`}
-                        className="uppercase col-span-1 w-[170px]"
-                    >
-                        {category}
-                    </NavLink>
+                    // <NavLink
+                    //     key={index}
+                    //     to={`/categories/${category}`}
+                    //     // className="uppercase col-span-1 w-[170px] hover:text-primary duration-300"
+                    //     className={(navData) =>
+                    //         navData.isActive
+                    //             ? 'uppercase col-span-1 w-[170px] text-primary'
+                    //             : 'uppercase col-span-1 w-[170px] hover:text-primary duration-300'
+                    //     }
+                    //     end
+                    // >
+                    //     {category}
+                    // </NavLink>
+                    <Menu key={index} data={category} />
                 ))}
             </div>
             <div className="col-span-2 pt-8">basket</div>
