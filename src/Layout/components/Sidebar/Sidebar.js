@@ -1,9 +1,11 @@
 import config from '~/config';
 import { Link, NavLink } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 import Menu from './Menu';
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
+    const { price, setPrice } = useContext(Data);
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         fetch('https://fakestoreapi.com/products/categories')
@@ -24,23 +26,13 @@ function Sidebar() {
             </div>
             <div className="col-span-6 grid grid-cols-4 pt-8">
                 {categories.map((category, index) => (
-                    // <NavLink
-                    //     key={index}
-                    //     to={`/categories/${category}`}
-                    //     // className="uppercase col-span-1 w-[170px] hover:text-primary duration-300"
-                    //     className={(navData) =>
-                    //         navData.isActive
-                    //             ? 'uppercase col-span-1 w-[170px] text-primary'
-                    //             : 'uppercase col-span-1 w-[170px] hover:text-primary duration-300'
-                    //     }
-                    //     end
-                    // >
-                    //     {category}
-                    // </NavLink>
                     <Menu key={index} data={category} />
                 ))}
             </div>
-            <div className="col-span-2 pt-8">basket</div>
+            <div className="col-span-2 pt-8 flex">
+                <h1>Basket</h1>
+                <h1>{price}</h1>
+            </div>
         </div>
     );
 }

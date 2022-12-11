@@ -12,8 +12,10 @@ function DefaultLayout({ children }) {
             })
             .catch((err) => console.error(err));
     }, []);
+    const [price, setPrice] = useState();
+    console.log(price);
     return (
-        <Data.Provider value={{ data }}>
+        <Data.Provider value={{ data, price, setPrice }}>
             <div className='overflow-y-auto'>
                 <Sidebar />
                 <div className='mt-[82px] w-full'>
