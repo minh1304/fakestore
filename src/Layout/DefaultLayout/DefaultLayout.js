@@ -1,5 +1,6 @@
 import Sidebar from '../components/Sidebar';
 import { createContext, useEffect, useState } from 'react';
+import CartProvider from '~/context/CartProvider';
 
 export const Data = createContext();
 function DefaultLayout({ children }) {
@@ -12,17 +13,16 @@ function DefaultLayout({ children }) {
             })
             .catch((err) => console.error(err));
     }, []);
-    const [price, setPrice] = useState();
-    console.log(price);
     return (
-        <Data.Provider value={{ data, price, setPrice }}>
-            <div className='overflow-y-auto'>
-                <Sidebar />
-                <div className='mt-[82px] w-full'>
-                    {/* <Header /> */}
-                    <div>{children}</div>
+        <Data.Provider value={{ data }}>
+            <CartProvider>
+                <div className="overflow-y-auto top-0 left-0">
+                    <Sidebar />
+                    <div className="mt-[82px] w-full h-full">
+                        <div>{children}</div>
+                    </div>
                 </div>
-            </div>
+            </CartProvider>
         </Data.Provider>
     );
 }

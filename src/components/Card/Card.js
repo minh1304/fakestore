@@ -2,15 +2,16 @@ import { useContext, useEffect, useState } from 'react';
 import config from '~/config';
 import { Link, useParams } from 'react-router-dom';
 import { PauseIcon, PlayIcon } from '../Icons';
-import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
+import { CartContext } from '~/context/CartProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faPlus } from '@fortawesome/free-solid-svg-icons';
+import { faDollarSign, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 // export const DataAlbum = createContext();
 
 function Card({ data }) {
-    const { price, setPrice } = useContext(Data);
+    // const { totalItems, setTotalItems } = useContext(CardContext);
+    const { addToCart } = useContext(CartContext);
     const { name } = useParams();
     const [count, setCount] = useState(1);
     const [onSee, setOnSee] = useState(false);
@@ -21,17 +22,12 @@ function Card({ data }) {
     const handleOffHover = () => {
         setOnSee(false);
     };
-    const handleAddItem = () => {
-        setCount(count + 1);
-        setPrice(count);
-    };
-
     return (
         // <DataAlbum.Provider value={{data}}>
         <div className="flex mt-7">
             <div>
                 <div
-                    className="grid grid-cols-8 bg-white h-[500px] relative duration-700 w-[345px] overflow-y-hidden"
+                    className="grid grid-cols-8 bg-white h-[550px] relative duration-700 w-[345px] overflow-y-hidden"
                     onMouseOver={handleOnHover}
                     onMouseLeave={handleOffHover}
                 >
@@ -56,7 +52,7 @@ function Card({ data }) {
                                     'opacity-100 duration-150 cursor-pointer'
                                 } ${!onSee && 'duration-150'}
                                  `}
-                                onClick={handleAddItem}
+                                onClick={() => addToCart(data, data.id)}
                             >
                                 <FontAwesomeIcon
                                     className="absolute top-[10px] left-[11px] text-white text-xl"
@@ -88,9 +84,15 @@ function Card({ data }) {
                             </a>
 
                             <a href={`/${data.id}`}>
-                                <h3 className="pt-2 h-[60px] overflow-y-hidden">
+                                <p className="pt-2 max-h-[60px] overflow-y-hidden font-medium">
                                     {data.title}
-                                </h3>
+                                </p>
+                                <p className="pt-2 overflow-y-hidden text-lg font-bold flex">
+                                    <span className="pr-1">{data.price}</span>
+                                    <span>
+                                        <FontAwesomeIcon icon={faDollarSign} />
+                                    </span>
+                                </p>
                             </a>
                         </div>
                     </div>
