@@ -9,32 +9,39 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '~/context/CartProvider';
 function Cart() {
-    const { itemAmount, cart, total, removeFromCart } = useContext(CartContext);
-    console.log(cart);
-
+    const { itemAmount, cart, total, removeFromCart, clearCart } =
+        useContext(CartContext);
     return (
         <div className="bg-white grid grid-cols-12">
             <div className="col-span-1"></div>
             <div className="col-span-10">
-                <div className="grid grid-cols-10 fixed w-[850px] bottom-0 z-10 shadow-2xl bg-white">
-                    <div className="col-span-7 p-5">
-                        <p className="text-2xl font-semibold">Total: </p>
-                    </div>
-                    <div className="text-2xl font-semibold col-span-3 p-5">
-                        <div className="flex ml-8">
-                            <div className='flex w-[150px]'>
-                                <p className="ml-5 pr-2">
-                                    <FontAwesomeIcon icon={faDollarSign} />
-                                </p>
-                                <p>{Math.round(total * 100) / 100}</p>
-                            </div>
+                {itemAmount > 0 && (
+                    <div className="grid grid-cols-10 fixed w-[850px] bottom-0 z-10 shadow-2xl bg-white">
+                        <div className="col-span-7 p-5">
+                            <p className="text-2xl font-semibold">Total: </p>
+                        </div>
+                        <div className="text-2xl font-semibold col-span-3 p-5">
+                            <div className="flex ml-8">
+                                <div className="flex w-[150px]">
+                                    <p className="ml-5 pr-2">
+                                        <FontAwesomeIcon icon={faDollarSign} />
+                                    </p>
+                                    <p>{Math.round(total * 100) / 100}</p>
+                                </div>
 
-                            <div className="ml-2 w-[40px] h-[40px] hover:text-primary duration-200 text-center rounded">
-                                <FontAwesomeIcon className='' icon={faTrashCan} />
+                                <div
+                                    className="ml-2 w-[40px] h-[40px] hover:text-primary duration-200 text-center rounded"
+                                    onClick={() => clearCart()}
+                                >
+                                    <FontAwesomeIcon
+                                        className=""
+                                        icon={faTrashCan}
+                                    />
+                                </div>
                             </div>
                         </div>
                     </div>
-                </div>
+                )}
                 <div className="bg-gray-200 h-[37px] flex">
                     <Link to={'/'}>
                         <FontAwesomeIcon
