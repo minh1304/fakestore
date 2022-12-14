@@ -3,7 +3,7 @@ import { faStar as anotherStart } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
+import { Link, useParams } from 'react-router-dom';
 import Card from '~/components/Card';
 function Detail() {
     const [data, setData] = useState([]);
@@ -33,12 +33,13 @@ function Detail() {
             <div className="col-span-1"></div>
             <div className="col-span-10">
                 <div className="bg-gray-200 h-[37px] flex">
-                    <a href={'/'}>
+                    
+                    <Link to={'/'}>
                         <FontAwesomeIcon
                             className="pl-3 pr-2 pt-[10px] cursor-pointer hover:text-primary "
                             icon={faChevronLeft}
                         />
-                    </a>
+                    </Link>
                     <h2 className="pt-[6px]">/ {data.title}</h2>
                 </div>
 
@@ -89,20 +90,19 @@ function Detail() {
                                 </p>
                             </div>
                         </div>
-                        <div className="col-span-1">
+                        <div className="col-span-1 ml-5">
                             <div className="text-black text-2xl">
                                 Description
                             </div>
                             <div className="pt-2">
-                                <a
-                                    href={`/categories/${data.category}`}
-                                    className="flex"
-                                >
+                                <div className='flex'>
                                     <p className="text-back pr-3">Category: </p>
-                                    <p className="text-primary hover:text-red-500 cursor-pointer">
-                                        {data.category}
-                                    </p>
-                                </a>
+                                    <Link to={`/categories/${data.category}`}>
+                                        <p className="text-primary hover:text-red-500 cursor-pointer">
+                                            {data.category}
+                                        </p>
+                                    </Link>
+                                </div>
                                 <p className="text-black ">
                                     {data.description}
                                 </p>

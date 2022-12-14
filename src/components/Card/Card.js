@@ -60,7 +60,7 @@ function Card({ data }) {
                                 />
                             </div>
                         </div>
-                        <a href={`/product/${data.id}`}>
+                        <Link to={`/product/${data.id}`}>
                             <div className="relative m-auto h-[345px] w-[245px] overflow-y-hidden">
                                 <img
                                     className="object-cover"
@@ -68,7 +68,7 @@ function Card({ data }) {
                                     alt="img"
                                 />
                             </div>
-                        </a>
+                        </Link>
                         <div
                             className={`items-center justify-between pl-4 pr-4 ${
                                 !onSee && 'transition duration-150'
@@ -77,13 +77,13 @@ function Card({ data }) {
                                 'translate-y-[-7px] transition duration-150'
                             }`}
                         >
-                            <a href={`/categories/${data.category}`}>
+                            <Link to={`/categories/${data.category}`}>
                                 <h4 className="pt-2 hover:text-blue-800">
                                     {data.category}
                                 </h4>
-                            </a>
+                            </Link>
 
-                            <a href={`/${data.id}`}>
+                            <Link to={`/${data.id}`}>
                                 <p className="pt-2 max-h-[60px] overflow-y-hidden font-medium">
                                     {data.title}
                                 </p>
@@ -93,7 +93,7 @@ function Card({ data }) {
                                         <FontAwesomeIcon icon={faDollarSign} />
                                     </span>
                                 </p>
-                            </a>
+                            </Link>
                         </div>
                     </div>
                     <div className="col-span-1"></div>
