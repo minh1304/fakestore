@@ -1,20 +1,26 @@
 import { faStar, faStarHalfStroke } from '@fortawesome/free-regular-svg-icons';
-import { faStar as anotherStart } from '@fortawesome/free-solid-svg-icons';
+import {
+    faCartShopping,
+    faStar as anotherStart,
+} from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
-import Card from '~/components/Card';
+import { CartContext } from '~/context/CartProvider';
 function Detail() {
     const [data, setData] = useState([]);
     const [rate, setRate] = useState();
+    const [count, setCount] = useState();
     const { name } = useParams();
+    const { addToCart } = useContext(CartContext);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${name}`)
             .then((data) => data.json())
             .then((data) => {
                 setData(data);
                 setRate(data.rating.rate);
+                setCount(data.rating.count);
             })
             .catch((err) => console.error(err));
     }, [name]);
@@ -27,13 +33,13 @@ function Detail() {
     for (let i = 1; i < test; i++) {
         arrRate2.push(i);
     }
+    // const count =  data.rating;
 
     return (
         <div className="bg-white grid grid-cols-12">
             <div className="col-span-1"></div>
             <div className="col-span-10">
                 <div className="bg-gray-200 h-[37px] flex">
-                    
                     <Link to={'/'}>
                         <FontAwesomeIcon
                             className="pl-3 pr-2 pt-[10px] cursor-pointer hover:text-primary "
@@ -88,6 +94,24 @@ function Detail() {
                                         />
                                     ))}
                                 </p>
+                                <h2 className="pl-2 font-medium text-black">
+                                    ({count})
+                                </h2>
+                            </div>
+                            <div>
+                                <div
+                                    className="mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
+                                    onClick={() => addToCart(data, data.id)}
+                                >
+                                    <p className="pr-3 font-semibold">
+                                        Add to cart
+                                    </p>
+                                    <span>
+                                        <FontAwesomeIcon
+                                            icon={faCartShopping}
+                                        />
+                                    </span>
+                                </div>
                             </div>
                         </div>
                         <div className="col-span-1 ml-5">
@@ -95,7 +119,7 @@ function Detail() {
                                 Description
                             </div>
                             <div className="pt-2">
-                                <div className='flex'>
+                                <div className="flex">
                                     <p className="text-back pr-3">Category: </p>
                                     <Link to={`/categories/${data.category}`}>
                                         <p className="text-primary hover:text-red-500 cursor-pointer">

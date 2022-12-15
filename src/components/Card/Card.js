@@ -60,15 +60,18 @@ function Card({ data }) {
                                 />
                             </div>
                         </div>
-                        <Link to={`/product/${data.id}`}>
-                            <div className="relative m-auto h-[345px] w-[245px] overflow-y-hidden">
-                                <img
-                                    className="object-cover"
-                                    src={data.image}
-                                    alt="img"
-                                />
-                            </div>
-                        </Link>
+                        <div className='h-[0.5px]'></div>
+                        <div>
+                            <Link to={`/product/${data.id}`} end>
+                                <div className="relative m-auto h-[345px] w-[245px] overflow-y-hidden">
+                                    <img
+                                        className="object-cover"
+                                        src={data.image}
+                                        alt="img"
+                                    />
+                                </div>
+                            </Link>
+                        </div>
                         <div
                             className={`items-center justify-between pl-4 pr-4 ${
                                 !onSee && 'transition duration-150'
