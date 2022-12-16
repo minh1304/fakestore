@@ -72,7 +72,7 @@ function CartProvider({ children }) {
     const decreaseAmount = (id) => {
         const cartItem = cart.find((item) => {
             return item.id === id;
-        });
+        }); 
         if (cartItem) {
             const newCart = cart.map((item) => {
                 if (item.id === id) {

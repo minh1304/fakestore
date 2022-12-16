@@ -23,6 +23,25 @@ function Detail() {
                 setCount(data.rating.count);
             })
             .catch((err) => console.error(err));
+
+        // let isSubscribed = true;
+        // const fetchData = async () => {
+        //     // get the data from the api
+        //     const data = await fetch(
+        //         `https://fakestoreapi.com/products/${name}`,
+        //     );
+        //     // convert the data to json
+        //     const json = await data.json();
+
+        //     // set state with the result if `isSubscribed` is true
+        //     if (isSubscribed) {
+        //         setData(json);
+        //         setRate(data.rating.rate);
+        //         setCount(data.rating.count);
+        //     }
+        // };
+        // fetchData().catch(console.error);
+        // return () => (isSubscribed = false);
     }, [name]);
     const arrRate = [];
     const arrRate2 = [];
@@ -103,6 +122,7 @@ function Detail() {
                                     className="mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
                                     onClick={() => addToCart(data, data.id)}
                                 >
+                                    <p></p>
                                     <p className="pr-3 font-semibold">
                                         Add to cart
                                     </p>

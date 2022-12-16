@@ -1,6 +1,8 @@
 import {
     faDollarSign,
     faHome,
+    faMinus,
+    faPlus,
     faTrashCan,
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
@@ -9,8 +11,15 @@ import { useContext } from 'react';
 import { Link } from 'react-router-dom';
 import { CartContext } from '~/context/CartProvider';
 function Cart() {
-    const { itemAmount, cart, total, removeFromCart, clearCart } =
-        useContext(CartContext);
+    const {
+        itemAmount,
+        cart,   
+        total,
+        removeFromCart,
+        clearCart,
+        increaseAmount,
+        decreaseAmount,
+    } = useContext(CartContext);
     return (
         <div className="bg-white grid grid-cols-12">
             <div className="col-span-1"></div>
@@ -22,7 +31,7 @@ function Cart() {
                         </div>
                         <div className="text-2xl font-semibold col-span-3 p-5">
                             <div className="flex ml-8">
-                                <div className="flex w-[150px]">
+                                <div className="flex w-[155px]">
                                     <p className="ml-5 pr-2">
                                         <FontAwesomeIcon icon={faDollarSign} />
                                     </p>
@@ -98,7 +107,36 @@ function Cart() {
                                                     </p>
                                                 </div>
                                                 <div className="flex col-span-1">
-                                                    <p>{item.amount}</p>
+                                                    <p
+                                                        className="cursor-pointer w-5 hover:text-primary"
+                                                        onClick={() =>
+                                                            decreaseAmount(
+                                                                item.id,
+                                                            )
+                                                        }
+                                                    >
+                                                        <FontAwesomeIcon
+                                                            icon={faMinus}
+                                                        />
+                                                    </p>
+                                                    <p></p>
+                                                    <p className="ml-3 mr-3 w-10 text-center border-2">
+                                                        {item.amount}
+                                                    </p>
+                                                    <p
+                                                        className="cursor-pointer w-5  hover:text-primary"
+                                                        onClick={() =>
+                                                            increaseAmount(
+                                                                item.id,
+                                                            )
+                                                        }
+                                                    >
+                                                        <FontAwesomeIcon
+                                                            icon={faPlus}
+                                                        />
+                                                    </p>
+                                                    {/* Tránh bị focus */}
+                                                    <p></p>
                                                 </div>
                                             </div>
                                         </div>
@@ -122,7 +160,12 @@ function Cart() {
                                                     />
                                                 </p>
                                                 <p className="font-bold">
-                                                    {item.price * item.amount}
+                                                    {/* Math.round(total * 100) / 100 */}
+                                                    {Math.round(
+                                                        item.price *
+                                                            item.amount *
+                                                            100,
+                                                    ) / 100}
                                                 </p>
                                             </div>
                                         </div>
