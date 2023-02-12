@@ -12,8 +12,6 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 function Card({ data }) {
     // const { totalItems, setTotalItems } = useContext(CardContext);
     const { addToCart } = useContext(CartContext);
-    const { name } = useParams();
-    const [count, setCount] = useState(1);
     const [onSee, setOnSee] = useState(false);
     // const [playing, setPlaying] = useState(false);
     const handleOnHover = () => {
@@ -24,14 +22,14 @@ function Card({ data }) {
     };
     return (
         // <DataAlbum.Provider value={{data}}>
-        <div className="flex mt-7">
+        <div className="flex ml-9 mt-7">
             <div>
                 <div
-                    className="grid grid-cols-8 bg-white h-[550px] relative duration-700 w-[345px] overflow-y-hidden"
+                    className="grid grid-cols-8 bg-white duration-700 h-[450x] w-[250px] overflow-y-hidden rounded-md"
                     onMouseOver={handleOnHover}
                     onMouseLeave={handleOffHover}
                 >
-                    <div className="col-span-1"></div>
+                    <div className="col-span-1 "></div>
                     <div className={`col-span-6`}>
                         <div className="p-1 flex pb-2">
                             <span className="text-black pr-1 font-medium">
@@ -47,7 +45,7 @@ function Card({ data }) {
                                 ({data.rating.count})
                             </span>
                             <div
-                                className={`relative left-[120px] w-10 h-10 top-0 opacity-0 rounded bg-primary ${
+                                className={`left-12 relative w-10 h-10 top-0 opacity-0 rounded bg-primary ${
                                     onSee &&
                                     'opacity-100 duration-150 cursor-pointer'
                                 } ${!onSee && 'duration-150'}
@@ -63,7 +61,7 @@ function Card({ data }) {
                         <div className='h-[0.5px]'></div>
                         <div>
                             <Link to={`/product/${data.id}`} end>
-                                <div className="relative m-auto h-[345px] w-[245px] overflow-y-hidden">
+                                <div className="relative m-auto h-[270px] w-[145px] overflow-y-hidden">
                                     <img
                                         className="object-cover"
                                         src={data.image}

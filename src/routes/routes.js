@@ -8,14 +8,12 @@ import List from '~/pages/List';
 import Detail from '~/pages/Detail';
 // import Personal from '~/pages/Personal';
 const publicRoutes = [
-    // { path: config.routes.personal, component: Personal},
     { path: config.routes.home, component: Home },
     { path: config.routes.search, component: Search },
     { path: config.routes.cart, component: Cart },
     { path: config.routes.list, component: List},
     { path: config.routes.detail, component: Detail},
-    // { path: config.routes.follow, component: Follow },
-    // { path: '/liveradio', component: LiveRadio, layout: null },
+
 ];
 
 //Khi không đăng nhập
