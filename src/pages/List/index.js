@@ -16,22 +16,30 @@ function List() {
             .catch((err) => console.error(err));
     }, [name]);
     return (
-        <div className="bg-white grid grid-cols-10">
-            <div className="col-span-1"></div>
-            <div className="col-span-8">
-                {/* <img
+        <div>
+            <div className="grid grid-cols-10">
+                <div className="col-span-10 m-auto">
+                    <p className="text-black uppercase text-2xl font-bold">{name}</p>
+                </div>
+
+            </div>
+            <div className="bg-white grid grid-cols-12">
+                <div className="col-span-1"></div>
+                <div className="col-span-10">
+                    {/* <img
                     src="https://cmsv2.yame.vn/uploads/d806db26-a099-4ff9-b921-176bb160f16d/Banner_web_MB_9.12.jpg?quality=80&w=0&h=0"
                     alt="img"
                 /> */}
-                <section>
-                    <div className="grid grid-cols-3">
-                        {data.map((card, index) => (
-                            <Card data={card} key={index} />
-                        ))}
-                    </div>
-                </section>
+                    <section>
+                        <div className="grid grid-cols-4 bg-zinc-300">
+                            {data.map((card, index) => (
+                                <Card data={card} key={index} />
+                            ))}
+                        </div>
+                    </section>
+                </div>
+                <div className="col-span-1"></div>
             </div>
-            <div className="col-span-1"></div>
         </div>
     );
 }

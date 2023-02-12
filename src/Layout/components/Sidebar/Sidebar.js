@@ -17,7 +17,7 @@ function Sidebar() {
     return (
         <div className="h-auto">
             <div className="grid grid-cols-10 h-[82px] bg-black text-white fixed w-full z-10">
-                <div className="col-span-2 h-[82px] text-center ">
+                <div className="col-span-2 h-[82px] ml-[-37px] text-center ">
                     <Link
                         className="w-[100px] h-[82px]"
                         to={config.routes.home}

@@ -7,9 +7,11 @@ import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
+import Also_like from '~/components/Also_like';
 import { CartContext } from '~/context/CartProvider';
 function Detail() {
     const [data, setData] = useState([]);
+    const [categories, setCategories] = useState([])
     const [rate, setRate] = useState();
     const [count, setCount] = useState();
     const { name } = useParams();
@@ -21,28 +23,12 @@ function Detail() {
                 setData(data);
                 setRate(data.rating.rate);
                 setCount(data.rating.count);
+                
             })
             .catch((err) => console.error(err));
-
-        // let isSubscribed = true;
-        // const fetchData = async () => {
-        //     // get the data from the api
-        //     const data = await fetch(
-        //         `https://fakestoreapi.com/products/${name}`,
-        //     );
-        //     // convert the data to json
-        //     const json = await data.json();
-
-        //     // set state with the result if `isSubscribed` is true
-        //     if (isSubscribed) {
-        //         setData(json);
-        //         setRate(data.rating.rate);
-        //         setCount(data.rating.count);
-        //     }
-        // };
-        // fetchData().catch(console.error);
-        // return () => (isSubscribed = false);
     }, [name]);
+    console.log(data.category);
+    console.log(categories);
     const arrRate = [];
     const arrRate2 = [];
     for (let i = 1; i < Math.floor(rate) + 1; i++) {
@@ -53,6 +39,7 @@ function Detail() {
         arrRate2.push(i);
     }
     // const count =  data.rating;
+
 
     return (
         <div className="bg-white grid grid-cols-12">
@@ -154,6 +141,20 @@ function Detail() {
                         </div>
                     </div>
                 </section>
+                <hr className="mt-10 mb-10" />
+                <div className="border-spacing-2">
+                    <div className="grid grid-cols-10 mb-7">
+                        <p className="col-span-10 m-auto font-bold text-lg">
+                            You may also like
+                        </p>
+                    </div>
+                    <div>
+                        <div className=" bg-zinc-300">
+                                <Also_like data={data.category} name={name}/>
+
+                        </div>
+                    </div>
+                </div>
             </div>
             <div className="col-span-1"></div>
         </div>

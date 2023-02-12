@@ -9,11 +9,9 @@ import { faStar } from '@fortawesome/free-solid-svg-icons';
 
 // export const DataAlbum = createContext();
 
-function Card({ data }) {
-    // const { totalItems, setTotalItems } = useContext(CardContext);
+function CardMini({ data }) {
     const { addToCart } = useContext(CartContext);
     const [onSee, setOnSee] = useState(false);
-    // const [playing, setPlaying] = useState(false);
     const handleOnHover = () => {
         setOnSee(true);
     };
@@ -21,7 +19,6 @@ function Card({ data }) {
         setOnSee(false);
     };
     return (
-        // <DataAlbum.Provider value={{data}}>
         <div className='mb-7'>
             <div className="flex ml-9 mt-7">
                 <div
@@ -29,7 +26,7 @@ function Card({ data }) {
                     onMouseOver={handleOnHover}
                     onMouseLeave={handleOffHover}
                 >
-                    <div className="col-span-1 "></div>
+                    <div className="col-span-1"></div>
                     <div className={`col-span-6`}>
                         <div className="p-1 flex pb-2">
                             <span className="text-black pr-1 font-medium">
@@ -105,4 +102,4 @@ function Card({ data }) {
     );
 }
 
-export default Card;
+export default CardMini;

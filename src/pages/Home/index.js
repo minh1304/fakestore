@@ -13,7 +13,7 @@ function Home() {
                     alt="img"
                 />
                 <section>
-                    <div className="grid grid-cols-4 bg-gray-300">
+                    <div className="grid grid-cols-4 bg-zinc-300">
                         {data.map((card, index) => (
                             <Card data={card} key={index} />
                         ))}
