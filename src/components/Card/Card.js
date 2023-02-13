@@ -22,10 +22,11 @@ function Card({ data }) {
     };
     return (
         // <DataAlbum.Provider value={{data}}>
-        <div className='mb-7'>
-            <div className="flex ml-9 mt-7">
+
+        <div className="mb-7 bg-white w-[280px] rounded-md overflow-y-hidden ">
+            <div className="">
                 <div
-                    className="grid grid-cols-8 bg-white duration-700 h-[450x] w-[250px] overflow-y-hidden rounded-md"
+                    className="grid grid-cols-8 duration-700"
                     onMouseOver={handleOnHover}
                     onMouseLeave={handleOffHover}
                 >
@@ -44,21 +45,22 @@ function Card({ data }) {
                             <span className="text-black font-medium">
                                 ({data.rating.count})
                             </span>
-                            <div
-                                className={`left-12 relative w-10 h-10 top-0 opacity-0 rounded bg-primary ${
-                                    onSee &&
-                                    'opacity-100 duration-150 cursor-pointer'
-                                } ${!onSee && 'duration-150'}
-                                 `}
-                                onClick={() => addToCart(data, data.id)}
-                            >
-                                <FontAwesomeIcon
-                                    className="absolute top-[10px] left-[11px] text-white text-xl"
-                                    icon={faPlus}
-                                />
-                            </div>
                         </div>
-                        <div className='h-[0.5px]'></div>
+                        <div
+                            className={`left-40 relative w-10 h-10 top-[-30px] opacity-0 rounded bg-primary ${
+                                onSee &&
+                                'opacity-100 duration-150 cursor-pointer'
+                            } ${!onSee && 'duration-150'}
+                                 `}
+                            onClick={() => addToCart(data, data.id)}
+                        >
+                            <FontAwesomeIcon
+                                className="absolute top-[10px] left-[11px] text-white text-xl"
+                                icon={faPlus}
+                            />
+                        </div>
+                        <div className="h-[0.5px]"></div>
+
                         <div>
                             <Link to={`/product/${data.id}`} end>
                                 <div className="relative m-auto h-[270px] w-[145px] overflow-y-hidden">
