@@ -1,6 +1,7 @@
 import { faStar, faStarHalfStroke } from '@fortawesome/free-regular-svg-icons';
 import {
     faCartShopping,
+    faHome,
     faStar as anotherStart,
 } from '@fortawesome/free-solid-svg-icons';
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
@@ -11,7 +12,7 @@ import Also_like from '~/components/Also_like';
 import { CartContext } from '~/context/CartProvider';
 function Detail() {
     const [data, setData] = useState([]);
-    const [categories, setCategories] = useState([])
+    const [categories, setCategories] = useState([]);
     const [rate, setRate] = useState();
     const [count, setCount] = useState();
     const { name } = useParams();
@@ -23,7 +24,6 @@ function Detail() {
                 setData(data);
                 setRate(data.rating.rate);
                 setCount(data.rating.count);
-                
             })
             .catch((err) => console.error(err));
     }, [name]);
@@ -40,7 +40,6 @@ function Detail() {
     }
     // const count =  data.rating;
 
-
     return (
         <div className="bg-white grid grid-cols-12">
             <div className="col-span-1"></div>
@@ -48,11 +47,20 @@ function Detail() {
                 <div className="bg-gray-200 h-[37px] flex">
                     <Link to={'/'}>
                         <FontAwesomeIcon
-                            className="pl-3 pr-2 pt-[10px] cursor-pointer hover:text-primary "
-                            icon={faChevronLeft}
+                            className="pl-3 pr-2 pt-[8px] cursor-pointer hover:text-primary "
+                            icon={faHome}
                         />
                     </Link>
-                    <h2 className="pt-[6px]">/ {data.title}</h2>
+                    <div className="flex">
+                        <h2 className="pt-[6px] pr-2">/</h2>
+                        <Link to={`/categories/${data.category}`}>
+                            <h2 className="pt-[6px] font-semibold pr-2 uppercase hover:text-primary ">
+                                {data.category}
+                            </h2>
+                        </Link>
+                    </div>
+                    <h2 className="pt-[6px] pr-2">/</h2>
+                    <h2 className="pt-[6px] font-semibold text-gray-500 "> {data.title}</h2>
                 </div>
 
                 <section className="mt-10">
@@ -150,8 +158,7 @@ function Detail() {
                     </div>
                     <div>
                         <div className=" bg-zinc-300">
-                                <Also_like data={data.category} name={name}/>
-
+                            <Also_like data={data.category} name={name} />
                         </div>
                     </div>
                 </div>

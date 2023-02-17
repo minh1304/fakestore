@@ -23,7 +23,7 @@ function Card({ data }) {
     return (
         // <DataAlbum.Provider value={{data}}>
 
-        <div className="mb-7 bg-white w-[280px] rounded-md overflow-y-hidden ">
+        <div className="mb-1 bg-white w-[261px] rounded-md overflow-y-hidden ">
             <div className="">
                 <div
                     className="grid grid-cols-8 duration-700"
@@ -81,7 +81,7 @@ function Card({ data }) {
                             }`}
                         >
                             <Link to={`/categories/${data.category}`}>
-                                <h4 className="pt-2 hover:text-blue-800">
+                                <h4 className="pt-2 hover:text-blue-800 uppercase font-semibold text-sm">
                                     {data.category}
                                 </h4>
                             </Link>

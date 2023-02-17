@@ -15,10 +15,10 @@ function Home() {
                     />
                 </div>
                 <section>
-                    <div className="grid grid-cols-12 bg-zinc-300">
+                    <div className="grid grid-cols-12 bg-gray-200">
                         <div className="col-span-1"></div>
                         <div className="col-span-10">
-                            <div className='h-7'></div>
+                            <div className='h-1'></div>
                             <div className="grid grid-cols-4">
                                 {data.map((card, index) => (
                                     <Card data={card} key={index} />
