@@ -23,16 +23,16 @@ function Card({ data }) {
     return (
         // <DataAlbum.Provider value={{data}}>
 
-        <div className="mb-1 bg-white w-[261px] rounded-md overflow-y-hidden ">
+        <div className="mb-[1px] ml-[1px] bg-white overflow-y-hidden ">
+            {/* <div className='xl:hidden block'>1234</div> */}
             <div className="">
                 <div
-                    className="grid grid-cols-8 duration-700"
+                    className="duration-700"
                     onMouseOver={handleOnHover}
                     onMouseLeave={handleOffHover}
                 >
-                    <div className="col-span-1 "></div>
-                    <div className={`col-span-6`}>
-                        <div className="p-1 flex pb-2">
+                    <div className={`col-span-8`}>
+                        <div className="p-4 flex pb-2">
                             <span className="text-black pr-1 font-medium">
                                 {data.rating.rate}
                             </span>
@@ -47,7 +47,7 @@ function Card({ data }) {
                             </span>
                         </div>
                         <div
-                            className={`left-40 relative w-10 h-10 top-[-30px] opacity-0 rounded bg-primary ${
+                            className={`2xl:left-80 left-1 relative w-10 h-10 top-[-30px] opacity-0 rounded bg-primary ${
                                 onSee &&
                                 'opacity-100 duration-150 cursor-pointer'
                             } ${!onSee && 'duration-150'}
