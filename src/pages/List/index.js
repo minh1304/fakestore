@@ -15,12 +15,15 @@ function List() {
             .then((data) => data.json())
             .then((data) => {
                 setData(data);
+                setLoading(true);
             })
             .catch((err) => console.error(err));
+
         setTimeout(() => {
             setLoading(false);
         }, 5 * 1000);
     }, [name]);
+
     console.log(data);
     return (
         <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10 ">

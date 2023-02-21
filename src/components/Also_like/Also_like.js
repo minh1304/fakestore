@@ -10,18 +10,25 @@ import Card from '../Card';
 
 // export const DataAlbum = createContext();
 
-function Also_like({ data, name }) {
+function Also_like({ data, name, state_load }) {
+    const [loading, setLoading] = useState(state_load);
     const list = [];
     console.log(name);
     const [categories, setCategories] = useState([]);
+    // const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/category/${data}`)
             .then((categories) => categories.json())
             .then((categories) => {
                 // categories.splice(test2,1)
                 setCategories(categories);
+                setLoading(true);
             })
             .catch((err) => console.error(err));
+
+        setTimeout(() => {
+            setLoading(false);
+        }, 5 * 1000);
     }, [data]);
     console.log(categories);
     categories.map((category) => {
@@ -30,10 +37,15 @@ function Also_like({ data, name }) {
     });
     console.log(list);
     return (
-        <div className='grid grid-cols-4'>
-            {list.map((item, index) => (
-                <Card id={index }data={item} />
-            ))}
+        <div
+            className="grid grid-cols-4 "
+        >
+            {loading &&
+                list.map((item, index) => (
+                    <Card.Loading id={index} data={item} />
+                ))}
+            {!loading &&
+                list.map((item, index) => <Card id={index} data={item} />)}
         </div>
     );
 }

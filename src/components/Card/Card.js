@@ -63,7 +63,11 @@ function Card({ data }) {
                         <div className="h-[0.5px]"></div>
 
                         <div>
-                            <Link to={`/product/${data.id}`} end>
+                            <Link
+                                to={`/product/${data.id}`}
+                                // onClick={() => window.location.reload(false)}
+                                end
+                            >
                                 <div className="relative m-auto h-[270px] w-[145px] overflow-y-hidden">
                                     <img
                                         className="object-cover"

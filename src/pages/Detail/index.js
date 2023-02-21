@@ -9,6 +9,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router-dom';
 import Also_like from '~/components/Also_like';
+import LoadingSkeleton from '~/components/LoadingSkeleton';
 import { CartContext } from '~/context/CartProvider';
 function Detail() {
     const [data, setData] = useState([]);
@@ -17,6 +18,7 @@ function Detail() {
     const [count, setCount] = useState();
     const { name } = useParams();
     const { addToCart } = useContext(CartContext);
+    const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${name}`)
             .then((data) => data.json())
@@ -24,11 +26,13 @@ function Detail() {
                 setData(data);
                 setRate(data.rating.rate);
                 setCount(data.rating.count);
+                setLoading(true);
             })
             .catch((err) => console.error(err));
+        setTimeout(() => {
+            setLoading(false);
+        }, 5 * 1000);
     }, [name]);
-    console.log(data.category);
-    console.log(categories);
     const arrRate = [];
     const arrRate2 = [];
     for (let i = 1; i < Math.floor(rate) + 1; i++) {
@@ -67,103 +71,151 @@ function Detail() {
                 <section className="mt-10 mb-7">
                     <div className="grid grid-cols-3">
                         <div className="col-span-1 mx-auto">
-                            <img
-                                className="w-[300px]"
-                                src={data.image}
-                                alt="detail"
-                            />
+                            {loading && (
+                                <LoadingSkeleton className="w-[300px] h-[400px] rounded-md" />
+                            )}
+                            {!loading && (
+                                <img
+                                    className="w-[300px]"
+                                    src={data.image}
+                                    alt="detail"
+                                />
+                            )}
                         </div>
                         <div className="col-span-1 mx-auto">
-                            <div className="text-black text-3xl font-medium">
-                                {data.title}
+                            {loading && (
+                                <LoadingSkeleton className="w-[300px] h-[30px]" />
+                            )}
+                            {!loading && (
+                                <div className="text-black text-3xl font-medium">
+                                    {data.title}
+                                </div>
+                            )}
+                            <div className="pt-2">
+                                {loading && (
+                                    <LoadingSkeleton className="w-[160px] h-[20px]" />
+                                )}
                             </div>
 
-                            <div className="pt-2 flex">
-                                <h2 className="pr-2 font-medium text-black">
-                                    {rate}
-                                </h2>
-                                <p>
-                                    {arrRate.map((arr) => (
-                                        <FontAwesomeIcon
-                                            key={arr}
-                                            icon={anotherStart}
-                                            className="text-yellow-300"
-                                        />
-                                    ))}
-                                    {rate / Math.floor(rate) !== 1 ? (
-                                        <FontAwesomeIcon
-                                            icon={faStarHalfStroke}
-                                            className="text-yellow-300"
-                                        />
-                                    ) : (
-                                        <FontAwesomeIcon
-                                            icon={faStar}
-                                            className="text-yellow-300"
-                                        />
-                                    )}
-                                    {arrRate2.map((arr) => (
-                                        <FontAwesomeIcon
-                                            key={arr}
-                                            icon={faStar}
-                                            className="text-yellow-300"
-                                        />
-                                    ))}
-                                </p>
-                                <h2 className="pl-2 font-medium text-black">
-                                    ({count})
-                                </h2>
-                            </div>
-                            <div>
-                                <div
-                                    className="mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
-                                    onClick={() => addToCart(data, data.id)}
-                                >
-                                    <p></p>
-                                    <p className="pr-3 font-semibold">
-                                        Add to cart
+                            {!loading && (
+                                <div className="pt-2 flex">
+                                    <h2 className="pr-2 font-medium text-black">
+                                        {rate}
+                                    </h2>
+                                    <p>
+                                        {arrRate.map((arr) => (
+                                            <FontAwesomeIcon
+                                                key={arr}
+                                                icon={anotherStart}
+                                                className="text-yellow-300"
+                                            />
+                                        ))}
+                                        {rate / Math.floor(rate) !== 1 ? (
+                                            <FontAwesomeIcon
+                                                icon={faStarHalfStroke}
+                                                className="text-yellow-300"
+                                            />
+                                        ) : (
+                                            <FontAwesomeIcon
+                                                icon={faStar}
+                                                className="text-yellow-300"
+                                            />
+                                        )}
+                                        {arrRate2.map((arr) => (
+                                            <FontAwesomeIcon
+                                                key={arr}
+                                                icon={faStar}
+                                                className="text-yellow-300"
+                                            />
+                                        ))}
                                     </p>
-                                    <span>
-                                        <FontAwesomeIcon
-                                            icon={faCartShopping}
-                                        />
-                                    </span>
+                                    <h2 className="pl-2 font-medium text-black">
+                                        ({count})
+                                    </h2>
                                 </div>
+                            )}
+                            <div>
+                                <div className="pt-2">
+                                    {loading && (
+                                        <LoadingSkeleton className="w-[160px] h-[50px] rounded-md" />
+                                    )}
+                                </div>
+                                {!loading && (
+                                    <div
+                                        className="mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
+                                        onClick={() => addToCart(data, data.id)}
+                                    >
+                                        <p></p>
+                                        <p className="pr-3 font-semibold">
+                                            Add to cart
+                                        </p>
+                                        <span>
+                                            <FontAwesomeIcon
+                                                icon={faCartShopping}
+                                            />
+                                        </span>
+                                    </div>
+                                )}
                             </div>
                         </div>
                         <div className="col-span-1 ml-5 pr-10">
-                            <div className="text-black text-2xl">
-                                Description
-                            </div>
-                            <div className="pt-2">
-                                <div className="flex">
-                                    <p className="text-back pr-3">Category: </p>
-                                    <Link to={`/categories/${data.category}`}>
-                                        <p className="uppercase text-primary hover:text-red-500 cursor-pointer">
-                                            {data.category}
-                                        </p>
-                                    </Link>
+                            {loading && (
+                                <LoadingSkeleton className="w-[160px] h-[30px]" />
+                            )}
+                            {!loading && (
+                                <div className="text-black text-2xl">
+                                    Description
                                 </div>
-                                <p className="text-black ">
-                                    {data.description}
-                                </p>
-                            </div>
+                            )}
+                            {/* <div>
+                            {loading && (
+                                <LoadingSkeleton className="w-[160px] h-[30px]" />
+                            )}
+                            <div/> */}
+                            {loading && (
+                                <div>
+                                    <div className="pt-2">
+                                        <LoadingSkeleton className="w-[130px] h-[20px]" />
+                                    </div>
+                                    <div className="pt-2">
+                                        <LoadingSkeleton className="w-[350px] h-[20px]" />
+                                    </div>
+                                    <div className="pt-2">
+                                        <LoadingSkeleton className="w-[350px] h-[20px]" />
+                                    </div>
+                                    <div className="pt-2">
+                                        <LoadingSkeleton className="w-[350px] h-[20px]" />
+                                    </div>
+                                    <div className="pt-2">
+                                        <LoadingSkeleton className="w-[350px] h-[20px]" />
+                                    </div>
+                                    <div className="pt-2">
+                                        <LoadingSkeleton className="w-[350px] h-[20px]" />
+                                    </div>
+                                </div>
+                            )}
+                            {!loading && (
+                                <div className="pt-2">
+                                    <div className="flex">
+                                        <p className="text-back pr-3">
+                                            Category:{' '}
+                                        </p>
+                                        <Link
+                                            to={`/categories/${data.category}`}
+                                        >
+                                            <p className="uppercase text-primary hover:text-red-500 cursor-pointer">
+                                                {data.category}
+                                            </p>
+                                        </Link>
+                                    </div>
+                                    <p className="text-black ">
+                                        {data.description}
+                                    </p>
+                                </div>
+                            )}
                         </div>
                     </div>
                 </section>
-                {/* <hr className="mt-10 mb-10" /> */}
-                {/* <div className="border-spacing-2">
-                    <div className="grid grid-cols-10 mb-7">
-                        <p className="pl-3 col-span-10 font-bold text-lg">
-                            You may also like: 
-                        </p>
-                    </div>
-                    <div>
-                        <div className="bg-gray-200">
-                            <div className='mt-[1px]'></div>
-                            <Also_like data={data.category} name={name}/>
-                        </div>
-                    </div>
-                </div> */}
                 <div className="bg-gray-200 h-[37px] flex">
                     <div className="grid grid-cols-10 mt-1">
                         <p className="pl-3 col-span-10 font-bold text-lg">
@@ -174,7 +226,11 @@ function Detail() {
                 <div>
                     <div className="bg-gray-200">
                         <div className="mt-[1px]"></div>
-                        <Also_like data={data.category} name={name} />
+                        <Also_like
+                            data={data.category}
+                            name={name}
+                            state_load={loading}
+                        />
                     </div>
                 </div>
             </div>
