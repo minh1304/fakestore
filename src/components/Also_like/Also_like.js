@@ -6,7 +6,7 @@ import { CartContext } from '~/context/CartProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
-import CardMini from '../CardMini';
+import Card from '../Card';
 
 // export const DataAlbum = createContext();
 
@@ -32,7 +32,7 @@ function Also_like({ data, name }) {
     return (
         <div className='grid grid-cols-4'>
             {list.map((item, index) => (
-                <CardMini id={index }data={item} />
+                <Card id={index }data={item} />
             ))}
         </div>
     );

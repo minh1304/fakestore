@@ -38,12 +38,10 @@ function Detail() {
     for (let i = 1; i < test; i++) {
         arrRate2.push(i);
     }
-    // const count =  data.rating;
-
     return (
-        <div className="bg-white grid grid-cols-12">
-            <div className="col-span-1"></div>
-            <div className="col-span-10">
+        <div className="bg-white  xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
+            <div className="xl:col-span-1"></div>
+            <div className="xl:col-span-10  2xl:col-span-10">
                 <div className="bg-gray-200 h-[37px] flex">
                     <Link to={'/'}>
                         <FontAwesomeIcon
@@ -52,27 +50,30 @@ function Detail() {
                         />
                     </Link>
                     <div className="flex">
-                        <h2 className="pt-[6px] pr-2">/</h2>
+                        <h2 className="pt-[6px] pr-1 font-semibold">/</h2>
                         <Link to={`/categories/${data.category}`}>
-                            <h2 className="pt-[6px] font-semibold pr-2 uppercase hover:text-primary ">
+                            <h2 className="pt-[6px] pr-1 font-semibold uppercase hover:text-primary ">
                                 {data.category}
                             </h2>
                         </Link>
                     </div>
-                    <h2 className="pt-[6px] pr-2">/</h2>
-                    <h2 className="pt-[6px] font-semibold text-gray-500 "> {data.title}</h2>
+                    <h2 className="pt-[6px] pr-1 font-semibold">/</h2>
+                    <h2 className="pt-[6px] font-semibold text-gray-500 ">
+                        {' '}
+                        {data.title}
+                    </h2>
                 </div>
 
-                <section className="mt-10">
+                <section className="mt-10 mb-7">
                     <div className="grid grid-cols-3">
-                        <div className="col-span-1">
+                        <div className="col-span-1 mx-auto">
                             <img
                                 className="w-[300px]"
                                 src={data.image}
                                 alt="detail"
                             />
                         </div>
-                        <div className="col-span-1">
+                        <div className="col-span-1 mx-auto">
                             <div className="text-black text-3xl font-medium">
                                 {data.title}
                             </div>
@@ -129,7 +130,7 @@ function Detail() {
                                 </div>
                             </div>
                         </div>
-                        <div className="col-span-1 ml-5">
+                        <div className="col-span-1 ml-5 pr-10">
                             <div className="text-black text-2xl">
                                 Description
                             </div>
@@ -137,7 +138,7 @@ function Detail() {
                                 <div className="flex">
                                     <p className="text-back pr-3">Category: </p>
                                     <Link to={`/categories/${data.category}`}>
-                                        <p className="text-primary hover:text-red-500 cursor-pointer">
+                                        <p className="uppercase text-primary hover:text-red-500 cursor-pointer">
                                             {data.category}
                                         </p>
                                     </Link>
@@ -149,21 +150,35 @@ function Detail() {
                         </div>
                     </div>
                 </section>
-                <hr className="mt-10 mb-10" />
-                <div className="border-spacing-2">
+                {/* <hr className="mt-10 mb-10" /> */}
+                {/* <div className="border-spacing-2">
                     <div className="grid grid-cols-10 mb-7">
-                        <p className="col-span-10 m-auto font-bold text-lg">
-                            You may also like
+                        <p className="pl-3 col-span-10 font-bold text-lg">
+                            You may also like: 
                         </p>
                     </div>
                     <div>
-                        <div className=" bg-zinc-300">
-                            <Also_like data={data.category} name={name} />
+                        <div className="bg-gray-200">
+                            <div className='mt-[1px]'></div>
+                            <Also_like data={data.category} name={name}/>
                         </div>
+                    </div>
+                </div> */}
+                <div className="bg-gray-200 h-[37px] flex">
+                    <div className="grid grid-cols-10 mt-1">
+                        <p className="pl-3 col-span-10 font-bold text-lg">
+                            You may also like:
+                        </p>
+                    </div>
+                </div>
+                <div>
+                    <div className="bg-gray-200">
+                        <div className="mt-[1px]"></div>
+                        <Also_like data={data.category} name={name} />
                     </div>
                 </div>
             </div>
-            <div className="col-span-1"></div>
+            <div className="xl:col-span-1"></div>
         </div>
     );
 }
