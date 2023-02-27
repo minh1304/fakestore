@@ -77,7 +77,9 @@ function Card({ data }) {
                                 </div>
                             </Link>
                         </div>
-                        <div
+
+                        {/* Ẩn lại */}
+                        {/* <div
                             className={`items-center justify-between pl-4 pr-4 ${
                                 !onSee && 'transition duration-150'
                             } ${
@@ -102,7 +104,7 @@ function Card({ data }) {
                                     </span>
                                 </p>
                             </Link>
-                        </div>
+                        </div> */}
                     </div>
                     <div className="col-span-1"></div>
                 </div>
@@ -114,9 +116,11 @@ function Card({ data }) {
 
 const Loading = () => {
     return (
-        <div className="mb-[1px] ml-[1px] bg-white overflow-y-hidden h-[478.5px]">
+        <div className="mb-[1px] ml-[1px] bg-white overflow-y-hidden h-[358px]">
+            <LoadingSkeleton className="w-full h-full" />
+
             {/* <div className='xl:hidden block'>1234</div> */}
-            <div className="">
+            {/* <div className="">
                 <div className="duration-700">
                     <div className={`col-span-8`}>
                         <div className="p-4 flex pb-1">
@@ -151,7 +155,7 @@ const Loading = () => {
                     </div>
                     <div className="col-span-1"></div>
                 </div>
-            </div>
+            </div> */}
         </div>
     );
 };

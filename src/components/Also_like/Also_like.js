@@ -20,7 +20,7 @@ function Also_like({ data, name, state_load }) {
         fetch(`https://fakestoreapi.com/products/category/${data}`)
             .then((categories) => categories.json())
             .then((categories) => {
-                // categories.splice(test2,1)
+
                 setCategories(categories);
                 setLoading(true);
             })
