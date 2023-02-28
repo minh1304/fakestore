@@ -16,7 +16,7 @@ function DefaultLayout({ children }) {
     return (
         <Data.Provider value={{ data }}>
             <CartProvider>
-                <div className="overflow-y-auto top-0 left-0 bg-gray-200">
+                <div className="overflow-y-auto top-0 left-0 bg-gray-100">
                     <Sidebar />
                     <div className="mt-[82px] max-w-7xl mx-auto">
                         <div>{children}</div>

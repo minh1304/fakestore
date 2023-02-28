@@ -1,44 +1,85 @@
+import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Link } from 'react-router-dom';
+
 function Advertising({ data }) {
+    const test = data.slice(8, 12);
+    const test1 = data.slice(4, 8);
+    const test2 = data.slice(0,4);
+    const test3 = data.slice(15,19);
     const ads = [
         {
             // 626 417
+            i: 1,
+            name: 'Electronics',
             url: 'https://img.freepik.com/premium-vector/technology-future-banner_23-2148756649.jpg',
+            test: [...test],
+        },
+        {
+            i: 1,
+            name: 'Jewelry',
+            url: 'https://img.lovepik.com/free-template/20210217/bg/a0ad9b85a967c.png_list.jpg',
+            test: [...test1],
+        },
+        {
+            i: 2,
+            name: 'Men',
+            url: 'https://img.freepik.com/free-vector/promotion-fashion-banner_1188-201.jpg',
+            test: [...test2],
+        },
+        {
+            i: 2,
+            name: 'Women',
+            url: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/women-fashion-point-banner-template-free-design-0d335c9defb80cc2c5cfd362121d9988_screen.jpg?ts=1638273722',
+            test: [...test3],
         },
     ];
-    const test = data.slice(0, 4);
-    console.log(test[1]);
-    return (
-        <div className="flex">
-            <div>
-                <div>Electronics</div>
-                <div className="max-w-[1400px] h-[500px] w-[651px] relative group ">
-                    <div
-                        style={{
-                            backgroundImage: `url(${ads[0].url})`,
-                        }}
-                        className="w-full h-full bg-center bg-cover duration-500"
-                    ></div>
-                </div>
-                <div>ahihi</div>
-                {test.map((test1, index) => {
-                    <div
-                        key={index}
-                        className="w-[100px] h-[200px]"
-                        // style={{
-                        //     backgroundImage: `url(${test1[index].image})`,
-                        // }}
-                    ></div>;
-                })}
-            </div>
 
-            {/* <div className="max-w-[1400px] h-[500px] w-[651px] relative group ">
+    console.log(ads[1].test);
+    return (
+        <div className="grid grid-cols-2">
+            {ads.map((ad, index) => (
                 <div
-                    style={{
-                        backgroundImage: `url(${ads[0].url})`,
-                    }}
-                    className="w-full h-full bg-center bg-cover duration-500"
-                ></div>
-            </div> */}
+                    key={index}
+                    className={` col-span-1 ${index % 2 === 0 ? `pl-0 w-[636px]` : `pl-[4px]`} ${ad.i%2===0 && 'hidden'} duration-500`}
+                >
+                    <div className="text-black">{ad.name}</div>
+                    <div className="max-w-[1400px] h-[500px] relative group ">
+                        <div
+                            style={{
+                                backgroundImage: `url(${ad.url})`,
+                            }}
+                            className="w-full h-full bg-center object-cover duration-500"
+                        ></div>
+                    </div>
+                    <div className="max-w-[1400px] grid grid-cols-4">
+                    {ad.test.map((slide, slideIndex) => (
+                        <div key={slideIndex} className="col-span-1">
+                            <Link to={`/product/${slide.id}`}>
+                                <div className="bg-white relative m-auto h-[230px] w-[162px] overflow-y-hidden cursor-pointer">
+                                    <div className="absolute top-1 right-8 flex">
+                                        <h1>
+                                            <span className="ml-1 mr-1">
+                                                <FontAwesomeIcon
+                                                    icon={faDollarSign}
+                                                />
+                                            </span>
+                                            {slide.price}
+                                        </h1>
+                                    </div>
+                                    <img
+                                        className="object-cover p-6"
+                                        src={slide.image}
+                                        alt="img"
+                                    />
+                                </div>
+                            </Link>
+                        </div>
+                    ))}
+                </div>
+                    
+                </div>
+            ))}
         </div>
     );
 }
