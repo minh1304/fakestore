@@ -27,6 +27,9 @@ function Home() {
             <div className="xl:col-span-10 2xl:col-span-10 ">
                 <Slider />
                 <Advertising data={data} />
+                <div className='mt-5 mb-2 text-black/70 text-2xl mb-2 uppercase'>
+                    All products
+                </div>
                 <section>
                     <div className="grid grid-cols-12 bg-gray-200">
                         {/* <div className="col-span-1"></div> */}
