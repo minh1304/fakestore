@@ -12,7 +12,7 @@ function Advertising({ data }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     useEffect(() => {
         const timer = setTimeout(() => {
-            setCurrentIndex(1);
+            currentIndex === 0 ? setCurrentIndex(1) : setCurrentIndex(0);
         }, 3000);
         return () => clearTimeout(timer);
     }, [currentIndex]);
@@ -24,7 +24,7 @@ function Advertising({ data }) {
             name: 'Electronics',
             url: 'https://img.freepik.com/premium-vector/technology-future-banner_23-2148756649.jpg',
             test: [...test],
-            category: 'electronics',
+            category: "electronics",
         },
         {
             i: 0 + currentIndex,
