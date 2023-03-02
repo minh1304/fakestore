@@ -1,9 +1,8 @@
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { Link } from 'react-router-dom';
-import Carousel from 'react-multi-carousel';
-import 'react-multi-carousel/lib/styles.css';
 import { useEffect, useState } from 'react';
+import { Link } from 'react-router-dom';
+
 function Advertising({ data }) {
     const test = data.slice(8, 12);
     const test1 = data.slice(4, 8);
@@ -12,11 +11,13 @@ function Advertising({ data }) {
     const [currentIndex, setCurrentIndex] = useState(0);
     useEffect(() => {
         const timer = setTimeout(() => {
-            setCurrentIndex(currentIndex + 1);
+            currentIndex === 0 ? setCurrentIndex(1) : setCurrentIndex(0);
         }, 3000);
-        return () => clearTimeout(timer);
+        return () => {
+            clearTimeout(timer);
+        };
     }, [currentIndex]);
-    console.log(test);
+    console.log(currentIndex);
     const ads = [
         {
             // 626 417
@@ -45,20 +46,22 @@ function Advertising({ data }) {
         },
     ];
 
-
+    console.log(ads[1].test);
     return (
         <div className="grid grid-cols-2">
             {ads.map((ad, index) => (
                 <div
                     key={index}
                     className={` col-span-1 duration-500 mt-5 ${
-                        index % 2 === 0 ? `pl-0 2xl:w-[636px] xl:w-[533px]` : `pl-[4px]`
-                    } ${ad.i % 2 === 0 && 'hidden'} `}
+                        index % 2 === 0
+                            ? `pl-0 2xl:w-[636px] xl:w-[533px]`
+                            : `pl-[4px]`
+                    } ${ad.i % 2 === 0 && 'hidden'} duration-500`}
                 >
                     <div className="text-black/70 text-2xl mb-2 uppercase">
                         {ad.name}
                     </div>
-                    <div className="max-w-[1400px] 2xl:h-[500px] xl:h-[450px] relative group ">
+                    <div className="max-w-[1400px]  2xl:h-[500px] xl:h-[450px] relative group ">
                         <div
                             style={{
                                 backgroundImage: `url(${ad.url})`,
@@ -66,7 +69,7 @@ function Advertising({ data }) {
                             className="w-full h-full bg-center object-cover duration-500"
                         ></div>
                     </div>
-                    <div className="max-w-[1400px] 2xl:w-[636px] xl:w-[533px] grid grid-cols-4">
+                    <div className="max-w-[1400px] grid grid-cols-4">
                         {ad.test.map((slide, slideIndex) => (
                             <div key={slideIndex} className="col-span-1">
                                 <Link to={`/product/${slide.id}`}>
@@ -101,7 +104,6 @@ function Advertising({ data }) {
                 </div>
             ))}
         </div>
-
     );
 }
 
