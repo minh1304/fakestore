@@ -27,11 +27,7 @@ function Home() {
             <div className="xl:col-span-10 2xl:col-span-10 ">
                 <Slider />
                 <Advertising data={data} />
-<<<<<<< HEAD
                 <div className='mt-5 mb-2 text-black/70 text-2xl uppercase'>
-=======
-                <div className='mt-5 mb-2 text-black/70 text-2xl mb-2 uppercase'>
->>>>>>> 907e4dbd9fc3463408a1427eaacc711953904412
                     All products
                 </div>
                 <section>
