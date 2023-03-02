@@ -1,5 +1,6 @@
 import { faDollarSign } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
 
 function Advertising({ data }) {
@@ -7,28 +8,37 @@ function Advertising({ data }) {
     const test1 = data.slice(4, 8);
     const test2 = data.slice(0,4);
     const test3 = data.slice(15,19);
+    const [currentIndex, setCurrentIndex] = useState(0);
+    useEffect(() => {
+        const timer = setTimeout(() => {
+            currentIndex === 0 ? setCurrentIndex(1) : setCurrentIndex(0);
+        }, 3000);
+        return () => {
+            clearTimeout(timer);
+        };
+    }, [currentIndex]);
     const ads = [
         {
             // 626 417
-            i: 1,
+            i: 1 +currentIndex,
             name: 'Electronics',
             url: 'https://img.freepik.com/premium-vector/technology-future-banner_23-2148756649.jpg',
             test: [...test],
         },
         {
-            i: 1,
+            i: 1 +currentIndex,
             name: 'Jewelry',
             url: 'https://img.lovepik.com/free-template/20210217/bg/a0ad9b85a967c.png_list.jpg',
             test: [...test1],
         },
         {
-            i: 2,
+            i: 2 +currentIndex,
             name: 'Men',
             url: 'https://img.freepik.com/free-vector/promotion-fashion-banner_1188-201.jpg',
             test: [...test2],
         },
         {
-            i: 2,
+            i: 2 +currentIndex,
             name: 'Women',
             url: 'https://d1csarkz8obe9u.cloudfront.net/posterpreviews/women-fashion-point-banner-template-free-design-0d335c9defb80cc2c5cfd362121d9988_screen.jpg?ts=1638273722',
             test: [...test3],
