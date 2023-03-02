@@ -3,6 +3,9 @@ module.exports = {
     content: ['./src/**/*.{js,jsx,ts,tsx}'],
     theme: {
         extend: {
+            display: ['group-focus'],
+            opacity: ['group-focus'],
+            inset: ['group-focus'],
             height: {
                 'screen-navbar-player-mobile': 'calc(100vh - 6rem - 6rem )',
                 'screen-navbar-player': 'calc(100vh - 82px )',

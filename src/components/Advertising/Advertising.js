@@ -52,13 +52,21 @@ function Advertising({ data }) {
                 <div
                     key={index}
                     className={` col-span-1 duration-500 mt-5 ${
+<<<<<<< HEAD
                         index % 2 === 0 ? `pl-0 2xl:w-[636px] xl:w-[533px]` : `pl-[4px]`
+=======
+                        index % 2 === 0 ? `pl-0 w-[636px]` : `pl-[4px]`
+>>>>>>> 907e4dbd9fc3463408a1427eaacc711953904412
                     } ${ad.i % 2 === 0 && 'hidden'} `}
                 >
                     <div className="text-black/70 text-2xl mb-2 uppercase">
                         {ad.name}
                     </div>
+<<<<<<< HEAD
                     <div className="max-w-[1400px] 2xl:h-[500px] xl:h-[450px] relative group ">
+=======
+                    <div className="max-w-[1400px] h-[500px] relative group ">
+>>>>>>> 907e4dbd9fc3463408a1427eaacc711953904412
                         <div
                             style={{
                                 backgroundImage: `url(${ad.url})`,
@@ -66,11 +74,19 @@ function Advertising({ data }) {
                             className="w-full h-full bg-center object-cover duration-500"
                         ></div>
                     </div>
+<<<<<<< HEAD
                     <div className="max-w-[1400px] 2xl:w-[636px] xl:w-[533px] grid grid-cols-4">
                         {ad.test.map((slide, slideIndex) => (
                             <div key={slideIndex} className="col-span-1">
                                 <Link to={`/product/${slide.id}`}>
                                     <div className="bg-white relative m-auto 2xl:h-[230px] 2xl:w-[162px] xl:w-[133px] xl:h-[190px] overflow-y-hidden cursor-pointer">
+=======
+                    <div className="max-w-[1400px] grid grid-cols-4">
+                        {ad.test.map((slide, slideIndex) => (
+                            <div key={slideIndex} className="col-span-1">
+                                <Link to={`/product/${slide.id}`}>
+                                    <div className="bg-white relative m-auto h-[230px] w-[162px] overflow-y-hidden cursor-pointer">
+>>>>>>> 907e4dbd9fc3463408a1427eaacc711953904412
                                         <div className="absolute top-1 right-8 flex">
                                             <h1>
                                                 <span className="ml-1 mr-1">
