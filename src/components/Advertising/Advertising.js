@@ -98,7 +98,7 @@ function Advertising({ data }) {
                     </div>
                     <div>
                         <Link to={`/categories/${ad.category}`}>
-                            <div className="relative left-[45%] bg-gray-400 w-[85px] rounded-lg mb-5 hover:bg-black">
+                            <div className="relative left-[45%] bg-gray-400 w-[85px] rounded-lg mb-5 hover:bg-black duration-300">
                                 <button>
                                     <h1 className="m-1 text-white">
                                         View more
