@@ -13,7 +13,7 @@ function Advertising({ data }) {
     useEffect(() => {
         const timer = setTimeout(() => {
             currentIndex === 0 ? setCurrentIndex(1) : setCurrentIndex(0);
-        }, 3000);
+        }, 4000);
         return () => clearTimeout(timer);
     }, [currentIndex]);
     console.log(test);

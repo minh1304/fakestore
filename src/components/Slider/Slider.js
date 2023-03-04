@@ -47,7 +47,7 @@ function Slider() {
         return () => clearTimeout(timer);
     },[currentIndex])
     return (
-        <div className="max-w-[1400px] 2xl:h-[800px] xl:h-[725px] lg:h-[520px] md:h-[470px] h-[350px] w-full m-auto relative group ">
+        <div className="max-w-[1400px] 2xl:h-[875px] xl:h-[725px] lg:h-[520px] md:h-[470px] h-[350px] w-full m-auto relative group ">
             <div
                 style={{
                     backgroundImage: `url(${slides[currentIndex].url})`,
