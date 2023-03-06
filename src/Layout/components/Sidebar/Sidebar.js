@@ -4,7 +4,13 @@ import { useContext, useEffect, useState } from 'react';
 import { CartContext } from '~/context/CartProvider';
 import Menu from './Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faBagShopping, faUser } from '@fortawesome/free-solid-svg-icons';
+import {
+    faBagShopping,
+    faBars,
+    faBeer,
+    faClose,
+    faUser,
+} from '@fortawesome/free-solid-svg-icons';
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
     const { itemAmount } = useContext(CartContext);
@@ -15,10 +21,25 @@ function Sidebar() {
             .then((res) => setCategories(res));
     }, []);
     const [isMobile, setisMobile] = useState(true);
+    let Links = [
+        { name: 'HOME', link: '/' },
+        { name: 'SERVICE', link: '/' },
+        { name: 'ABOUT', link: '/' },
+        { name: "BLOG'S", link: '/' },
+        { name: 'CONTACT', link: '/' },
+    ];
+    let [open, setOpen] = useState(false);
     return (
-        <div className="h-auto">
-            <div className="grid xl:grid-cols-10 lg:grid-cols-12 sm:grid-cols-2 h-[82px] bg-black text-white fixed w-full z-50 overflow-y-hidden">
-                <div className="lg:col-span-2 sm:col-span-1 h-[82px] ml-[-37px] text-center">
+
+        <div
+            className={`shadow-md w-full fixed top-0 left-0 md:h-[82px] ${
+                open && 'h-[380px]'
+            } z-50 overflow-y-hidden`}
+        >
+            <div
+                className="md:flex items-center justify-between bg-black text-white px-7"
+            >
+                <div className="h-[82px] ml-[-37px] text-center">
                     <Link
                         className="w-[100px] h-[82px]"
                         to={config.routes.home}
@@ -30,39 +51,51 @@ function Sidebar() {
                         />
                     </Link>
                 </div>
-                <div
-                    className={`xl:col-span-6 lg:col-span-8 lg:grid lg:grid-cols-4 pt-8 sm:hidden  `}
+
+                <ul
+                    className={`md:flex -ml-7 md:items-center md:pb-0 pb-12 absolute md:static md:bg-black bg-white md:z-auto z-[-1] w-full md:w-auto pl-9 transition-all duration-500 ease-in ${
+                        open ? 'top-20 ' : 'top-[-490px]'
+                    }`}
                 >
-                    {categories.map((category, index) => (
-                        <Menu key={index} data={category} />
+                    {categories.map((link, index) => (
+                        <Menu key={index} data={link} />
                     ))}
+                    {/* <Button>Get Started</Button> */}
+                </ul>
+                <div className="mt-3 flex md:static absolute right-20 top-[18px]">
+                    <div className="w-10 h-10 text-center cursor-pointer hover:opacity-70 duration-300">
+                        <FontAwesomeIcon icon={faUser} />
+                    </div>
+                    <Link
+                        // onClick={() => console.log('mở giỏ hàng ')}
+                        to={config.routes.cart}
+                        className="ml-2 w-10 h-15 text-center cursor-pointer flex hover:opacity-70 duration-300"
+                    >
+                        <span>
+                            <FontAwesomeIcon icon={faBagShopping} />
+                        </span>
+                        <span className="relative top-3 left-0 w-[25px] h-[25px] bg-primary overflow-y-hidden rounded-full">
+                            <p
+                                className={`absolute top-[5px] ${
+                                    itemAmount >= 10
+                                        ? 'left-[6px]'
+                                        : 'left-[8px]'
+                                } text-xs `}
+                            >
+                                {itemAmount}
+                            </p>
+                        </span>
+                    </Link>
                 </div>
-                <div className="lg:col-span-2 sm:col-span-1 pt-8 flex">
-                    
-                        <div className="lg::ml-0 sm:ml-20 w-10 h-10 text-center cursor-pointer hover:opacity-70 duration-300">
-                            <FontAwesomeIcon icon={faUser} />
-                        </div>
-                        <Link
-                            // onClick={() => console.log('mở giỏ hàng ')}
-                            to={config.routes.cart}
-                            className="ml-2 w-10 h-15 text-center cursor-pointer flex hover:opacity-70 duration-300"
-                        >
-                            <span>
-                                <FontAwesomeIcon icon={faBagShopping} />
-                            </span>
-                            <span className="relative top-3 left-0 w-[25px] h-[25px] bg-primary overflow-y-hidden rounded-full">
-                                <p
-                                    className={`absolute top-[5px] ${
-                                        itemAmount >= 10
-                                            ? 'left-[6px]'
-                                            : 'left-[8px]'
-                                    } text-xs `}
-                                >
-                                    {itemAmount}
-                                </p>
-                            </span>
-                        </Link>
-                    
+                <div
+                    onClick={() => setOpen(!open)}
+                    className="text-3xl absolute right-8 top-6 cursor-pointer md:hidden"
+                >
+                    {open ? (
+                        <FontAwesomeIcon icon={faClose} />
+                    ) : (
+                        <FontAwesomeIcon icon={faBars} />
+                    )}
                 </div>
             </div>
         </div>
