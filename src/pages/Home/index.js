@@ -48,8 +48,11 @@ function Home() {
                         viewport={{ once: true, amount: 0.2 }}
                         transition={{ duration: 0.4 }}
                         variants={{
-                            hidden: { opacity: 0, x: 80 },
-                            visible: { opacity: 1, x: 0 },
+                            // hidden: { opacity: 0, x: 80 },
+                            // visible: { opacity: 1, x: 0 },
+                            hidden: { opacity: 0, scale: 0.6 },
+                            visible: { opacity: 1, scale: 1 },
+
                         }}
                     >
                         <Advertising data={data} />
@@ -58,9 +61,8 @@ function Home() {
                 <div className="mt-5 mb-2 text-black/70 text-2xl uppercase">
                     All products
                 </div>
-
                 <section>
-                    <div className="grid grid-cols-12 bg-gray-200">
+                    <div className="grid grid-cols-12 bg-white">
                         {/* <div className="col-span-1"></div> */}
                         <div className="col-span-12">
                             <div className="mt-[1px]"></div>
@@ -77,27 +79,7 @@ function Home() {
                                 {!loading &&
                                     data.map((card, index) => (
                                         <div>
-                                            <motion.div
-                                                initial="hidden"
-                                                whileInView="visible"
-                                                viewport={{
-                                                    once: true,
-                                                    amount: 0.1,
-                                                }}
-                                                transition={{ delay:index/(20), duration: 0.4 }}
-                                                variants={{
-                                                    hidden: {
-                                                        opacity: 0,
-                                                        x: 80,
-                                                    },
-                                                    visible: {
-                                                        opacity: 1,
-                                                        x: 0,
-                                                    },
-                                                }}
-                                            >
-                                                <Card data={card} key={index} />
-                                            </motion.div>
+                                            <Card data={card} key={index} />
                                         </div>
                                     ))}
                             </div>

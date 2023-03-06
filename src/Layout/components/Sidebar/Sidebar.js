@@ -17,8 +17,8 @@ function Sidebar() {
     const [isMobile, setisMobile] = useState(true);
     return (
         <div className="h-auto">
-            <div className="grid xl:grid-cols-10 lg:grid-cols-12 sm:grid-cols-2 h-[82px] bg-black text-white fixed w-full z-10 overflow-y-hidden">
-                <div className="lg:col-span-2 sm:col-span-1 h-[82px] ml-[-37px] text-center ">
+            <div className="grid xl:grid-cols-10 lg:grid-cols-12 sm:grid-cols-2 h-[82px] bg-black text-white fixed w-full z-50 overflow-y-hidden">
+                <div className="lg:col-span-2 sm:col-span-1 h-[82px] ml-[-37px] text-center">
                     <Link
                         className="w-[100px] h-[82px]"
                         to={config.routes.home}

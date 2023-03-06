@@ -41,7 +41,7 @@ function List() {
                     </h2>
                 </div>
                 <section>
-                    <div className="grid grid-cols-12 bg-gray-200">
+                    <div className="grid grid-cols-12 bg-white">
                         {/* <div className="col-span-1"></div> */}
                         <div className="col-span-12">
                             <div className="mt-[1px]"></div>
