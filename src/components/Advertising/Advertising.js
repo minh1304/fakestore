@@ -24,14 +24,14 @@ function Advertising({ data }) {
             name: 'Electronics',
             url: 'https://img.freepik.com/premium-vector/technology-future-banner_23-2148756649.jpg',
             test: [...test],
-            category: "electronics",
+            category: 'electronics',
         },
         {
             i: 0 + currentIndex,
             name: 'Jewelry',
             url: 'https://img.lovepik.com/free-template/20210217/bg/a0ad9b85a967c.png_list.jpg',
             test: [...test1],
-            category: "jewelery",
+            category: 'jewelery',
         },
         {
             i: 1 + currentIndex,
@@ -50,20 +50,20 @@ function Advertising({ data }) {
     ];
 
     return (
-        <div className="grid grid-cols-2">
+        <div className="grid md:grid-cols-2 grid-cols-1">
             {ads.map((ad, index) => (
                 <div
                     key={index}
-                    className={` col-span-1 duration-500 mt-5 ${
+                    className={`col-span-1 duration-500 md:mt-5 mt-0 ${
                         index % 2 === 0
-                            ? `pl-0 2xl:w-[636px] xl:w-[533px]`
+                            ? `pl-0 2xl:w-[636px] xl:w-[533px] `
                             : `pl-[4px]`
-                    } ${ad.i % 2 === 0 && 'hidden'} `}
+                    } ${ad.i % 2 === 0 && 'hidden'} `}s
                 >
                     <div className="text-black/70 text-2xl mb-2 uppercase">
                         {ad.name}
                     </div>
-                    <div className="max-w-[1400px] 2xl:h-[500px] xl:h-[450px] relative group ">
+                    <div className="max-w-[1400px] 2xl:h-[510px] xl:h-[450px] h-[326px] relative group ">
                         <div
                             style={{
                                 backgroundImage: `url(${ad.url})`,
@@ -98,7 +98,7 @@ function Advertising({ data }) {
                     </div>
                     <div>
                         <Link to={`/categories/${ad.category}`}>
-                            <div className="relative left-[45%] bg-gray-400 w-[85px] rounded-lg mb-5 hover:bg-black duration-300">
+                            <div className="relative left-[50%] translate-x-[-50%] bg-gray-400 w-[85px] rounded-lg mb-5 hover:bg-black duration-300">
                                 <button>
                                     <h1 className="m-1 text-white">
                                         View more
