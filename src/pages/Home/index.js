@@ -45,7 +45,7 @@ function Home() {
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, amount: 0.2 }}
+                        viewport={{ once: true, amount: 0.5 }}
                         transition={{ duration: 0.4 }}
                         variants={{
                             // hidden: { opacity: 0, x: 80 },
@@ -66,7 +66,7 @@ function Home() {
                         {/* <div className="col-span-1"></div> */}
                         <div className="col-span-12">
                             <div className="mt-[1px]"></div>
-                            <div className="grid grid-cols-4">
+                            <div className="grid md:grid-cols-4 grid-cols-2">
                                 {loading &&
                                     data.map((card, index) => (
                                         <div>

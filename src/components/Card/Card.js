@@ -129,7 +129,7 @@ function Card({ data }) {
                                         </p>
                                     </Link>
                                     <Link to={`/product/${data.id}`}>
-                                        <p className="ml-3 mb-12 text-lg font-bold h-[56px] overflow-hidden opacity-85">
+                                        <p className="ml-3 mb-12 text-lg font-bold h-[56px] overflow-hidden opacity-85 hover:text-primary">
                                             {data.title}
                                         </p>
                                     </Link>
@@ -173,7 +173,7 @@ function Card({ data }) {
 
 const Loading = () => {
     return (
-        <div className="mb-[1px] ml-[1px] bg-white overflow-y-hidden h-[358px]">
+        <div className="mb-[1px] ml-[1px] bg-white overflow-y-hidden h-[470px]">
             <LoadingSkeleton className="w-full h-full" />
         </div>
     );

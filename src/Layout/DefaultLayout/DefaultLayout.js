@@ -1,6 +1,7 @@
 import Sidebar from '../components/Sidebar';
 import { createContext, useEffect, useState } from 'react';
 import CartProvider from '~/context/CartProvider';
+import Footer from '../components/Footer';
 
 export const Data = createContext();
 function DefaultLayout({ children }) {
@@ -22,6 +23,7 @@ function DefaultLayout({ children }) {
                         <div>{children}</div>
                     </div>
                 </div>
+                <Footer/>
             </CartProvider>
         </Data.Provider>
     );
