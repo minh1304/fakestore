@@ -1,4 +1,8 @@
-import { faFacebook, faGithub, faInstagram } from '@fortawesome/free-brands-svg-icons';
+import {
+    faFacebook,
+    faGithub,
+    faInstagram,
+} from '@fortawesome/free-brands-svg-icons';
 import { faCopyright } from '@fortawesome/free-regular-svg-icons';
 import { faChevronRight } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
@@ -146,22 +150,37 @@ function Footer() {
                     </div>
                     <div className="text-center text-xl text-white mb-2 overflow-y-hidden">
                         <span className="mr-2 text-4xl">
-                            <FontAwesomeIcon
-                                className="text-white"
-                                icon={faFacebook}
-                            />
+                            <a
+                                href="https://www.facebook.com/vtm1304/"
+                                rel="noopener noreferrer"
+                            >
+                                <FontAwesomeIcon
+                                    className="text-white"
+                                    icon={faFacebook}
+                                />
+                            </a>
                         </span>
                         <span className="mr-2 text-4xl">
-                            <FontAwesomeIcon
-                                className="text-white"
-                                icon={faInstagram}
-                            />
+                            <a
+                                href="https://www.instagram.com/_t.ming/"
+                                rel="noopener noreferrer"
+                            >
+                                <FontAwesomeIcon
+                                    className="text-white"
+                                    icon={faInstagram}
+                                />
+                            </a>
                         </span>
                         <span className="mr-2 text-4xl">
-                            <FontAwesomeIcon
-                                className="text-white"
-                                icon={faGithub}
-                            />
+                            <a
+                                href="https://github.com/minh1304"
+                                rel="noopener noreferrer"
+                            >
+                                <FontAwesomeIcon
+                                    className="text-white"
+                                    icon={faGithub}
+                                />
+                            </a>
                         </span>
                     </div>
                 </div>
