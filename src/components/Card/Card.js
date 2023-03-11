@@ -2,8 +2,9 @@ import { useContext, useEffect, useState } from 'react';
 import config from '~/config';
 import { Link, useParams } from 'react-router-dom';
 import { PauseIcon, PlayIcon } from '../Icons';
-import { CartContext } from '~/context/CartProvider';
+// import { CartContext } from '~/context/CartProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { useDispatch } from 'react-redux'
 import {
     faDollarSign,
     faPlus,
@@ -11,12 +12,19 @@ import {
 } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';
 import LoadingSkeleton from '../LoadingSkeleton';
+import { addToCart } from '~/features/cartSlice';
 
 // export const DataAlbum = createContext();
 
 function Card({ data }) {
-    // const { totalItems, setTotalItems } = useContext(CardContext);
-    const { addToCart } = useContext(CartContext);
+    // const { addToCart } = useContext(CartContext);
+    const dispatch = useDispatch()
+    const handleAddToCart = (data) => {
+        console.log(data);
+        const action = addToCart(data);
+        console.log({action});
+        dispatch(action)
+    }
     const [onSee, setOnSee] = useState(false);
     // const [playing, setPlaying] = useState(false);
     const handleOnHover = () => {
@@ -149,7 +157,8 @@ function Card({ data }) {
                                     <div
                                     id='test'
                                         className="ml-3 hover:bg-primary transition-all text-sm font-bold inline-flex rounded-md px-4 py-2 text-center border-2 border-primary cursor-pointer"
-                                        onClick={() => addToCart(data, data.id)}
+                                        // onClick={() => addToCart(data, data.id)}
+                                        onClick={()=> handleAddToCart(data)}
                                     >
                                         
                                         <span>Add to cart</span>

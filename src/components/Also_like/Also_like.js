@@ -2,7 +2,6 @@ import { useContext, useEffect, useState } from 'react';
 import config from '~/config';
 import { Link, useParams } from 'react-router-dom';
 import { PauseIcon, PlayIcon } from '../Icons';
-import { CartContext } from '~/context/CartProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faDollarSign, faPlus } from '@fortawesome/free-solid-svg-icons';
 import { faStar } from '@fortawesome/free-solid-svg-icons';

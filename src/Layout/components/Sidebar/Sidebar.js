@@ -1,7 +1,7 @@
 import config from '~/config';
 import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
-import { CartContext } from '~/context/CartProvider';
+// import { CartContext } from '~/context/CartProvider';
 import Menu from './Menu';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
@@ -11,9 +11,12 @@ import {
     faClose,
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
+import { useSelector } from 'react-redux';
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
-    const { itemAmount } = useContext(CartContext);
+    // const { itemAmount } = useContext(CartContext);
+    const cart = useSelector(state=> state.allCart)
+    console.log("list cart: ", cart);
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         fetch('https://fakestoreapi.com/products/categories')
@@ -75,7 +78,7 @@ function Sidebar() {
                             <FontAwesomeIcon icon={faBagShopping} />
                         </span>
                         <span className="relative top-3 left-0 w-[25px] h-[25px] bg-primary overflow-y-hidden rounded-full">
-                            <p
+                            {/* <p
                                 className={`absolute top-[5px] ${
                                     itemAmount >= 10
                                         ? 'left-[6px]'
@@ -83,7 +86,7 @@ function Sidebar() {
                                 } text-xs `}
                             >
                                 {itemAmount}
-                            </p>
+                            </p> */}
                         </span>
                     </Link>
                 </div>

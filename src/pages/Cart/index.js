@@ -9,20 +9,20 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext } from 'react';
 import { Link } from 'react-router-dom';
-import { CartContext } from '~/context/CartProvider';
+// import { CartContext } from '~/context/CartProvider';
 function Cart() {
-    const {
-        itemAmount,
-        cart,   
-        total,
-        removeFromCart,
-        clearCart,
-        increaseAmount,
-        decreaseAmount,
-    } = useContext(CartContext);
+    // const {
+    //     itemAmount,
+    //     cart,   
+    //     total,
+    //     removeFromCart,
+    //     clearCart,
+    //     increaseAmount,
+    //     decreaseAmount,
+    // } = useContext(CartContext);
     return (
         <div className="bg-white grid grid-cols-12">
-            <div className="col-span-1"></div>
+            {/* <div className="col-span-1"></div>
             <div className="col-span-10">
                 {itemAmount > 0 && (
                     <div className="grid grid-cols-10 fixed w-[850px] bottom-0 z-10 shadow-2xl bg-white">
@@ -135,7 +135,7 @@ function Cart() {
                                                             icon={faPlus}
                                                         />
                                                     </p>
-                                                    {/* Tránh bị focus */}
+                                  
                                                     <p></p>
                                                 </div>
                                             </div>
@@ -160,7 +160,7 @@ function Cart() {
                                                     />
                                                 </p>
                                                 <p className="font-bold">
-                                                    {/* Math.round(total * 100) / 100 */}
+                                                  
                                                     {Math.round(
                                                         item.price *
                                                             item.amount *
@@ -180,7 +180,7 @@ function Cart() {
                     )}
                 </section>
             </div>
-            <div className="col-span-1"></div>
+            <div className="col-span-1"></div> */}
         </div>
     );
 }
