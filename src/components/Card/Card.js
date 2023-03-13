@@ -22,7 +22,7 @@ function Card({ data }) {
     const handleAddToCart = (data) => {
         console.log(data);
         const action = addToCart(data);
-        console.log({action});
+        // console.log({action});
         dispatch(action)
     }
     const [onSee, setOnSee] = useState(false);

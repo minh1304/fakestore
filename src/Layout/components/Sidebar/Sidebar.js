@@ -15,14 +15,22 @@ import { useSelector } from 'react-redux';
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
     // const { itemAmount } = useContext(CartContext);
-    const cart = useSelector(state=> state.allCart.count)
-    const itemAmount = cart;
+    const carts = useSelector(state=> state.allCart)
+    // const itemAmount = cart;
     const [categories, setCategories] = useState([]);
     useEffect(() => {
         fetch('https://fakestoreapi.com/products/categories')
             .then((res) => res.json())
             .then((res) => setCategories(res));
     }, []);
+    const [count, setCount] = useState(0);
+    useEffect(() => {
+        const total = carts.cart.reduce((acc, curr) => {
+            return acc + curr.amount;
+        }, 0);
+        setCount(total);
+    }, [carts.cart]);
+    // console.log("đếm:", count);
     const [isMobile, setisMobile] = useState(true);
     let Links = [
         { name: 'HOME', link: '/' },
@@ -80,12 +88,12 @@ function Sidebar() {
                         <span className="relative top-3 left-0 w-[25px] h-[25px] bg-primary overflow-y-hidden rounded-full">
                             <p
                                 className={`absolute top-[5px] ${
-                                    itemAmount >= 10
+                                    count >= 10
                                         ? 'left-[6px]'
                                         : 'left-[8px]'
                                 } text-xs `}
                             >
-                                {itemAmount}
+                                {count}
                             </p>
                         </span>
                     </Link>
