@@ -16,7 +16,6 @@ function Advertising({ data }) {
         }, 4000);
         return () => clearTimeout(timer);
     }, [currentIndex]);
-    console.log(test);
     const ads = [
         {
             // 626 417

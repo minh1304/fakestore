@@ -7,51 +7,35 @@ import {
     faXmark,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext } from 'react';
+import { useContext, useEffect, useState } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { clearCart, getCartTotal } from '~/features/cartSlice';
 // import { CartContext } from '~/context/CartProvider';
 function Cart() {
-    // const {
-    //     itemAmount,
-    //     cart,   
-    //     total,
-    //     removeFromCart,
-    //     clearCart,
-    //     increaseAmount,
-    //     decreaseAmount,
-    // } = useContext(CartContext);
+    const carts = useSelector((state) => state.allCart);
+    const dispath = useDispatch();
+    const handleClearCart = () => {
+        console.log('đã click');
+        const action = clearCart();
+        console.log({ action });
+        dispath(action);
+    };
+    console.log(carts.cart);
+    const [total, setTotal] = useState(0);
+    useEffect(() => {
+        const total = carts.cart.reduce((acc, curr) => {
+            return acc + curr.amount * curr.price;
+        }, 0);
+        setTotal(parseFloat(total));
+    }, [carts.cart]);
+    console.log(total);
+    const itemAmount = carts.count;
     return (
-        <div className="bg-white grid grid-cols-12">
-            {/* <div className="col-span-1"></div>
-            <div className="col-span-10">
-                {itemAmount > 0 && (
-                    <div className="grid grid-cols-10 fixed w-[850px] bottom-0 z-10 shadow-2xl bg-white">
-                        <div className="col-span-7 p-5">
-                            <p className="text-2xl font-semibold">Total: </p>
-                        </div>
-                        <div className="text-2xl font-semibold col-span-3 p-5">
-                            <div className="flex ml-8">
-                                <div className="flex w-[155px]">
-                                    <p className="ml-5 pr-2">
-                                        <FontAwesomeIcon icon={faDollarSign} />
-                                    </p>
-                                    <p>{Math.round(total * 100) / 100}</p>
-                                </div>
-
-                                <div
-                                    className="ml-2 w-[40px] h-[40px] hover:text-primary duration-200 text-center rounded"
-                                    onClick={() => clearCart()}
-                                >
-                                    <FontAwesomeIcon
-                                        className=""
-                                        icon={faTrashCan}
-                                    />
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                )}
-                <div className="bg-gray-200 h-[37px] flex">
+        <div className="xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
+            <div className="xl:col-span-1"></div>
+            <div className="xl:col-span-10 2xl:col-span-10 ">
+                <div className="bg-gray-200 h-[37px] flex z-20">
                     <Link to={'/'}>
                         <FontAwesomeIcon
                             className="pl-3 pr-2 pt-[10px] cursor-pointer hover:text-primary "
@@ -60,7 +44,7 @@ function Cart() {
                     </Link>
                     <h2 className="pt-[6px]">/ Cart</h2>
                 </div>
-                <section>
+                <section className='mt-[2px] min-h-[37vh]'>
                     {itemAmount === 0 ? (
                         <div className="mt-3 grid grid-cols-3">
                             <div className="col-span-1"></div>
@@ -78,7 +62,7 @@ function Cart() {
                     ) : (
                         <div className="mt-3 grid grid-cols-3">
                             <div className="col-span-2">
-                                {cart.map((item) => (
+                                {carts.cart.map((item) => (
                                     <div className="grid grid-cols-6 mb-10 border-b-2 border-gray-200 pb-3">
                                         <div className="col-span-1 w-[100px] min-h-[100px]">
                                             <img
@@ -109,11 +93,11 @@ function Cart() {
                                                 <div className="flex col-span-1">
                                                     <p
                                                         className="cursor-pointer w-5 hover:text-primary"
-                                                        onClick={() =>
-                                                            decreaseAmount(
-                                                                item.id,
-                                                            )
-                                                        }
+                                                        // onClick={() =>
+                                                        //     decreaseAmount(
+                                                        //         item.id,
+                                                        //     )
+                                                        // }
                                                     >
                                                         <FontAwesomeIcon
                                                             icon={faMinus}
@@ -125,27 +109,28 @@ function Cart() {
                                                     </p>
                                                     <p
                                                         className="cursor-pointer w-5  hover:text-primary"
-                                                        onClick={() =>
-                                                            increaseAmount(
-                                                                item.id,
-                                                            )
-                                                        }
+                                                        // onClick={() =>
+                                                        //     increaseAmount(
+                                                        //         item.id,
+                                                        //     )
+                                                        // }
                                                     >
                                                         <FontAwesomeIcon
                                                             icon={faPlus}
                                                         />
                                                     </p>
-                                  
+
                                                     <p></p>
                                                 </div>
                                             </div>
                                         </div>
                                         <div className="col-span-1">
+                                            
                                             <div
                                                 className="h-[50px] relative"
-                                                onClick={() =>
-                                                    removeFromCart(item.id)
-                                                }
+                                                // onClick={() =>
+                                                //     removeFromCart(item.id)
+                                                // }
                                             >
                                                 <p className="h-7 w-7 absolute top-0 right-5 text-center rounded-md text-gray-500 pt-[2px] duration-200 hover:text-primary">
                                                     <FontAwesomeIcon
@@ -160,27 +145,71 @@ function Cart() {
                                                     />
                                                 </p>
                                                 <p className="font-bold">
-                                                  
-                                                    {Math.round(
+                                                    {/* {Math.round(
                                                         item.price *
                                                             item.amount *
                                                             100,
-                                                    ) / 100}
+                                                    ) / 100} */}
+                                                    {item.amount*item.price}
                                                 </p>
                                             </div>
                                         </div>
                                     </div>
                                 ))}
-                            </div>
+                                <div>
+                                    {/* <h2>Địa chỉ vận chuyển </h2> */}
+                                    {itemAmount > 0 && (
+                                        <div className="">
+                                            <div className="col-span-7 p-5 flex">
+                                                <span className="text-base font-bold">
+                                                    Total:
+                                                </span>{' '}
+                                                <span className="pl-3 pr-2 text-base">
+                                                    <FontAwesomeIcon
+                                                        icon={faDollarSign}
+                                                    />
+                                                </span>
+                                                <span className="text-base font-bold">
+                                                    {total}
+                                                </span>
+       
+                                            </div>
+                                            {/* <div className="text-xl font-semibold col-span-3 p-5">
+                                                <div className="flex ml-8">
+                                                    <div className="flex w-[155px]">
+                                                        <p className="ml-5 pr-2">
+                                                            <FontAwesomeIcon
+                                                                icon={
+                                                                    faDollarSign
+                                                                }
+                                                            />
+                                                        </p>
+                                                        
+                                                        {total}
+                                                    </div>
 
-                            <div>
-                                <h2>Địa chỉ vận chuyển </h2>
+                                                    <div
+                                                        className="ml-2 w-[40px] h-[40px] hover:text-primary duration-200 text-center rounded"
+                                                        onClick={() =>
+                                                            handleClearCart()
+                                                        }
+                                                    >
+                                                        <FontAwesomeIcon
+                                                            className=""
+                                                            icon={faTrashCan}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div> */}
+                                        </div>
+                                    )}
+                                </div>
                             </div>
                         </div>
                     )}
                 </section>
             </div>
-            <div className="col-span-1"></div> */}
+            <div className="xl:col-span-1"></div>
         </div>
     );
 }

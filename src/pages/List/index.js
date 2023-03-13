@@ -1,6 +1,6 @@
 import config from '~/config';
 import { Link } from 'react-router-dom';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useParams } from 'react-router-dom';
 import Card from '~/components/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';

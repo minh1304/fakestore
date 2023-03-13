@@ -7,17 +7,17 @@ import {
 import { faChevronLeft } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useContext, useEffect, useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { Link, useParams } from 'react-router-dom';
 import Also_like from '~/components/Also_like';
 import LoadingSkeleton from '~/components/LoadingSkeleton';
-import { CartContext } from '~/context/CartProvider';
+import { addToCart } from '~/features/cartSlice';
 function Detail() {
     const [data, setData] = useState([]);
     const [categories, setCategories] = useState([]);
     const [rate, setRate] = useState();
     const [count, setCount] = useState();
     const { name } = useParams();
-    const { addToCart } = useContext(CartContext);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         fetch(`https://fakestoreapi.com/products/${name}`)
@@ -41,6 +41,12 @@ function Detail() {
     const test = 5 - Math.floor(rate);
     for (let i = 1; i < test; i++) {
         arrRate2.push(i);
+    }
+    const dispatch = useDispatch()
+    const handleAddToCart = (data) => {
+        const action = addToCart(data);
+        console.log({action});
+        dispatch(action)
     }
     return (
         <div className="bg-white  xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
@@ -143,7 +149,7 @@ function Detail() {
                                 {!loading && (
                                     <div
                                         className="mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
-                                        onClick={() => addToCart(data, data.id)}
+                                        onClick={() => handleAddToCart(data)}
                                     >
                                         <p></p>
                                         <p className="pr-3 font-semibold">
@@ -224,7 +230,7 @@ function Detail() {
                     </div>
                 </div>
                 <div>
-                    <div className="bg-gray-200">
+                    <div className="bg-white">
                         <div className="mt-[1px]"></div>
                         <Also_like
                             data={data.category}
