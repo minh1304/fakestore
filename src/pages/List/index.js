@@ -5,20 +5,20 @@ import { useParams } from 'react-router-dom';
 import Card from '~/components/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
-
+import * as productApi from '~/apiServices/productApi';
 function List() {
     const [data, setData] = useState([]);
     const { name } = useParams();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/category/${name}`)
-            .then((data) => data.json())
-            .then((data) => {
-                setData(data);
-                setLoading(true);
-            })
-            .catch((err) => console.error(err));
-
+        const fetchApi = async () => {
+            const listProduct = await productApi.getProductFromCategory({
+                name: name,
+            });
+            setData(listProduct);
+            setLoading(true);
+        };
+        fetchApi();
         setTimeout(() => {
             setLoading(false);
         }, 5 * 1000);

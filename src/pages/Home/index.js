@@ -45,7 +45,7 @@ function Home() {
                     <motion.div
                         initial="hidden"
                         whileInView="visible"
-                        viewport={{ once: true, amount: 0.5 }}
+                        viewport={{ once: true, amount: 0.4 }}
                         transition={{ duration: 0.4 }}
                         variants={{
                             // hidden: { opacity: 0, x: 80 },

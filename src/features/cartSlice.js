@@ -20,8 +20,6 @@ const cartSlice = createSlice({
             } else {
                 state.cart.push(newItem);
             }
-            // state.count += 1;
-            // console.log(state.count);
         },
         removeCart: (state, action) => {
             state.cart = state.cart.filter(

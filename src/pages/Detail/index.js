@@ -12,6 +12,8 @@ import { Link, useParams } from 'react-router-dom';
 import Also_like from '~/components/Also_like';
 import LoadingSkeleton from '~/components/LoadingSkeleton';
 import { addToCart } from '~/features/cartSlice';
+import * as productApi from '~/apiServices/productApi';
+
 function Detail() {
     const [data, setData] = useState([]);
     const [categories, setCategories] = useState([]);
@@ -20,15 +22,16 @@ function Detail() {
     const { name } = useParams();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
-        fetch(`https://fakestoreapi.com/products/${name}`)
-            .then((data) => data.json())
-            .then((data) => {
-                setData(data);
-                setRate(data.rating.rate);
-                setCount(data.rating.count);
-                setLoading(true);
-            })
-            .catch((err) => console.error(err));
+        const fetchApi = async () => {
+            const detailProduct = await productApi.geDetailProduct({
+                name: name,
+            });
+            setData(detailProduct);
+            setRate(detailProduct.rating.rate);
+            setCount(detailProduct.rating.rate)
+            setLoading(true);
+        };
+        fetchApi();
         setTimeout(() => {
             setLoading(false);
         }, 5 * 1000);
@@ -42,12 +45,12 @@ function Detail() {
     for (let i = 1; i < test; i++) {
         arrRate2.push(i);
     }
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const handleAddToCart = (data) => {
         const action = addToCart(data);
-        console.log({action});
-        dispatch(action)
-    }
+        console.log({ action });
+        dispatch(action);
+    };
     return (
         <div className="bg-white  xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
             <div className="xl:col-span-1"></div>

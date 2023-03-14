@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useContext, useEffect, useState } from 'react';
 // import { CartContext } from '~/context/CartProvider';
 import Menu from './Menu';
+import * as productApi from '~/apiServices/productApi';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
     faBagShopping,
@@ -15,13 +16,19 @@ import { useSelector } from 'react-redux';
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
     // const { itemAmount } = useContext(CartContext);
-    const carts = useSelector(state=> state.allCart)
+    const carts = useSelector((state) => state.allCart);
     // const itemAmount = cart;
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        fetch('https://fakestoreapi.com/products/categories')
-            .then((res) => res.json())
-            .then((res) => setCategories(res));
+        // fetch('https://fakestoreapi.com/products/categories')
+        //     .then((res) => res.json())
+        //     .then((res) => setCategories(res));
+
+        const fetchApi = async () => {
+            const categories = await productApi.getCategory();
+            setCategories(categories);
+        };
+        fetchApi();
     }, []);
     const [count, setCount] = useState(0);
     useEffect(() => {
@@ -41,15 +48,12 @@ function Sidebar() {
     ];
     let [open, setOpen] = useState(false);
     return (
-
         <div
             className={`shadow-md w-full fixed top-0 left-0 md:h-[82px] ${
                 open && 'h-[380px]'
             } z-50 overflow-y-hidden`}
         >
-            <div
-                className="md:flex items-center justify-between bg-black text-white px-7"
-            >
+            <div className="md:flex items-center justify-between bg-black text-white px-7">
                 <div className="h-[82px] ml-[-37px] text-center">
                     <Link
                         className="w-[100px] h-[82px]"
@@ -88,9 +92,7 @@ function Sidebar() {
                         <span className="relative top-3 left-0 w-[25px] h-[25px] bg-primary overflow-y-hidden rounded-full">
                             <p
                                 className={`absolute top-[5px] ${
-                                    count >= 10
-                                        ? 'left-[6px]'
-                                        : 'left-[8px]'
+                                    count >= 10 ? 'left-[6px]' : 'left-[8px]'
                                 } text-xs `}
                             >
                                 {count}

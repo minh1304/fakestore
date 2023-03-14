@@ -170,12 +170,10 @@ function Cart() {
                                                     />
                                                 </p>
                                                 <p className="font-bold">
-                                                    {/* {Math.round(
+                                                    {(item.amount *
                                                         item.price *
-                                                            item.amount *
-                                                            100,
-                                                    ) / 100} */}
-                                                    {item.amount * item.price}
+                                                        100) /
+                                                        100}
                                                 </p>
                                             </div>
                                         </div>
