@@ -20,11 +20,6 @@ import {
 function Cart() {
     const carts = useSelector((state) => state.allCart);
     const dispath = useDispatch();
-    // const handleClearCart = () => {
-    //     const action = clearCart();
-    //     console.log({ action });
-    //     dispath(action);
-    // };
     const cart = carts.cart;
 
     console.log(carts.cart);

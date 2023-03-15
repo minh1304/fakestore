@@ -11,11 +11,13 @@ import LoadingSkeleton from '~/components/LoadingSkeleton';
 import Slider from '~/components/Slider';
 import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 import { motion } from 'framer-motion';
+import { useDispatch, useSelector } from 'react-redux';
 
 function Home() {
     const { data } = useContext(Data);
     const [loading, setLoading] = useState(true);
-
+    const user = useSelector((state) => state.user.user);
+    console.log(user);
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
@@ -26,6 +28,7 @@ function Home() {
             {/* <div className='2xl:block xl:hidden'>1234</div> */}
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10 2xl:col-span-10 ">
+                {user && <div className='text-black'>Có user</div>}
                 <div>
                     <motion.div
                         initial="hidden"
@@ -52,7 +55,6 @@ function Home() {
                             // visible: { opacity: 1, x: 0 },
                             hidden: { opacity: 0, scale: 0.6 },
                             visible: { opacity: 1, scale: 1 },
-
                         }}
                     >
                         <Advertising data={data} />
