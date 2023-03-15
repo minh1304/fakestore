@@ -15,14 +15,11 @@ import {
 import { useSelector } from 'react-redux';
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
-    // const { itemAmount } = useContext(CartContext);
+
     const carts = useSelector((state) => state.allCart);
-    // const itemAmount = cart;
+
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-        // fetch('https://fakestoreapi.com/products/categories')
-        //     .then((res) => res.json())
-        //     .then((res) => setCategories(res));
 
         const fetchApi = async () => {
             const categories = await productApi.getCategory();
@@ -37,7 +34,6 @@ function Sidebar() {
         }, 0);
         setCount(total);
     }, [carts.cart]);
-    // console.log("đếm:", count);
     const [isMobile, setisMobile] = useState(true);
     let Links = [
         { name: 'HOME', link: '/' },
@@ -78,9 +74,11 @@ function Sidebar() {
                     {/* <Button>Get Started</Button> */}
                 </ul>
                 <div className="mt-3 flex md:static absolute right-20 top-[18px]">
-                    <div className="w-10 h-10 text-center cursor-pointer hover:opacity-70 duration-300">
-                        <FontAwesomeIcon icon={faUser} />
-                    </div>
+                    <Link to={config.routes.login}>
+                        <div className="w-10 h-10 text-center cursor-pointer hover:opacity-70 duration-300">
+                            <FontAwesomeIcon icon={faUser} />
+                        </div>
+                    </Link>
                     <Link
                         // onClick={() => console.log('mở giỏ hàng ')}
                         to={config.routes.cart}

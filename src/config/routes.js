@@ -4,6 +4,7 @@ const routes = {
     cart: '/cart',
     list: '/categories/:name',
     detail: '/product/:name',
+    login: '/login',
 };
 
 export default routes;
