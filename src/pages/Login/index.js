@@ -1,36 +1,31 @@
-import { signInWithPopup, signOut, onAuthStateChanged } from 'firebase/auth';
 import { useEffect, useState } from 'react';
-import { GoogleButton } from 'react-google-button';
-import * as userApi from '~/apiServices/userApi';
 import axios from 'axios';
 import { useDispatch } from 'react-redux';
 import { setToken, setUser } from '~/app/userSlice';
-
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 
 function Login() {
-    const [username, setUsername] = useState('');
-    const [password, setPassword] = useState('');
     const authUser = JSON.parse(localStorage.getItem('user'));
     console.log(authUser);
     const dispatch = useDispatch();
-
+    const [isLogin, setIsLogin] = useState(false);
 
     useEffect(() => {
         if (!authUser) return;
         else {
+            setIsLogin(true);
             dispatch(setToken(authUser.data.data.access_token));
             dispatch(setUser(authUser));
         }
     }, [authUser]);
-    const loginUser = () => {
+    const loginUser = (value) => {
         axios
             .post(
                 'https://api.storerestapi.com/auth/login',
                 {
-                    // email: 'marklyan@gmail.com',
-                    // password: 'simple_password',
-                    email: username,
-                    password: password,
+                    email: value.email,
+                    password: value.password,
                 },
                 {
                     headers: {
@@ -40,80 +35,112 @@ function Login() {
             )
             .then((response) => {
                 localStorage.setItem('user', JSON.stringify(response));
-                window.location.reload();
-
-                // console.log(response.data.data.access_token);
+                setIsLogin(true);
             })
             .catch((error) => console.error(error));
     };
-    // const googleSignIn = () => {
-    //     signInWithPopup(auth, provider);
-    // };
-    // const handleGoogleSignIn = () => {
-    //     try {
-    //         googleSignIn();
-    //     } catch (error) {
-    //         console.log(error);
-    //     }
-    // };
+    console.log(isLogin);
     const handleLogOut = () => {
         localStorage.removeItem('user');
         window.location.reload();
+        setIsLogin(false);
     };
+    const [isSubmitting, setSubmitting] = useState(false);
     return (
-        <div className="text-center">
-            {authUser ? (
+        <div className="grid grid-cols-6">
+            <div className="col-span-2"></div>
+            {isLogin ? (
                 <div>
-                    <h1>Có acc</h1>
-                    <button
-                        onClick={(e) => {
-                            e.preventDefault();
-                            handleLogOut();
-                        }}
-                        className="bg-red-500"
-                    >
-                        Log Out
-                    </button>
+                    <button onClick={handleLogOut}>logout</button>
                 </div>
             ) : (
-                <div>
-                    <h3>Login Form</h3>
+                <Formik
+                    initialValues={{
+                        email: '',
+                        password: '',
+                    }}
+                    validationSchema={Yup.object({
+                        email: Yup.string()
+                            .email('Please match the request format')
+                            .required('Please fill out this field'),
+                        password: Yup.string()
+                            .min(6, 'Passwords must be at least 6 characters')
+                            .required('Please fill out this field'),
+                    })}
+                    onSubmit={(values, { setSubmitting }) => {
+                        loginUser(values);
+                        console.log(values);
+                        setSubmitting(false);
+                    }}
+                >
+                    {({ isSubmitting }) => (
+                        <div className="mt-12 col-span-2 border-2 border-gray-300 h-[450px]  ">
+                            <div className="text-center">
+                                <p className="mt-7 text-3xl font-bold">Login</p>
+                            </div>
+                            <Form>
+                                <div className='w-[300px] mx-auto'>
+                                    <div className="mt-5 ">
+                                        <label
+                                            className="font-semibold "
+                                            htmlFor="email"
+                                        >
+                                            Email
+                                        </label>
+                                        <div className="mt-2">
+                                            <div className="mt-2">
+                                                <Field
+                                                    className="w-[298.66px] h-10 bg-gray-100"
+                                                    type="email"
+                                                    name="email"
+                                                    placeholder="bob@gmail.com"
+                                                />
+                                            </div>
+                                            <div className="mt-1 text-red-500">
+                                                <ErrorMessage name="email" />
+                                            </div>
+                                        </div>
+                                    </div>
 
-                    <form>
-                        <div className="">
-                            <input
-                                type={'text'}
-                                placeholder={'username'}
-                                name={'email'}
-                                value={username}
-                                onChange={(e) => setUsername(e.target.value)}
-                            />
-                        </div>
-                        <div className=" ">
-                            <input
-                                type={'password'}
-                                placeholder={'Password'}
-                                value={password}
-                                onChange={(e) => setPassword(e.target.value)}
-                            />
-                        </div>
-                        <button
-                            className=""
-                            onClick={(e) => {
-                                e.preventDefault();
-                                loginUser();
-                            }}
-                        >
-                            Log in
-                        </button>
-                    </form>
+                                    <div div className="mt-5 ">
+                                        <label
+                                            className="font-semibold"
+                                            htmlFor="password"
+                                        >
+                                            Password
+                                        </label>
+                                        <div className="mt-2">
+                                            <div className="mt-2">
+                                                <Field
+                                                    className="w-[298.66px] h-10 bg-gray-100"
+                                                    type="password"
+                                                    name="password"
+                                                    placeholder="
+                                                    Please enter a password"
+                                                />
+                                            </div>
+                                            <div className="mt-1 text-red-500">
+                                                <ErrorMessage name="password" />
+                                            </div>
+                                        </div>
+                                    </div>
 
-                    <p className="translate-x-[40%] ">
-                        {/* <GoogleButton onClick={handleGoogleSignIn} /> */}
-                        {/* <button onClick={handleGoogleSignIn}>Signin With Google</button> */}
-                    </p>
-                </div>
+                                    <div className="mt-5 text-center ">
+                                        <button
+                                            className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700"
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                        >
+                                            Login
+                                        </button>
+                                    </div>
+                                </div>
+                            </Form>
+                        </div>
+                    )}
+                </Formik>
             )}
+            <div className="col-span-2"></div>
         </div>
     );
 }

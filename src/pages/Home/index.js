@@ -28,7 +28,7 @@ function Home() {
             {/* <div className='2xl:block xl:hidden'>1234</div> */}
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10 2xl:col-span-10 ">
-                {user && <div className='text-black'>Có user</div>}
+                {user && <div className='text-black'>Acc Admin</div>}
                 <div>
                     <motion.div
                         initial="hidden"
