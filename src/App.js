@@ -1,12 +1,12 @@
-
 import { Fragment } from 'react'; //Component chỉ để chứa
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from './Layout';
+import { Provider } from 'react-redux';
+import { store } from '~/app/store';
 function App() {
-
     return (
-        // <DataMusics.Provider value={{ Data, song, handleSetSong }}>
+        <Provider store={store}>
             <Router>
                 <div>
                     <Routes>
@@ -20,7 +20,6 @@ function App() {
                             }
                             return (
                                 <Route
-                                
                                     key={index}
                                     path={route.path}
                                     element={
@@ -34,7 +33,7 @@ function App() {
                     </Routes>
                 </div>
             </Router>
-        // </DataMusics.Provider>
+        </Provider>
     );
 }
 

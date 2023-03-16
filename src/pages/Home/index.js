@@ -11,13 +11,12 @@ import LoadingSkeleton from '~/components/LoadingSkeleton';
 import Slider from '~/components/Slider';
 import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 import { motion } from 'framer-motion';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 
 function Home() {
     const { data } = useContext(Data);
     const [loading, setLoading] = useState(true);
     const user = useSelector((state) => state.user.user);
-    console.log(user);
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);

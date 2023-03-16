@@ -5,6 +5,8 @@ const routes = {
     list: '/categories/:name',
     detail: '/product/:name',
     login: '/login',
+    dashboard: '/dashboard',
+
 };
 
 export default routes;
