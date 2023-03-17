@@ -1,26 +1,18 @@
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
-import { setToken, setUser } from '~/app/userSlice';
+import { logout, selectUser, setToken, setUser } from '~/app/userSlice';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 
 function Login() {
-    
-    const  navigate = useNavigate();
+    const navigate = useNavigate();
+    const user = useSelector(selectUser);
+    console.log(user);
     const dispatch = useDispatch();
     const [isLogin, setIsLogin] = useState(false);
     const [err, setErr] = useState(false);
-    console.log(err);
-    // useEffect(() => {
-    //     if (!authUser) return;
-    //     else {
-    //         setIsLogin(true);
-    //         dispatch(setToken(authUser.data.data.access_token));
-    //         dispatch(setUser(authUser));
-    //     }
-    // }, [authUser]);
     const loginUser = (value) => {
         axios
             .post(
@@ -36,14 +28,10 @@ function Login() {
                 },
             )
             .then((response) => {
-                localStorage.setItem('user', JSON.stringify(response));
-                setIsLogin(true);
-                const authUser = JSON.parse(localStorage.getItem('user'));
-                dispatch(setToken(authUser.data.data.access_token));
-                dispatch(setUser(authUser));
+                console.log(response);
+                dispatch(setToken(response.data.data.access_token));
+                dispatch(setUser(response));
                 navigate('/dashboard');
-                
-                
             })
             .catch((error) => {
                 if (error) {
@@ -54,9 +42,8 @@ function Login() {
     };
     console.log(isLogin);
     const handleLogOut = () => {
-        localStorage.removeItem('user');
+        dispatch(logout());
         window.location.reload();
-        setIsLogin(false);
     };
     const [isSubmitting, setSubmitting] = useState(false);
     return (
@@ -68,56 +55,6 @@ function Login() {
                     <div className="text-center">
                         <p className="mt-7 text-3xl font-bold">Information</p>
                     </div>
-                    {/* <Form>
-                            <div className="w-[300px] mx-auto">
-                                <div className="mt-5 ">
-                                    <label
-                                        className="font-semibold "
-                                        htmlFor="email"
-                                    >
-                                        Email
-                                    </label>
-                                    <div className="mt-2">
-                                        <div className="mt-2">
-                                            <Field
-                                                className="w-[298.66px] h-10 bg-gray-100"
-                                                type="email"
-                                                name="email"
-                                                placeholder="bob@gmail.com"
-                                            />
-                                        </div>
-                                        <div className="mt-1 text-red-500">
-                                            <ErrorMessage name="email" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div div className="mt-5 ">
-                                    <label
-                                        className="font-semibold"
-                                        htmlFor="password"
-                                    >
-                                        Password
-                                    </label>
-                                    <div className="mt-2">
-                                        <div className="mt-2">
-                                            <Field
-                                                className="w-[298.66px] h-10 bg-gray-100"
-                                                type="password"
-                                                name="password"
-                                                placeholder="
-                                                    Please enter a password"
-                                            />
-                                        </div>
-                                        <div className="mt-1 text-red-500">
-                                            <ErrorMessage name="password" />
-                                        </div>
-                                    </div>
-                                </div>
-
-
-                            </div>
-                        </Form> */}
                     <div className="mt-5 text-center ">
                         <button
                             onClick={handleLogOut}
@@ -202,7 +139,7 @@ function Login() {
                                         </div>
                                     </div>
                                     {err && (
-                                        <div className='mt-3'>
+                                        <div className="mt-3">
                                             <p className="text-red-500">
                                                 The user name or password is
                                                 incorrect, please type again

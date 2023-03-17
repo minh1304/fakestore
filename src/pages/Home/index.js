@@ -12,11 +12,14 @@ import Slider from '~/components/Slider';
 import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
+import { selectUser } from '~/app/userSlice';
 
 function Home() {
     const { data } = useContext(Data);
     const [loading, setLoading] = useState(true);
-    const user = useSelector((state) => state.user.user);
+    const test = useSelector(selectUser)
+    console.log("user nè: ",test);
+    
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
@@ -27,7 +30,7 @@ function Home() {
             {/* <div className='2xl:block xl:hidden'>1234</div> */}
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10 2xl:col-span-10 ">
-                {user && <div className='text-black'>Acc Admin</div>}
+            
                 <div>
                     <motion.div
                         initial="hidden"
