@@ -9,8 +9,24 @@ function Dashboard() {
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(logout());
-        navigate('/')
+        navigate('/');
     };
+    const handleTest = () => [
+        fetch('https://fakestoreapi.com/products',{
+            method:"POST",
+            body:JSON.stringify(
+                {
+                    title: 'test product',
+                    price: 13.5,
+                    description: 'lorem ipsum set',
+                    image: 'https://i.pravatar.cc',
+                    category: 'electronic'
+                }
+            )
+        })
+            .then(res=>res.json())
+            .then(json=>console.log(json))
+    ];
     console.log(user);
     return (
         <div>
@@ -23,6 +39,14 @@ function Dashboard() {
                             onClick={() => handleLogout()}
                         >
                             Đăng xuất
+                        </button>
+                    </div>
+                    <div className='mt-10'>
+                        <button
+                            onClick={() => handleTest()}
+                            className="bg-black text-white"
+                        >
+                            Test api
                         </button>
                     </div>
                 </div>

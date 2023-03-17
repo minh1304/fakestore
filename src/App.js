@@ -3,10 +3,12 @@ import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
 import { publicRoutes } from '~/routes';
 import { DefaultLayout } from './Layout';
 import { Provider } from 'react-redux';
-import { store } from '~/app/store';
+import { PersistGate } from 'redux-persist/integration/react';
+import { store, persistor } from '~/app/store';
 function App() {
     return (
         <Provider store={store}>
+            <PersistGate loading={null} persistor={persistor}>
             <Router>
                 <div>
                     <Routes>
@@ -33,6 +35,8 @@ function App() {
                     </Routes>
                 </div>
             </Router>
+            </PersistGate>
+
         </Provider>
     );
 }
