@@ -45,7 +45,7 @@ function List() {
                         {/* <div className="col-span-1"></div> */}
                         <div className="col-span-12">
                             <div className="mt-[1px]"></div>
-                            <div className="grid grid-cols-4">
+                            <div className="grid md:grid-cols-4 grid-cols-2">
                                 {loading &&
                                     data.map((card, index) => (
                                         <Card.Loading data={card} key={index} />

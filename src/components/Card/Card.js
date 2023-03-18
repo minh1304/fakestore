@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import config from '~/config';
 import { Link, useParams } from 'react-router-dom';
 import { PauseIcon, PlayIcon } from '../Icons';
@@ -17,7 +17,6 @@ import { addToCart } from '~/features/cartSlice';
 // export const DataAlbum = createContext();
 
 function Card({ data }) {
-    // const { addToCart } = useContext(CartContext);
     const dispatch = useDispatch()
     const handleAddToCart = (data) => {
         console.log(data);

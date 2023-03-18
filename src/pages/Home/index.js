@@ -4,7 +4,7 @@ import {
     faChevronCircleRight,
 } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useContext, useEffect, useState } from 'react';
+import { useEffect, useState } from 'react';
 import Advertising from '~/components/Advertising';
 import Card from '~/components/Card';
 import LoadingSkeleton from '~/components/LoadingSkeleton';
@@ -13,13 +13,14 @@ import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 import { motion } from 'framer-motion';
 import { useSelector } from 'react-redux';
 import { selectUser } from '~/app/userSlice';
+import { selectProduct } from '~/features/productSlice';
 
 function Home() {
-    const { data } = useContext(Data);
+
     const [loading, setLoading] = useState(true);
-    const test = useSelector(selectUser)
-    console.log("user nè: ",test);
-    
+    // const test = useSelector(selectUser)
+    // console.log("user nè: ",test);
+    const data = useSelector(selectProduct)
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
