@@ -47,11 +47,12 @@ function Login() {
     };
     const [isSubmitting, setSubmitting] = useState(false);
     return (
-        <div className="grid grid-cols-6">
+        <div className="grid lg:grid-cols-6">
+            
             <div className="col-span-2"></div>
             {isLogin ? (
                 // <div>
-                <div className="mt-12 col-span-2 border-2 border-gray-300 w-[300px] h-[450px]  ">
+                <div className="mt-12 col-span-2 border-2 border-gray-300 w-[300px] h-[450px] ">
                     <div className="text-center">
                         <p className="mt-7 text-3xl font-bold">Information</p>
                     </div>

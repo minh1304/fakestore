@@ -37,7 +37,7 @@ function Also_like({ data, name, state_load }) {
     console.log(list);
     return (
         <div
-            className="grid grid-cols-4 "
+            className="grid lg:grid-cols-4 grid-cols-2 "
         >
             {loading &&
                 list.map((item, index) => (

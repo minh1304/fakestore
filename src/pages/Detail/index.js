@@ -28,7 +28,7 @@ function Detail() {
             });
             setData(detailProduct);
             setRate(detailProduct.rating.rate);
-            setCount(detailProduct.rating.rate)
+            setCount(detailProduct.rating.rate);
             setLoading(true);
         };
         fetchApi();
@@ -55,33 +55,35 @@ function Detail() {
         <div className="bg-white  xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10  2xl:col-span-10">
-                <div className="bg-gray-200 h-[37px] flex">
-                    <Link to={'/'}>
-                        <FontAwesomeIcon
-                            className="pl-3 pr-2 pt-[8px] cursor-pointer hover:text-primary "
-                            icon={faHome}
-                        />
-                    </Link>
+                <div className="bg-gray-200 h-[37px] flex ">
+                    <p>
+                        <Link to={'/'}>
+                            <FontAwesomeIcon
+                                className="pl-3 pr-2 lg:pt-[8px] pt-[10px] cursor-pointer hover:text-primary "
+                                icon={faHome}
+                            />
+                        </Link>
+                    </p>
                     <div className="flex">
-                        <h2 className="pt-[6px] pr-1 font-semibold">/</h2>
+                        <h2 className="lg:pt-[6px] pt-[7px] pr-1 font-semibold">
+                            /
+                        </h2>
                         <Link to={`/categories/${data.category}`}>
-                            <h2 className="pt-[6px] pr-1 font-semibold uppercase hover:text-primary ">
+                            <h2 className="lg:pt-[6px] pt-[7px] pr-1 font-semibold uppercase hover:text-primary ">
                                 {data.category}
                             </h2>
                         </Link>
                     </div>
-                    <h2 className="pt-[6px] pr-1 font-semibold">/</h2>
-                    <h2 className="pt-[6px] font-semibold text-gray-500 ">
-                        {' '}
-                        {data.title}
+                    <h2 className="lg:pt-[6px] lg:pr-1 pt-[7px] lg:pl-0 pr-0 pl-1 font-semibold">
+                        /
                     </h2>
                 </div>
 
                 <section className="mt-10 mb-7">
-                    <div className="grid grid-cols-3">
-                        <div className="col-span-1 mx-auto">
+                    <div className="grid md:grid-cols-3">
+                        <div className="col-span-1 lg:mx-auto ml-5">
                             {loading && (
-                                <LoadingSkeleton className="w-[300px] h-[400px] rounded-md" />
+                                <LoadingSkeleton className="w-[260px] h-[400px] rounded-md" />
                             )}
                             {!loading && (
                                 <img
@@ -91,16 +93,16 @@ function Detail() {
                                 />
                             )}
                         </div>
-                        <div className="col-span-1 mx-auto">
+                        <div className="col-span-1 lg:mx-auto ml-5 lg:mt-0 mt-3">
                             {loading && (
-                                <LoadingSkeleton className="w-[300px] h-[30px]" />
+                                <LoadingSkeleton className="w-[256px] h-[30px]" />
                             )}
                             {!loading && (
-                                <div className="text-black text-3xl font-medium">
+                                <div className="text-black text-2xl font-medium">
                                     {data.title}
                                 </div>
                             )}
-                            <div className="pt-2">
+                            <div className="pt-2 lg:mt-0 mt-3">
                                 {loading && (
                                     <LoadingSkeleton className="w-[160px] h-[20px]" />
                                 )}
@@ -144,7 +146,7 @@ function Detail() {
                                 </div>
                             )}
                             <div>
-                                <div className="pt-2">
+                                <div className="pt-2 lg:mt-0 mt-3">
                                     {loading && (
                                         <LoadingSkeleton className="w-[160px] h-[50px] rounded-md" />
                                     )}
@@ -167,12 +169,12 @@ function Detail() {
                                 )}
                             </div>
                         </div>
-                        <div className="col-span-1 ml-5 pr-10">
+                        <div className="col-span-1 ml-5 pr-10  lg:mt-0 mt-3 ">
                             {loading && (
                                 <LoadingSkeleton className="w-[160px] h-[30px]" />
                             )}
                             {!loading && (
-                                <div className="text-black text-2xl">
+                                <div className="text-black text-2xl font-medium ">
                                     Description
                                 </div>
                             )}
