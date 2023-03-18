@@ -5,7 +5,7 @@ import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
 
 
-//Tạo persist cofig cho mỗi reducer 
+//Tạo persist config cho mỗi reducer 
 // Nếu kh cần add vào local storage thì kh cần làm
 const userPersistConfig = {
     key: 'user',
@@ -43,7 +43,7 @@ export const persistor = persistStore(store);
 // });
 
 
-//Code cũ khi chỉ add user vào redux persist
+//Code cũ khi chỉ add user vào localStorage bằng redux persist
 
 // import { configureStore } from '@reduxjs/toolkit';
 // import cartReducer from '../features/cartSlice';
