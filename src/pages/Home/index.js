@@ -28,7 +28,7 @@ function Home() {
     }, []);
     return (
         <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10 ">
-            {/* <div className='2xl:block xl:hidden'>1234</div> */}
+
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10 2xl:col-span-10 ">
             

@@ -12,15 +12,16 @@ function Header() {
         navigate('/');
     };
     return (
-        <div className="h-[82px] bg-black flex overflow-hidden">
-            <div className="h-[82px] ml-[-37px] text-center">
+        <div className="h-[82px] bg-black overflow-hidden grid grid-cols-10 ">
+            <div className="h-[82px] ml-[0px] text-center col-span-2 ">
                 <img
                     className="w-[100px] md:ml-16 mt-2"
                     src="https://seeklogo.com/images/O/off-white-virgilabloh-logo-766416FD87-seeklogo.com.png"
                     alt="logo"
                 />
             </div>
-            <div className="ml-5 translate-y-7 flex">
+            <div className='col-span-5'></div>
+            <div className="ml-5 translate-y-7 col-span-3 md:ml-32 lg:ml-52">
                 <span>
                     <FontAwesomeIcon
                         className="text-white text-xl"
@@ -28,7 +29,7 @@ function Header() {
                     />
                 </span>
                 <span className="ml-3 text-white font-bold">Admin</span>
-                <div className="ml-3 w-[130px]">
+                <div className="w-[130px]">
                     <div
                         className=" h-[28px] text-white relative group cursor-pointer"
                         onClick={() => handleLogout()}

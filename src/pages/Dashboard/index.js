@@ -18,8 +18,9 @@ function Dashboard() {
     return (
         <div>
             {/* <Header /> */}
-            <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-12">
-                <div className="xl:col-span-1"></div>
+            <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
+                <div className="xl:col-span-1">
+                </div>
                 <div className="xl:col-span-10 2xl:col-span-10">
                     <div className="col-span-1">Add new product</div>
                 </div>

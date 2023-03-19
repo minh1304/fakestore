@@ -34,14 +34,6 @@ function Sidebar() {
         }, 0);
         setCount(total);
     }, [carts.cart]);
-    const [isMobile, setisMobile] = useState(true);
-    let Links = [
-        { name: 'HOME', link: '/' },
-        { name: 'SERVICE', link: '/' },
-        { name: 'ABOUT', link: '/' },
-        { name: "BLOG'S", link: '/' },
-        { name: 'CONTACT', link: '/' },
-    ];
     let [open, setOpen] = useState(false);
     return (
         <div
@@ -80,7 +72,6 @@ function Sidebar() {
                         </div>
                     </Link>
                     <Link
-                        // onClick={() => console.log('mở giỏ hàng ')}
                         to={config.routes.cart}
                         className="ml-2 w-10 h-15 text-center cursor-pointer flex hover:opacity-70 duration-300"
                     >

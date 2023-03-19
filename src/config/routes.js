@@ -6,6 +6,7 @@ const routes = {
     detail: '/product/:name',
     login: '/login',
     dashboard: '/dashboard',
+    order: '/dashboard/order',
     adjustUser: '/dashboard/adjustUser',
 };
 

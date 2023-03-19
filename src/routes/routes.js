@@ -8,10 +8,10 @@ import List from '~/pages/List';
 import Detail from '~/pages/Detail';
 import Login from '~/pages/Login';
 
-
 import { AdminLayout } from '~/Layout';
 import Dashboard from '~/pages/Dashboard';
 import AdjustUser from '~/pages/AdjustUser';
+import Order from '~/pages/Order';
 // import Personal from '~/pages/Personal';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -21,12 +21,18 @@ const publicRoutes = [
     { path: config.routes.detail, component: Detail },
     { path: config.routes.login, component: Login },
 
+    {
+        path: config.routes.dashboard,
+        component: Dashboard,
+        layout: AdminLayout,
+    },
+    { path: config.routes.order, component: Order, layout: AdminLayout },
+    {
+        path: config.routes.adjustUser,
+        component: AdjustUser,
+        layout: AdminLayout,
+    },
 
-    { path: config.routes.dashboard, component: Dashboard, layout: AdminLayout },
-    { path: config.routes.adjustUser, component: AdjustUser, layout: AdminLayout },
-
-
-    
     // { path: config.routes.login, component: Login, layout: null  },
 ];
 
