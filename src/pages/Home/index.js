@@ -11,27 +11,40 @@ import LoadingSkeleton from '~/components/LoadingSkeleton';
 import Slider from '~/components/Slider';
 import { Data } from '~/Layout/DefaultLayout/DefaultLayout';
 import { motion } from 'framer-motion';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '~/app/userSlice';
 import { selectProduct } from '~/features/productSlice';
+import { clearCount } from '~/features/cartSlice';
 
 function Home() {
-
     const [loading, setLoading] = useState(true);
     // const test = useSelector(selectUser)
     // console.log("user nè: ",test);
-    const data = useSelector(selectProduct)
+    const data = useSelector(selectProduct);
+    const [isAdd, setIsAdd] = useState(false);
+    // const dispatch = useDispatch();
+    // const test = useSelector((state) => state.allCart.count);
+    // console.log(test);
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-        }, 5 * 1000);
+            // if (test !== 0) {
+            //     dispatch(clearCount())
+            // }
+        }, 4 * 1000);
     }, []);
+
     return (
         <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10 ">
-
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10 2xl:col-span-10 ">
-            
+                <div
+                    className={` ${
+                        isAdd ? `h-[100px] bg-red-500 text-white` : 'hidden'
+                    } `}
+                >
+                    Added cart
+                </div>
                 <div>
                     <motion.div
                         initial="hidden"

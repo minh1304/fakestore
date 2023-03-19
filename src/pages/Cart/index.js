@@ -165,10 +165,7 @@ function Cart() {
                                                     />
                                                 </p>
                                                 <p className="font-bold">
-                                                    {(item.amount *
-                                                        item.price *
-                                                        100) /
-                                                        100}
+                                                    {(item.amount * item.price).toFixed(2)}
                                                 </p>
                                             </div>
                                         </div>
@@ -188,7 +185,9 @@ function Cart() {
                                                     />
                                                 </span>
                                                 <span className="text-base font-bold">
-                                                    {(total * 100) / 100}
+                                                    {parseFloat(
+                                                        total.toFixed(2),
+                                                    )}
                                                 </span>
                                             </div>
                                             {/* <div className="text-xl font-semibold col-span-3 p-5">

@@ -87,3 +87,17 @@ html *::-webkit-scrollbar-track {
         background-position: right -40px top 0;
     }
 }
+
+.animate-appear {
+    animation: appear 0.4s forwards;
+}
+
+@keyframes appear {
+    from {
+        transform: scale(0);
+    }
+
+    to {
+        transform: scale(1);
+    }
+}

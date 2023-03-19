@@ -4,7 +4,7 @@ import { Link, useParams } from 'react-router-dom';
 import { PauseIcon, PlayIcon } from '../Icons';
 // import { CartContext } from '~/context/CartProvider';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { useDispatch } from 'react-redux'
+import { useDispatch } from 'react-redux';
 import {
     faDollarSign,
     faPlus,
@@ -17,13 +17,13 @@ import { addToCart } from '~/features/cartSlice';
 // export const DataAlbum = createContext();
 
 function Card({ data }) {
-    const dispatch = useDispatch()
+    const dispatch = useDispatch();
     const handleAddToCart = (data) => {
         console.log(data);
         const action = addToCart(data);
         // console.log({action});
-        dispatch(action)
-    }
+        dispatch(action);
+    };
     const [onSee, setOnSee] = useState(false);
     // const [playing, setPlaying] = useState(false);
     const handleOnHover = () => {
@@ -60,17 +60,21 @@ function Card({ data }) {
                                         </p>
                                     </Link>
                                     <Link to={`/product/${data.id}`}>
-                                        <p className='ml-3 mb-2 text-lg font-bold overflow-hidden opacity-85 text-white hover:text-primary'>{data.price} <FontAwesomeIcon icon={faDollarSign}/> </p>
+                                        <p className="ml-3 mb-2 text-lg font-bold overflow-hidden opacity-85 text-white hover:text-primary">
+                                            {data.price}{' '}
+                                            <FontAwesomeIcon
+                                                icon={faDollarSign}
+                                            />{' '}
+                                        </p>
                                         <p className="ml-3 mb-12 text-lg font-bold h-[56px] overflow-hidden opacity-85 hover:text-primary">
                                             {data.title}
                                         </p>
                                     </Link>
                                     <div
-                                    id='test'
+                                        id="test"
                                         className="ml-3 hover:bg-primary transition-all text-sm font-bold inline-flex rounded-md px-4 py-2 text-center border-2 border-primary cursor-pointer"
-                                        onClick={()=> handleAddToCart(data)}
+                                        onClick={() => handleAddToCart(data)}
                                     >
-                                        
                                         <span>Add to cart</span>
                                         <div className="h-[0.5px]"></div>
                                         <FontAwesomeIcon
