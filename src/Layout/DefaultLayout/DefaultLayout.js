@@ -24,8 +24,6 @@ function DefaultLayout({ children }) {
 
     return (
         <div>
-            {' '}
-            {/* <button onClick={handleTest} className='text-black w-10 h-10 bg-red-500'>ahihi</button> */}
             <Sidebar />
             <div className="overflow-y-auto top-0 left-0 bg-white">
                 <div className="mt-[82px] max-w-7xl mx-auto">

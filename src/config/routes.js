@@ -6,7 +6,7 @@ const routes = {
     detail: '/product/:name',
     login: '/login',
     dashboard: '/dashboard',
-
+    adjustUser: '/dashboard/adjustUser',
 };
 
 export default routes;

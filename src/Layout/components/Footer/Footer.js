@@ -118,10 +118,10 @@ function Footer() {
                             <h4 className="text-white pb-4 uppercase text-xl">
                                 Join Our Newsletter
                             </h4>
-                            <p className="text-gray-400 pb-2">
+                            {/* <p className="text-gray-400 pb-2">
                                 Join 25,000+ others and never miss out on new
                                 tips, tutorials , and more
-                            </p>
+                            </p> */}
                             <form className="flex flex-row flex-wrap">
                                 <input
                                     type="text"
