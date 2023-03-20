@@ -49,7 +49,7 @@ function Login() {
     return (
         <div className="grid lg:grid-cols-6">
             
-            <div className="col-span-2"></div>
+            <div className="col-span-2 relative z-10"></div>
             {isLogin ? (
                 // <div>
                 <div className="mt-12 col-span-2 border-2 border-gray-300 w-[300px] h-[450px] ">

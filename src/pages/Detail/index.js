@@ -79,7 +79,7 @@ function Detail() {
                     </h2>
                 </div>
 
-                <section className="mt-10 mb-7">
+                <div className="mt-10 mb-7">
                     <div className="grid md:grid-cols-3">
                         <div className="col-span-1 lg:mx-auto ml-5">
                             {loading && (
@@ -153,10 +153,10 @@ function Detail() {
                                 </div>
                                 {!loading && (
                                     <div
-                                        className="mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
+                                        className="relative z-[10] mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
                                         onClick={() => handleAddToCart(data)}
                                     >
-                                        <p></p>
+                
                                         <p className="pr-3 font-semibold">
                                             Add to cart
                                         </p>
@@ -212,6 +212,7 @@ function Detail() {
                                             Category:{' '}
                                         </p>
                                         <Link
+                                            className='relative z-[10]'
                                             to={`/categories/${data.category}`}
                                         >
                                             <p className="uppercase text-primary hover:text-red-500 cursor-pointer">
@@ -226,7 +227,7 @@ function Detail() {
                             )}
                         </div>
                     </div>
-                </section>
+                </div>
                 <div className="bg-gray-200 h-[37px] flex">
                     <div className="grid grid-cols-10 mt-1">
                         <p className="pl-3 col-span-10 font-bold text-lg">

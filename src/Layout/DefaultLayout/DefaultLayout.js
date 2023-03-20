@@ -35,7 +35,7 @@ function DefaultLayout({ children }) {
     return (
         <div className="">
             <div className={``}>
-                <div class={`${test ? 'z-50' : ''} fixed  top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bottom-0 right-0 flex items-center justify-center`}>
+                <div class={`${test ? 'z-50 ' : 'z-0'} fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bottom-0 right-0 flex items-center justify-center`}>
                     <div
                         class={`bg-black/60 rounded-md p-10 transform transition ${
                             test ? 'scale-1 duration-300' : 'scale-0 duration-200'
