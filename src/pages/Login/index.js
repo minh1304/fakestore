@@ -49,7 +49,7 @@ function Login() {
     return (
         <div className="grid lg:grid-cols-6">
             
-            <div className="col-span-2 relative z-10"></div>
+            <div className="col-span-2"></div>
             {isLogin ? (
                 // <div>
                 <div className="mt-12 col-span-2 border-2 border-gray-300 w-[300px] h-[450px] ">
@@ -105,7 +105,7 @@ function Login() {
                                         <div className="mt-2">
                                             <div className="mt-2">
                                                 <Field
-                                                    className="w-[298.66px] h-10 bg-gray-100"
+                                                    className="w-[298.66px] h-10 bg-gray-100 relative z-10"
                                                     type="email"
                                                     name="email"
                                                     placeholder="bob@gmail.com"
@@ -127,7 +127,7 @@ function Login() {
                                         <div className="mt-2">
                                             <div className="mt-2">
                                                 <Field
-                                                    className="w-[298.66px] h-10 bg-gray-100"
+                                                    className="w-[298.66px] h-10 bg-gray-100  relative z-10"
                                                     type="password"
                                                     name="password"
                                                     placeholder="
@@ -150,7 +150,7 @@ function Login() {
 
                                     <div className="mt-5 text-center ">
                                         <button
-                                            className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700"
+                                            className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700 relative z-10"
                                             type="submit"
                                             disabled={isSubmitting}
                                         >
