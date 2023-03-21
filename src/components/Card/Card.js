@@ -66,13 +66,13 @@ function Card({ data }) {
                                                 icon={faDollarSign}
                                             />{' '}
                                         </p>
-                                        <p className="ml-3 mb-12 text-lg font-bold h-[56px] overflow-hidden opacity-85 hover:text-primary">
+                                        <p className="ml-3 mb-16 text-lg font-bold h-[56px] overflow-hidden opacity-85 hover:text-primary">
                                             {data.title}
                                         </p>
                                     </Link>
                                     <div
                                         id="test"
-                                        className="ml-3 hover:bg-primary transition-all text-sm font-bold inline-flex rounded-md px-4 py-2 text-center border-2 border-primary cursor-pointer"
+                                        className="ml-3 mt-2 hover:bg-primary transition-all text-sm font-bold inline-flex rounded-md px-4 py-2 text-center border-2 border-primary cursor-pointer"
                                         onClick={() => handleAddToCart(data)}
                                     >
                                         <span>Add to cart</span>

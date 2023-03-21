@@ -10,6 +10,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { Link } from 'react-router-dom';
+import { Formik, Field, Form, ErrorMessage } from 'formik';
+import * as Yup from 'yup';
 import {
     clearCart,
     decrease,
@@ -165,7 +167,9 @@ function Cart() {
                                                     />
                                                 </p>
                                                 <p className="font-bold">
-                                                    {(item.amount * item.price).toFixed(2)}
+                                                    {(
+                                                        item.amount * item.price
+                                                    ).toFixed(2)}
                                                 </p>
                                             </div>
                                         </div>
@@ -220,6 +224,107 @@ function Cart() {
                                         </div>
                                     )}
                                 </div>
+                            </div>
+                            <div className="col-span-1">
+                                <h1>Địa chỉ nhận hàng</h1>
+                                {/* <Formik
+                                    initialValues={{
+                                        email: '',
+                                        password: '',
+                                    }}
+                                    validationSchema={Yup.object({
+                                        email: Yup.string()
+                                            .email(
+                                                'Please match the request format',
+                                            )
+                                            .required(
+                                                'Please fill out this field',
+                                            ),
+                                        password: Yup.string()
+                                            .min(
+                                                6,
+                                                'Passwords must be at least 6 characters',
+                                            )
+                                            .required(
+                                                'Please fill out this field',
+                                            ),
+                                    })}
+                                    onSubmit={(values, { setSubmitting }) => {
+                                        // loginUser(values);
+                                        console.log(values);
+                                        setSubmitting(false);
+                                    }}
+                                >
+                                    {({ isSubmitting }) => (
+                                        <div className="mt-12 col-span-2 border-2 border-gray-300 h-[450px]  ">
+                                            <div className="text-center">
+                                                <p className="mt-7 text-3xl font-bold">
+                                                    Login
+                                                </p>
+                                            </div>
+                                            <Form>
+                                                <div className="w-[300px] mx-auto">
+                                                    <div className="mt-5 ">
+                                                        <label
+                                                            className="font-semibold "
+                                                            htmlFor="email"
+                                                        >
+                                                            Email
+                                                        </label>
+                                                        <div className="mt-2">
+                                                            <div className="mt-2">
+                                                                <Field
+                                                                    className="w-[298.66px] h-10 bg-gray-100 relative z-10"
+                                                                    type="email"
+                                                                    name="email"
+                                                                    placeholder="bob@gmail.com"
+                                                                />
+                                                            </div>
+                                                            <div className="mt-1 text-red-500">
+                                                                <ErrorMessage name="email" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div div className="mt-5 ">
+                                                        <label
+                                                            className="font-semibold"
+                                                            htmlFor="password"
+                                                        >
+                                                            Password
+                                                        </label>
+                                                        <div className="mt-2">
+                                                            <div className="mt-2">
+                                                                <Field
+                                                                    className="w-[298.66px] h-10 bg-gray-100  relative z-10"
+                                                                    type="password"
+                                                                    name="password"
+                                                                    placeholder="
+                                                    Please enter a password"
+                                                                />
+                                                            </div>
+                                                            <div className="mt-1 text-red-500">
+                                                                <ErrorMessage name="password" />
+                                                            </div>
+                                                        </div>
+                                                    </div>
+
+                                                    <div className="mt-5 text-center ">
+                                                        <button
+                                                            className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700 relative z-10"
+                                                            type="submit"
+                                                            disabled={
+                                                                isSubmitting
+                                                            }
+                                                        >
+                                                            Login
+                                                        </button>
+                                                    </div>
+                                                </div>
+                                            </Form>
+                                        </div>
+                                    )}
+                                </Formik> */}
                             </div>
                         </div>
                     )}

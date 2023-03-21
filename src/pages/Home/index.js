@@ -18,13 +18,9 @@ import { clearCount } from '~/features/cartSlice';
 
 function Home() {
     const [loading, setLoading] = useState(true);
-    // const test = useSelector(selectUser)
-    // console.log("user nè: ",test);
     const data = useSelector(selectProduct);
     const [isAdd, setIsAdd] = useState(false);
-    // const dispatch = useDispatch();
-    // const test = useSelector((state) => state.allCart.count);
-    // console.log(test);
+
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
@@ -33,7 +29,6 @@ function Home() {
             // }
         }, 4 * 1000);
     }, []);
-
     return (
         <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10 ">
             <div className="xl:col-span-1"></div>
@@ -86,18 +81,18 @@ function Home() {
                             <div className="mt-[1px]"></div>
                             <div className="grid md:grid-cols-4 grid-cols-2">
                                 {loading &&
-                                    data.map((card, index) => (
+                                    data.map((card) => (
                                         <div>
                                             <Card.Loading
                                                 data={card}
-                                                key={index}
+                                                key={card.id}
                                             />
                                         </div>
                                     ))}
                                 {!loading &&
-                                    data.map((card, index) => (
+                                    data.map((card) => (
                                         <div>
-                                            <Card data={card} key={index} />
+                                            <Card data={card} key={card.id} />
                                         </div>
                                     ))}
                             </div>
