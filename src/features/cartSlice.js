@@ -3,6 +3,7 @@ const initialState = {
     cart: [],
     count: 0,
     totalPrice: 0,
+    purchased: null,
 };
 
 const cartSlice = createSlice({
@@ -10,6 +11,9 @@ const cartSlice = createSlice({
     initialState,
     count: 0,
     reducers: {
+        purchased: (state, action) => {
+            state.purchased = action.payload;
+        },
         addToCart: (state, action) => {
             state.count += 1;
             const newItem = { ...action.payload, amount: 1 };
@@ -62,5 +66,6 @@ export const {
     increase,
     decrease,
     clearCount,
+    purchased,
 } = cartSlice.actions;
 export default cartSlice.reducer;

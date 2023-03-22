@@ -22,8 +22,8 @@ function AdminLayout({ children }) {
             {user ? (
                 <div>
                     <Header />
-                    <div className="grid grid-cols-10">
-                        <div className="col-span-2 bg-gray-400 ">
+                    <div className="grid grid-cols-10 mt-[82px]">
+                        <div className="col-span-2 bg-gray-400 h-[205.6px] ">
                             <div className="text-white uppercase text-xl font-semibold ml-10 mt-5 mb-5">
                                 <Link to={config.routes.dashboard}>
                                     Product

@@ -16,8 +16,10 @@ import {
     clearCart,
     decrease,
     increase,
+    purchased,
     removeCart,
 } from '~/features/cartSlice';
+import { addOrder } from '~/features/orderSlice';
 // import { CartContext } from '~/context/CartProvider';
 function Cart() {
     const carts = useSelector((state) => state.allCart);
@@ -56,6 +58,17 @@ function Cart() {
         dispath(action);
     };
     const itemAmount = total;
+    const handleSubmit = (values) => {
+        
+        console.log('ahihi');
+        console.log(values);
+        console.log(carts.cart);
+        const test2 = carts.cart
+        const test = {...values, 'purchased': test2, 'total': total}
+        console.log(test);
+        dispath(addOrder(test))
+
+    };
     return (
         <div className="xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
             <div className="xl:col-span-1"></div>
@@ -88,7 +101,7 @@ function Cart() {
                         <div className="mt-3 grid grid-cols-3">
                             <div className="col-span-2">
                                 {carts.cart.map((item) => (
-                                    <div className="grid grid-cols-6 mb-10 border-b-2 border-gray-200 pb-3">
+                                    <div className="grid grid-cols-6 mb-10 border-b-2 border-gray-200 pb-3 relative z-10">
                                         <div className="col-span-1 w-[100px] min-h-[100px]">
                                             <img
                                                 className="bg-cover"
@@ -225,106 +238,140 @@ function Cart() {
                                     )}
                                 </div>
                             </div>
-                            <div className="col-span-1">
-                                <h1>Địa chỉ nhận hàng</h1>
-                                {/* <Formik
-                                    initialValues={{
-                                        email: '',
-                                        password: '',
-                                    }}
-                                    validationSchema={Yup.object({
-                                        email: Yup.string()
-                                            .email(
-                                                'Please match the request format',
-                                            )
-                                            .required(
-                                                'Please fill out this field',
+                            <div className="col-span-1 ml-3 relative w-[310px] h-[630px] border-2 p-3 pb-3">
+                                <p className="text-xl font-bold">
+                                    Your address
+                                </p>
+                                <div>
+                                    <Formik
+                                        initialValues={{
+                                            name: '',
+                                            address: '',
+                                            phoneNumber: ' ',
+                                            note: ' ',
+                                        }}
+                                        validationSchema={Yup.object({
+                                            name: Yup.string().required(
+                                                'Name is required',
                                             ),
-                                        password: Yup.string()
-                                            .min(
-                                                6,
-                                                'Passwords must be at least 6 characters',
-                                            )
-                                            .required(
-                                                'Please fill out this field',
+                                            address: Yup.string().required(
+                                                'Address is required',
                                             ),
-                                    })}
-                                    onSubmit={(values, { setSubmitting }) => {
-                                        // loginUser(values);
-                                        console.log(values);
-                                        setSubmitting(false);
-                                    }}
-                                >
-                                    {({ isSubmitting }) => (
-                                        <div className="mt-12 col-span-2 border-2 border-gray-300 h-[450px]  ">
-                                            <div className="text-center">
-                                                <p className="mt-7 text-3xl font-bold">
-                                                    Login
-                                                </p>
-                                            </div>
+                                            phoneNumber: Yup.string()
+                                                .required(
+                                                    'Phone number is required',
+                                                )
+                                                .matches(
+                                                    /^\d{10}$/,
+                                                    'Phone number must be 10 digits',
+                                                ),
+                                        })}
+                                        onSubmit={(values, {setSubmitting}) => {
+                                            handleSubmit(values)
+                                            setSubmitting(false);
+                                        }}
+                                    >
+                                        {({ errors, touched }) => (
                                             <Form>
-                                                <div className="w-[300px] mx-auto">
-                                                    <div className="mt-5 ">
-                                                        <label
-                                                            className="font-semibold "
-                                                            htmlFor="email"
-                                                        >
-                                                            Email
-                                                        </label>
+                                                {/* Name */}
+                                                <div className="mt-5">
+                                                    <label
+                                                        className="font-semibold"
+                                                        htmlFor="name"
+                                                    >
+                                                        Name:
+                                                    </label>
+                                                    <div className="mt-2">
                                                         <div className="mt-2">
-                                                            <div className="mt-2">
-                                                                <Field
-                                                                    className="w-[298.66px] h-10 bg-gray-100 relative z-10"
-                                                                    type="email"
-                                                                    name="email"
-                                                                    placeholder="bob@gmail.com"
-                                                                />
-                                                            </div>
-                                                            <div className="mt-1 text-red-500">
-                                                                <ErrorMessage name="email" />
-                                                            </div>
+                                                            <Field
+                                                                className="p-2 w-[280px] h-10 border-2 relative z-10"
+                                                                id="name"
+                                                                name="name"
+                                                                placeholder="Nguyen Van A"
+                                                            />
                                                         </div>
-                                                    </div>
-
-                                                    <div div className="mt-5 ">
-                                                        <label
-                                                            className="font-semibold"
-                                                            htmlFor="password"
-                                                        >
-                                                            Password
-                                                        </label>
-                                                        <div className="mt-2">
-                                                            <div className="mt-2">
-                                                                <Field
-                                                                    className="w-[298.66px] h-10 bg-gray-100  relative z-10"
-                                                                    type="password"
-                                                                    name="password"
-                                                                    placeholder="
-                                                    Please enter a password"
-                                                                />
-                                                            </div>
-                                                            <div className="mt-1 text-red-500">
-                                                                <ErrorMessage name="password" />
-                                                            </div>
+                                                        <div className="mt-1 text-red-500">
+                                                            {' '}
+                                                            <ErrorMessage name="name" />
                                                         </div>
-                                                    </div>
-
-                                                    <div className="mt-5 text-center ">
-                                                        <button
-                                                            className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700 relative z-10"
-                                                            type="submit"
-                                                            disabled={
-                                                                isSubmitting
-                                                            }
-                                                        >
-                                                            Login
-                                                        </button>
                                                     </div>
                                                 </div>
+                                                {/* Phone */}
+                                                <div className="mt-5">
+                                                    <label
+                                                        className="font-semibold"
+                                                        htmlFor="phoneNumber"
+                                                    >
+                                                        Phone number:
+                                                    </label>
+                                                    <div className="mt-2">
+                                                        <div className="mt-2">
+                                                            <Field
+                                                                className="p-2 w-[280px] h-10 border-2 relative z-10"
+                                                                id="phoneNumber"
+                                                                name="phoneNumber"
+                                                                placeholder="0123456789"
+                                                            />
+                                                        </div>
+                                                        <div className="mt-1 text-red-500">
+                                                            {' '}
+                                                            <ErrorMessage name="phoneNumber" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {/* Address */}
+                                                <div className="mt-5">
+                                                    <label
+                                                        className="font-semibold"
+                                                        htmlFor="address"
+                                                    >
+                                                        Address:
+                                                    </label>
+                                                    <div className="mt-2">
+                                                        <div className="mt-2">
+                                                            <Field
+                                                                className="p-2 w-[280px] h-10 border-2 relative z-10"
+                                                                id="address"
+                                                                name="address"
+                                                                placeholder="Enter your address"
+                                                            />
+                                                        </div>
+                                                        <div className="mt-1 text-red-500">
+                                                            <ErrorMessage name="address" />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {/* note */}
+                                                <div className="mt-5">
+                                                    <label
+                                                        className="font-semibold"
+                                                        htmlFor="note"
+                                                    >
+                                                        Note:
+                                                    </label>
+                                                    <div className="mt-2">
+                                                        <div className="mt-2 ">
+                                                            <Field
+                                                                className="p-2 h-20 w-[280px] border-2 relative z-10"
+                                                                id="note"
+                                                                name="note"
+                                                            />
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                {/* submit */}
+                                                <div className="mt-5 absolute left-[50%] translate-x-[-50%]">
+                                                    <button
+                                                        className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700 relative z-10"
+                                                        type="submit"
+                                                    >
+                                                        Submit
+                                                    </button>
+                                                </div>
                                             </Form>
-                                        </div>
-                                    )}
-                                </Formik> */}
+                                        )}
+                                    </Formik>
+                                </div>
                             </div>
                         </div>
                     )}

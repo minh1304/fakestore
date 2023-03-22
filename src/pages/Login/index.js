@@ -117,7 +117,7 @@ function Login() {
                                         </div>
                                     </div>
 
-                                    <div div className="mt-5 ">
+                                    <div className="mt-5 ">
                                         <label
                                             className="font-semibold"
                                             htmlFor="password"

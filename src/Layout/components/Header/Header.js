@@ -12,7 +12,7 @@ function Header() {
         navigate('/');
     };
     return (
-        <div className="h-[82px] bg-black overflow-hidden grid grid-cols-10 ">
+        <div className="h-[82px] bg-black overflow-hidden grid grid-cols-10 fixed w-full">
             <div className="h-[82px] ml-[0px] text-center col-span-2 ">
                 <img
                     className="w-[100px] md:ml-16 mt-2"

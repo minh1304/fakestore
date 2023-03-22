@@ -1,5 +1,6 @@
 import { configureStore, combineReducers } from '@reduxjs/toolkit';
 import cartReducer from '../features/cartSlice';
+import orderReducer from '../features/orderSlice';
 import userReducer from './userSlice';
 import storage from 'redux-persist/lib/storage';
 import { persistStore, persistReducer } from 'redux-persist';
@@ -16,6 +17,10 @@ const cartPersistConfig = {
     key: 'allCart',
     storage,
 };
+const orderPersistConfig = {
+    key: 'order',
+    storage,
+};
 const productPersistConfig = {
     key: 'product',
     storage,
@@ -23,12 +28,17 @@ const productPersistConfig = {
 
 const persistedUserReducer = persistReducer(userPersistConfig, userReducer);
 const persistedCartReducer = persistReducer(cartPersistConfig, cartReducer);
-const persistedProductReducer = persistReducer(productPersistConfig, productReducer);
+const persistedOrderReducer = persistReducer(orderPersistConfig, orderReducer);
+const persistedProductReducer = persistReducer(
+    productPersistConfig,
+    productReducer,
+);
 
 //ghép các persistedReducer lại với nhau
 const rootReducer = combineReducers({
     user: persistedUserReducer,
     allCart: persistedCartReducer,
+    order: persistedOrderReducer,
     product: persistedProductReducer,
 });
 
