@@ -98,8 +98,8 @@ function Cart() {
                             <div className="col-span-1"></div>
                         </div>
                     ) : (
-                        <div className="mt-3 grid grid-cols-3">
-                            <div className="col-span-2">
+                        <div className="mt-3 grid lg:grid-cols-3 ">
+                            <div className="lg:col-span-2">
                                 {carts.cart.map((item) => (
                                     <div className="grid grid-cols-6 mb-10 border-b-2 border-gray-200 pb-3 relative z-10">
                                         <div className="col-span-1 w-[100px] min-h-[100px]">
@@ -238,7 +238,7 @@ function Cart() {
                                     )}
                                 </div>
                             </div>
-                            <div className="col-span-1 ml-3 relative w-[310px] h-[630px] border-2 p-3 pb-3">
+                            <div className="lg:col-span-1 lg:ml-3 relative left-[50%] translate-x-[-50%]  w-[310px] h-[630px] border-2 p-3 pb-3">
                                 <p className="text-xl font-bold">
                                     Your address
                                 </p>
