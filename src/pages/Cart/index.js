@@ -26,7 +26,7 @@ function Cart() {
     const dispath = useDispatch();
     const cart = carts.cart;
 
-    console.log("cart nè test...: ",carts.cart);
+    console.log("cart nè test...:, phải làm sao phải làm sao  ",carts.cart);
     const [total, setTotal] = useState(0);
     useEffect(() => {
         const total = carts.cart.reduce((acc, curr) => {
