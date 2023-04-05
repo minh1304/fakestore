@@ -7,9 +7,10 @@ import * as productApi from '~/apiServices/productApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from '~/features/productSlice';
 import { clearCount } from '~/features/cartSlice';
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
-// import { faCircleCheck } from '@fortawesome/free-solid-svg-icons';
+import axios from 'axios';
 
 // Initialize Firebase
 
@@ -17,7 +18,7 @@ function DefaultLayout({ children }) {
     const dispatch = useDispatch();
     const [data, setData] = useState([]);
     const test = useSelector((state) => state.allCart.count);
-    console.log(test);
+    // api from fake store
     useEffect(() => {
         const fetchApi = async () => {
             const productResult = await productApi.getProduct();
@@ -25,6 +26,7 @@ function DefaultLayout({ children }) {
             setData(productResult);
         };
         fetchApi();
+
         setTimeout(() => {
             if (test !== 0) {
                 dispatch(clearCount());
@@ -32,13 +34,39 @@ function DefaultLayout({ children }) {
         }, 3000);
     }, [test]);
 
+    //api from nodejs by me
+    // useEffect(() => {
+    //     let config = {
+    //         method: 'get',
+    //         maxBodyLength: Infinity,
+    //         url: 'http://localhost:3000/api/v1/products',
+    //         headers: {},
+    //     };
+
+    //     axios
+    //         .request(config)
+    //         .then((response) => {
+    //             const productResult = response.data.products;
+    //             dispatch(setProduct(productResult));
+    //         })
+    //         .catch((error) => {
+    //             console.log(error);
+    //         });
+    // }, []);
+
     return (
         <div className="">
             <div className={``}>
-                <div class={`${test ? 'z-50 ' : 'z-0'} fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bottom-0 right-0 flex items-center justify-center`}>
+                <div
+                    class={`${
+                        test ? 'z-50 ' : 'z-0'
+                    } fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bottom-0 right-0 flex items-center justify-center`}
+                >
                     <div
                         class={`bg-black/60 rounded-md p-10 transform transition ${
-                            test ? 'scale-1 duration-300' : 'scale-0 duration-200'
+                            test
+                                ? 'scale-1 duration-300'
+                                : 'scale-0 duration-200'
                         }  `}
                     >
                         <div>
