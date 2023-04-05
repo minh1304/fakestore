@@ -73,7 +73,7 @@ function Advertising({ data }) {
                     <div className="max-w-[1400px] 2xl:w-[636px] xl:w-[533px] grid grid-cols-4">
                         {ad.test.map((slide, slideIndex) => (
                             <div key={slideIndex} className="col-span-1">
-                                <Link to={`/product/${slide.id}`}>
+                                <Link to={`/product/${slide._id}`}>
                                     <div className="bg-white relative m-auto 2xl:h-[230px] 2xl:w-[162px] xl:w-[133px] h-[190px] overflow-y-hidden cursor-pointer">
                                         <div className="absolute top-1 right-8 flex">
                                             <h1>

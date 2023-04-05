@@ -12,7 +12,6 @@ import Card from '../Card';
 function Also_like({ data, name, state_load }) {
     const [loading, setLoading] = useState(state_load);
     const list = [];
-    console.log(name);
     const [categories, setCategories] = useState([]);
     // const [loading, setLoading] = useState(true);
     useEffect(() => {
@@ -29,12 +28,12 @@ function Also_like({ data, name, state_load }) {
             setLoading(false);
         }, 5 * 1000);
     }, [data]);
-    console.log(categories);
+    // console.log(categories);
     categories.map((category) => {
         if (category.id === parseInt(name)) console.log('xóa đi');
         else list.push(category);
     });
-    console.log(list);
+    // console.log(list);
     return (
         <div
             className="grid lg:grid-cols-4 grid-cols-2 "

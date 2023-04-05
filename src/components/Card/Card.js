@@ -59,7 +59,7 @@ function Card({ data }) {
                                             {data.category}
                                         </p>
                                     </Link>
-                                    <Link to={`/product/${data.id}`}>
+                                    <Link to={`/product/${data._id}`}>
                                         <p className="ml-3 mb-2 text-lg font-bold overflow-hidden opacity-85 text-white hover:text-primary">
                                             {data.price}{' '}
                                             <FontAwesomeIcon
