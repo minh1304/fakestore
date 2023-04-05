@@ -13,17 +13,31 @@ import {
     faUser,
 } from '@fortawesome/free-solid-svg-icons';
 import { useSelector } from 'react-redux';
+import axios from 'axios';
+
 // import { HomeIcon } from '~/components/Icons';
 function Sidebar() {
-
     const carts = useSelector((state) => state.allCart);
 
     const [categories, setCategories] = useState([]);
     useEffect(() => {
-
         const fetchApi = async () => {
-            const categories = await productApi.getCategory();
-            setCategories(categories);
+            // const categories = await productApi.getCategory();
+            // setCategories(categories);
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:3000/api/v1/products/categories',
+                headers: {},
+            };
+            axios
+                .request(config)
+                .then((response) => {
+                    setCategories(response.data.data);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         };
         fetchApi();
     }, []);

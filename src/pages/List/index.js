@@ -6,25 +6,42 @@ import Card from '~/components/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faHome } from '@fortawesome/free-solid-svg-icons';
 import * as productApi from '~/apiServices/productApi';
+import axios from 'axios';
 function List() {
     const [data, setData] = useState([]);
     const { name } = useParams();
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchApi = async () => {
-            const listProduct = await productApi.getProductFromCategory({
-                name: name,
-            });
-            setData(listProduct);
-            setLoading(true);
+            // const listProduct = await productApi.getProductFromCategory({
+            //     name: name,
+            // });
+            // setData(listProduct);
+            // setLoading(true);
+
+            //api me
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `http://localhost:3000/api/v1/products/category/${name}`,
+                headers: {},
+            };
+
+            axios
+                .request(config)
+                .then((response) => {
+                    setData(response.data.products);
+                    setLoading(true);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
         };
         fetchApi();
         setTimeout(() => {
             setLoading(false);
         }, 5 * 1000);
     }, [name]);
-
-    console.log(data);
     return (
         <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10 ">
             <div className="xl:col-span-1"></div>

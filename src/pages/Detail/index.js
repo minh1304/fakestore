@@ -13,6 +13,7 @@ import Also_like from '~/components/Also_like';
 import LoadingSkeleton from '~/components/LoadingSkeleton';
 import { addToCart } from '~/features/cartSlice';
 import * as productApi from '~/apiServices/productApi';
+import axios from 'axios';
 
 function Detail() {
     const [data, setData] = useState([]);
@@ -23,13 +24,33 @@ function Detail() {
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         const fetchApi = async () => {
-            const detailProduct = await productApi.geDetailProduct({
-                name: name,
-            });
-            setData(detailProduct);
-            setRate(detailProduct.rating.rate);
-            setCount(detailProduct.rating.rate);
-            setLoading(true);
+            // const detailProduct = await productApi.geDetailProduct({
+            //     name: name,
+            // });
+
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `http://localhost:3000/api/v1/products/${name}`,
+                headers: {},
+            };
+
+            axios
+                .request(config)
+                .then((response) => {
+                    // console.log(response);
+                    setData(response.data.product);
+                    setRate(response.data.product.rating.rate);
+                    setCount(response.data.product.rating.rate);
+                    setLoading(true);
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+            // setData(response.product);
+            // setRate(detailProduct.rating.rate);
+            // setCount(detailProduct.rating.rate);
+            // setLoading(true);
         };
         fetchApi();
         setTimeout(() => {
@@ -51,6 +72,7 @@ function Detail() {
         console.log({ action });
         dispatch(action);
     };
+
     return (
         <div className="bg-white  xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
             <div className="xl:col-span-1"></div>
@@ -156,7 +178,6 @@ function Detail() {
                                         className="relative z-[10] mt-3 pl-5 flex items-center h-[50px] w-[160px] border-2 rounded-md cursor-pointer hover:bg-primary hover:text-white"
                                         onClick={() => handleAddToCart(data)}
                                     >
-                
                                         <p className="pr-3 font-semibold">
                                             Add to cart
                                         </p>
@@ -212,7 +233,7 @@ function Detail() {
                                             Category:{' '}
                                         </p>
                                         <Link
-                                            className='relative z-[10]'
+                                            className="relative z-[10]"
                                             to={`/categories/${data.category}`}
                                         >
                                             <p className="uppercase text-primary hover:text-red-500 cursor-pointer">
