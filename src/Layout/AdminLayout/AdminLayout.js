@@ -2,7 +2,7 @@ import Sidebar from '../components/Sidebar';
 import { useEffect, useState } from 'react';
 // import CartProvider from '~/context/CartProvider';
 import Footer from '../components/Footer';
-
+import axios from 'axios';
 import * as productApi from '~/apiServices/productApi';
 import { useDispatch, useSelector } from 'react-redux';
 import { setProduct } from '~/features/productSlice';
@@ -15,11 +15,43 @@ import config from '~/config';
 
 function AdminLayout({ children }) {
     const user = useSelector(selectUser);
-    console.log('user ở admin layout: ', user);
+    const [currentUser, setCurrentUser] = useState({});
+    const [isAdmin, setIsAdmin] = useState();
+    useEffect(() => {
+        if (user) {
+            //call api get information current user
+            const token = user.data.token;
+            let config = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:3000/api/v1/auth/me',
+                headers: {
+                    'x-access-token': token,
+                },
+            };
 
+            axios
+                .request(config)
+                .then((response) => {
+                    setCurrentUser(response.data);
+                    if (response.data.role === 'admin') {
+                        setIsAdmin(true);
+                        console.log('admin nè');
+                    } else {
+                        setIsAdmin(false);
+                        console.log('K phải admin');
+                    }
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
+    }, [user]);
+
+    console.log(isAdmin);
     return (
         <div>
-            {user ? (
+            {isAdmin ? (
                 <div>
                     <Header />
                     <div className="grid grid-cols-10 mt-[82px]">
