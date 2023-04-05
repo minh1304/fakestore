@@ -48,12 +48,12 @@ function AdminLayout({ children }) {
         }
     }, [user]);
 
-    console.log(isAdmin);
+    console.log(currentUser);
     return (
         <div>
             {isAdmin ? (
                 <div>
-                    <Header />
+                    <Header data = {currentUser} />
                     <div className="grid grid-cols-10 mt-[82px]">
                         <div className="col-span-2 bg-gray-400 h-[205.6px] ">
                             <div className="text-white uppercase text-xl font-semibold ml-10 mt-5 mb-5">
@@ -71,7 +71,7 @@ function AdminLayout({ children }) {
                             </div>
                         </div>
                         <div className="col-span-8">
-                            <div className="overflow-y-auto top-0 left-0 bg-white">
+                            <div className="overflow-y-auto top-0 left-0 bg-white min-h-[41vh]">
                                 <div className="mt-[82px] max-w-7xl mx-auto">
                                     <div>{children}</div>
                                 </div>

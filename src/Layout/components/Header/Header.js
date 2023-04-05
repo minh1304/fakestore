@@ -1,10 +1,10 @@
 import { faRightFromBracket, faUser } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useDispatch } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '~/app/userSlice';
-
-function Header() {
+import config from '~/config';
+function Header({ data }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogout = () => {
@@ -14,13 +14,15 @@ function Header() {
     return (
         <div className="h-[82px] bg-black overflow-hidden grid grid-cols-10 fixed w-full">
             <div className="h-[82px] ml-[0px] text-center col-span-2 ">
-                <img
-                    className="w-[100px] md:ml-16 mt-2"
-                    src="https://seeklogo.com/images/O/off-white-virgilabloh-logo-766416FD87-seeklogo.com.png"
-                    alt="logo"
-                />
+                <Link to={config.routes.dashboard}>
+                    <img
+                        className="w-[100px] md:ml-16 mt-2"
+                        src="https://seeklogo.com/images/O/off-white-virgilabloh-logo-766416FD87-seeklogo.com.png"
+                        alt="logo"
+                    />
+                </Link>
             </div>
-            <div className='col-span-5'></div>
+            <div className="col-span-5"></div>
             <div className="ml-5 translate-y-7 col-span-3 md:ml-32 lg:ml-52">
                 <span>
                     <FontAwesomeIcon
@@ -28,7 +30,9 @@ function Header() {
                         icon={faUser}
                     />
                 </span>
-                <span className="ml-3 text-white font-bold">Admin</span>
+                <span className="ml-3 text-white font-bold">
+                    AD: {data.username}
+                </span>
                 <div className="w-[130px]">
                     <div
                         className=" h-[28px] text-white relative group cursor-pointer"
