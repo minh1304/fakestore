@@ -8,6 +8,7 @@ const routes = {
     register: '/register',
     dashboard: '/dashboard',
     order: '/dashboard/order',
+    addProduct: '/dashboard/addProduct',
     adjustUser: '/dashboard/adjustUser',
 };
 

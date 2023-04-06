@@ -4,12 +4,14 @@ import { useEffect, useState } from 'react';
 import Footer from '../components/Footer';
 import axios from 'axios';
 import * as productApi from '~/apiServices/productApi';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { setProduct } from '~/features/productSlice';
 import Header from '../components/Header';
 import { selectUser } from '~/app/userSlice';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
 
 // Initialize Firebase
 
@@ -36,7 +38,7 @@ function AdminLayout({ children }) {
                     setCurrentUser(response.data);
                     if (response.data.role === 'admin') {
                         setIsAdmin(true);
-                        console.log('admin nè');
+                        // console.log('admin nè');
                     } else {
                         setIsAdmin(false);
                         console.log('K phải admin');
@@ -48,12 +50,31 @@ function AdminLayout({ children }) {
         }
     }, [user]);
 
-    console.log(currentUser);
+    // console.log(currentUser);
     return (
         <div>
             {isAdmin ? (
                 <div>
-                    <Header data = {currentUser} />
+                    {/* <div>
+                        <div
+                            class={`fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bottom-0 right-0 flex items-center justify-center`}
+                        >
+                            <div
+                                class={`bg-black/60 rounded-md p-10 transform transition `}
+                            >
+                                <div>
+                                    <FontAwesomeIcon
+                                        className="text-green-500 text-4xl"
+                                        icon={faCircleCheck}
+                                    />
+                                </div>
+                                <div className="text-white text-lg">
+                                    Product added to cart
+                                </div>
+                            </div>
+                        </div>
+                    </div> */}
+                    <Header data={currentUser} />
                     <div className="grid grid-cols-10 mt-[82px]">
                         <div className="col-span-2 bg-gray-400 h-[205.6px] ">
                             <div className="text-white uppercase text-xl font-semibold ml-10 mt-5 mb-5">

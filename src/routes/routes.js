@@ -7,12 +7,14 @@ import Cart from '~/pages/Cart';
 import List from '~/pages/List';
 import Detail from '~/pages/Detail';
 import Login from '~/pages/Login';
+// import Add from '~/pages/Login';
 import Register from '~/pages/Register';
 
 import { AdminLayout } from '~/Layout';
 import Dashboard from '~/pages/Dashboard';
 import AdjustUser from '~/pages/AdjustUser';
 import Order from '~/pages/Order';
+import AddProduct from '~/pages/AddProduct';
 // import Personal from '~/pages/Personal';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -32,6 +34,11 @@ const publicRoutes = [
     {
         path: config.routes.adjustUser,
         component: AdjustUser,
+        layout: AdminLayout,
+    },
+    {
+        path: config.routes.addProduct,
+        component: AddProduct,
         layout: AdminLayout,
     },
 
