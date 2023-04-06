@@ -7,6 +7,7 @@ import Cart from '~/pages/Cart';
 import List from '~/pages/List';
 import Detail from '~/pages/Detail';
 import Login from '~/pages/Login';
+import Register from '~/pages/Register';
 
 import { AdminLayout } from '~/Layout';
 import Dashboard from '~/pages/Dashboard';
@@ -20,6 +21,7 @@ const publicRoutes = [
     { path: config.routes.list, component: List },
     { path: config.routes.detail, component: Detail },
     { path: config.routes.login, component: Login },
+    { path: config.routes.register, component: Register },
 
     {
         path: config.routes.dashboard,

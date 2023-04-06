@@ -5,6 +5,7 @@ const routes = {
     list: '/categories/:name',
     detail: '/product/:name',
     login: '/login',
+    register: '/register',
     dashboard: '/dashboard',
     order: '/dashboard/order',
     adjustUser: '/dashboard/adjustUser',

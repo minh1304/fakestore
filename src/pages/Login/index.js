@@ -88,8 +88,9 @@ function Login() {
                     <div className="text-center">
                         <p className="mt-7 text-2xl font-bold">Information</p>
                     </div>
-                    <div className='m-3'>
+                    <div className="m-3">
                         <p>User name: {currentUser.username}</p>
+                        <p>email: {currentUser.email}</p>
                         <p>Phone: {currentUser.phone}</p>
                         <p>Role: {currentUser.role}</p>
                     </div>
@@ -193,6 +194,12 @@ function Login() {
                                         >
                                             Login
                                         </button>
+                                        <div className="mt-5 text-black/60">
+                                            <span>
+                                                Don't have an account?
+                                                <a href='/register' className='text-blue-500'> Register here</a>
+                                            </span>
+                                        </div>
                                     </div>
                                 </div>
                             </Form>
