@@ -34,7 +34,7 @@ function AdjustUser() {
         <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10 2xl:col-span-10">
-                <div className="col-span-1">
+                <div className="col-span-1 ml-5">
                     <p className='text-xl font-bold'>List user</p>
                     <hr className='mt-5 mb-5'></hr>
                     {data.map(account => (

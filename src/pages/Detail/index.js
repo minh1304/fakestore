@@ -47,10 +47,6 @@ function Detail() {
                 .catch((error) => {
                     console.log(error);
                 });
-            // setData(response.product);
-            // setRate(detailProduct.rating.rate);
-            // setCount(detailProduct.rating.rate);
-            // setLoading(true);
         };
         fetchApi();
         setTimeout(() => {

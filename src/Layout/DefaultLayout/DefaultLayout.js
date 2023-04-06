@@ -52,8 +52,13 @@ function DefaultLayout({ children }) {
             .catch((error) => {
                 console.log(error);
             });
-    }, []);
-
+        setTimeout(() => {
+            if (test !== 0) {
+                dispatch(clearCount());
+            }
+        }, 3000);
+    }, [test]);
+    console.log(test);
     return (
         <div className="">
             <div className={``}>
