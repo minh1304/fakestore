@@ -24,9 +24,6 @@ function Home() {
     useEffect(() => {
         setTimeout(() => {
             setLoading(false);
-            // if (test !== 0) {
-            //     dispatch(clearCount())
-            // }
         }, 4 * 1000);
     }, []);
     return (

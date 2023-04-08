@@ -6,6 +6,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { selectUser } from '~/app/userSlice';
 import { Link } from 'react-router-dom';
 import config from '~/config';
+import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
+import { selectProduct } from '~/features/productSlice';
 function Dashboard() {
     const user = useSelector(selectUser);
     const token = user.data.token;
@@ -17,8 +19,8 @@ function Dashboard() {
         e.preventDefault();
         setPage(e.target.textContent);
     };
-    const [isOpenAdd, setIsOpenAdd] = useState(false);
-    const handleOpen = () => {};
+    // const products = useSelector(selectProduct)
+    // console.log(products);
 
     useEffect(() => {
         let config = {
@@ -76,6 +78,31 @@ function Dashboard() {
     if (products.length !== 0) {
         console.log('products là:', products);
     }
+    const handleDelete = (id) => {
+        //Call api delete
+        let config = {
+            method: 'delete',
+            maxBodyLength: Infinity,
+            url: `http://localhost:3000/api/v1/auth/admin/${id}/force`,
+            headers: {
+                'x-access-token': token,
+            },
+        };
+        axios
+            .request(config)
+            .then((response) => {
+                alert('đã xóa thành công');
+                window.location.reload();
+            })
+            .then((data) => {
+                // Xử lý response
+                console.log(data);
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+    };
+    // const [isDelete, setIsDelete] = useState(false);
 
     return (
         <div>
@@ -84,23 +111,59 @@ function Dashboard() {
                 <div className="xl:col-span-10 2xl:col-span-10">
                     <div className="col-span-1 ml-5">
                         <p className="text-xl font-bold">Products</p>
-                        <Link to={config.routes.addProduct}>
-                            <div
-                                // onClick={handleOpen}
-                                className="mt-5 border-2 rounded-md w-[200px] hover:bg-red-500 hover:text-white transition-all duration-200 cursor-pointer"
-                            >
-                                <p className="p-3">
-                                    <FontAwesomeIcon icon={faPlus} />
-                                    <span> Add new product</span>
-                                </p>
-                                
-                            </div>
-                        </Link>
+                        <div className=" w-[200px]">
+                            <Link to={config.routes.addProduct}>
+                                <div
+                                    // onClick={handleOpen}
+                                    className="mt-5 border-2 rounded-md w-[200px] hover:bg-red-500 hover:text-white transition-all duration-200 cursor-pointer"
+                                >
+                                    <p className="p-3">
+                                        <FontAwesomeIcon icon={faPlus} />
+                                        <span> Add new product</span>
+                                    </p>
+                                </div>
+                            </Link>
+                            <Link to={config.routes.trashProduct}>
+                                <div className="mt-4 flex">
+                                    <span>
+                                        <FontAwesomeIcon icon={faTrashCan}/>
+                                    </span>
+                                    <span className='ml-4'>Trash</span>
+
+                                </div>
+                            </Link>
+                        </div>
+
                         <hr className="mt-5 mb-5"></hr>
                         {products.map((product) => (
-                            <div key={product._id}>
-                                <h2>{product.title}</h2>
-                                <hr className="mt-5 mb-5"></hr>
+                            <div
+                                key={product._id}
+                                className="grid grid-cols-10"
+                            >
+                                <div className="col-span-6 mt-5">
+                                    <div className="w-[100px]">
+                                        <img src={product.image} />
+                                    </div>
+                                    <h2 className="mt-5">{product.title}</h2>
+                                </div>
+                                <div className="col-span-4">
+                                    <div>
+                                        <span
+                                            onClick={() =>
+                                                handleDelete(product._id)
+                                            }
+                                            className="mr-3 hover:text-red-500 cursor-pointer"
+                                        >
+                                            <FontAwesomeIcon
+                                                icon={faTrashCan}
+                                            />
+                                        </span>
+                                    </div>
+                                </div>
+                                {/* <hr className="mt-5 mb-5"></hr> */}
+                                <div className="bg-opacity-0 opacity-[0]">
+                                    a
+                                </div>
                             </div>
                         ))}
                         <div className="flex w-[200px] ml-52">

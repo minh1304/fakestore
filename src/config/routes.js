@@ -9,6 +9,7 @@ const routes = {
     dashboard: '/dashboard',
     order: '/dashboard/order',
     addProduct: '/dashboard/addProduct',
+    trashProduct: '/dashboard/trashProduct',
     adjustUser: '/dashboard/adjustUser',
 };
 

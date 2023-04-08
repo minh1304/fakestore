@@ -15,6 +15,7 @@ import Dashboard from '~/pages/Dashboard';
 import AdjustUser from '~/pages/AdjustUser';
 import Order from '~/pages/Order';
 import AddProduct from '~/pages/AddProduct';
+import TrashProduct from '~/pages/TrashProduct';
 // import Personal from '~/pages/Personal';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -39,6 +40,11 @@ const publicRoutes = [
     {
         path: config.routes.addProduct,
         component: AddProduct,
+        layout: AdminLayout,
+    },
+    {
+        path: config.routes.trashProduct,
+        component: TrashProduct,
         layout: AdminLayout,
     },
 
