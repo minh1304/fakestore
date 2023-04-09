@@ -75,25 +75,25 @@ function AdminLayout({ children }) {
                         </div>
                     </div> */}
                     <Header data={currentUser} />
-                    <div className="grid grid-cols-10 mt-[82px]">
-                        <div className="col-span-2 bg-gray-400 h-[205.6px] ">
-                            <div className="text-white uppercase text-xl font-semibold ml-10 mt-5 mb-5">
+                    <div className="mt-[82px] flex">
+                        <div className="text-black h-[210px] w-[300px] fixed ">
+                            <div className="text-black uppercase text-xl font-semibold ml-10 mt-5 mb-5">
                                 <Link to={config.routes.dashboard}>
                                     Product
                                 </Link>
                             </div>
                             <hr />
-                            <div className="text-white uppercase text-xl font-semibold ml-10 mt-5 mb-5">
+                            <div className="text-black uppercase text-xl font-semibold ml-10 mt-5 mb-5">
                                 <Link to={config.routes.order}>Order</Link>
                             </div>
                             <hr />
-                            <div className="text-white uppercase text-xl font-semibold ml-10 mt-5 mb-5">
+                            <div className="text-black uppercase text-xl font-semibold ml-10 mt-5 mb-5">
                                 <Link to={config.routes.adjustUser}>User</Link>
                             </div>
                         </div>
-                        <div className="col-span-8">
+                        <div className="ml-[500px]">
                             <div className="overflow-y-auto top-0 left-0 bg-white">
-                                <div className="mt-[82px] max-w-7xl mx-auto">
+                                <div className="mt-5 max-w-7xl mx-auto">
                                     <div>{children}</div>
                                 </div>
                             </div>

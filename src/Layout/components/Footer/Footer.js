@@ -10,7 +10,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 function Footer() {
     return (
         <footer>
-            <div className="p-10 bg-zinc-800 text-white w-full mt-10">
+            <div className="p-10 bg-zinc-800 text-white w-full mt-40">
                 <div className="max-w-7xl mx-auto">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-2">
                         <div className="ml-3 mb-5">

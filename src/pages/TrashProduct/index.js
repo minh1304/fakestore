@@ -1,4 +1,4 @@
-import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
+import { faArrowLeft, faRepeat } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import axios from 'axios';
 import { useEffect, useState } from 'react';
@@ -29,8 +29,40 @@ function TrashProduct() {
             .catch((error) => {
                 console.log(error);
             });
-    }, [token]);
-    console.log(products);
+    }, [token, products]);
+    // console.log(products);
+    const handleRestore = async (id) => {
+        try {
+            //Call api delete
+            const configDelete = {
+                method: 'patch',
+                maxBodyLength: Infinity,
+                url: `http://localhost:3000/api/v1/auth/admin/${id}/restore`,
+                headers: {
+                    'x-access-token': token,
+                },
+            };
+
+            const configGet = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: 'http://localhost:3000/api/v1/auth/admin/products/trash',
+                headers: {
+                    'x-access-token': token,
+                },
+            };
+            const [deleteResponse, getResponse] = await axios.all([
+                axios(configDelete),
+                axios(configGet),
+            ]);
+            // Xử lý response
+            setProducts(getResponse.data.products);
+            console.log('data khi đã xóa: ', getResponse.data);
+            alert('Restore success!');
+        } catch (error) {
+            console.log(error);
+        }
+    };
     return (
         <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
             <div className="xl:col-span-1"></div>
@@ -44,9 +76,10 @@ function TrashProduct() {
                     <div className="ml-10 mt-10"></div>
                 </div>
 
-                {products.map((product) => (
-                    <div className="ml-5">
-                        <div
+                {products ? (
+                    products.map((product) => (
+                        <div className="ml-5">
+                            <div
                                 key={product._id}
                                 className="grid grid-cols-10"
                             >
@@ -54,19 +87,27 @@ function TrashProduct() {
                                     <div className="w-[100px]">
                                         <img src={product.image} />
                                     </div>
-                                    <h2 className="mt-5">{product.title}</h2>
+                                    <h2 className="mt-5">
+                                        {' '}
+                                        Title: {product.title}
+                                    </h2>
+                                    <span>
+                                        {' '}
+                                        Deleted at: {product.deletedAt}
+                                    </span>
                                 </div>
                                 <div className="col-span-4">
                                     <div>
                                         <span
-                                            // onClick={() =>
-                                            //     handleDelete(product._id)
-                                            // }
+                                            onClick={() =>
+                                                handleRestore(product._id)
+                                            }
                                             className="mr-3 hover:text-red-500 cursor-pointer"
                                         >
-                                            <FontAwesomeIcon
-                                                // icon={faTrashCan}
-                                            />
+                                            <FontAwesomeIcon icon={faRepeat} />
+                                            <span className="ml-1">
+                                                Restore
+                                            </span>
                                         </span>
                                     </div>
                                 </div>
@@ -75,8 +116,11 @@ function TrashProduct() {
                                     a
                                 </div>
                             </div>
-                    </div>
-                ))}
+                        </div>
+                    ))
+                ) : (
+                    <div>Not product in trash</div>
+                )}
             </div>
             <div className="xl:col-span-1"></div>
         </div>

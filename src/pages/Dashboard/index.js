@@ -67,7 +67,7 @@ function Dashboard() {
             .catch((error) => {
                 console.log(error);
             });
-    }, [page, token]);
+    }, [page, token ]);
 
     const arrPage = [];
     for (let index = 1; index <= countPage; index++) {
@@ -78,30 +78,39 @@ function Dashboard() {
     if (products.length !== 0) {
         console.log('products là:', products);
     }
-    const handleDelete = (id) => {
-        //Call api delete
-        let config = {
-            method: 'delete',
-            maxBodyLength: Infinity,
-            url: `http://localhost:3000/api/v1/auth/admin/${id}/force`,
-            headers: {
-                'x-access-token': token,
-            },
-        };
-        axios
-            .request(config)
-            .then((response) => {
-                alert('đã xóa thành công');
-                window.location.reload();
-            })
-            .then((data) => {
-                // Xử lý response
-                console.log(data);
-            })
-            .catch((error) => {
-                console.log(error);
-            });
+    const handleDelete = async (id) => {
+        try {
+            //Call api delete
+            const configDelete = {
+                method: 'delete',
+                maxBodyLength: Infinity,
+                url: `http://localhost:3000/api/v1/auth/admin/${id}/force`,
+                headers: {
+                    'x-access-token': token,
+                },
+            };
+    
+            const configGet = {
+                method: 'get',
+                maxBodyLength: Infinity,
+                url: `http://localhost:3000/api/v1/auth/admin/products?page=${page}`,
+                headers: {
+                    'x-access-token': token,
+                },
+            };
+            const [deleteResponse, getResponse] = await axios.all([
+                axios(configDelete),
+                axios(configGet),
+            ]);
+            console.log('Deleted:', deleteResponse);
+            console.log('Products:', getResponse.data.products);
+            setProducts(getResponse.data.products);
+            alert('Deleted!');
+        } catch (error) {
+            console.log(error);
+        }
     };
+    
     // const [isDelete, setIsDelete] = useState(false);
 
     return (
@@ -126,10 +135,9 @@ function Dashboard() {
                             <Link to={config.routes.trashProduct}>
                                 <div className="mt-4 flex">
                                     <span>
-                                        <FontAwesomeIcon icon={faTrashCan}/>
+                                        <FontAwesomeIcon icon={faTrashCan} />
                                     </span>
-                                    <span className='ml-4'>Trash</span>
-
+                                    <span className="ml-4">Trash</span>
                                 </div>
                             </Link>
                         </div>
