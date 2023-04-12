@@ -9,6 +9,7 @@ import config from '~/config';
 
 function TrashProduct() {
     const [products, setProducts] = useState([]);
+    const [updateCount, setUpdateCount] = useState(0);
     const user = useSelector(selectUser);
     const token = user.data.token;
     useEffect(() => {
@@ -29,7 +30,7 @@ function TrashProduct() {
             .catch((error) => {
                 console.log(error);
             });
-    }, [token, products]);
+    }, [token, updateCount]);
     // console.log(products);
     const handleRestore = async (id) => {
         try {
@@ -57,6 +58,7 @@ function TrashProduct() {
             ]);
             // Xử lý response
             setProducts(getResponse.data.products);
+            setUpdateCount(updateCount + 1);
             console.log('data khi đã xóa: ', getResponse.data);
             alert('Restore success!');
         } catch (error) {

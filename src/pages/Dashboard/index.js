@@ -8,10 +8,12 @@ import { Link } from 'react-router-dom';
 import config from '~/config';
 import { faTrashCan } from '@fortawesome/free-regular-svg-icons';
 import { selectProduct } from '~/features/productSlice';
+import ProductsList from './ProductsList';
 function Dashboard() {
     const user = useSelector(selectUser);
     const token = user.data.token;
     const [products, setProducts] = useState([]);
+    const [updateCount, setUpdateCount] = useState(0);
     const [page, setPage] = useState(1);
     const [countPage, setCountPage] = useState(1);
     const dispatch = useDispatch();
@@ -46,7 +48,7 @@ function Dashboard() {
             .catch((error) => {
                 console.log(error);
             });
-    }, [token]);
+    }, [token, updateCount]);
     console.log(countPage);
 
     useEffect(() => {
@@ -67,7 +69,7 @@ function Dashboard() {
             .catch((error) => {
                 console.log(error);
             });
-    }, [page, token ]);
+    }, [page, token, updateCount]);
 
     const arrPage = [];
     for (let index = 1; index <= countPage; index++) {
@@ -89,7 +91,7 @@ function Dashboard() {
                     'x-access-token': token,
                 },
             };
-    
+
             const configGet = {
                 method: 'get',
                 maxBodyLength: Infinity,
@@ -105,14 +107,14 @@ function Dashboard() {
             console.log('Deleted:', deleteResponse);
             console.log('Products:', getResponse.data.products);
             setProducts(getResponse.data.products);
+            setUpdateCount(updateCount + 1);
             alert('Deleted!');
         } catch (error) {
             console.log(error);
         }
     };
-    
     // const [isDelete, setIsDelete] = useState(false);
-
+    console.log('token nè: ', token);
     return (
         <div>
             <div className=" xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10 relative">
@@ -144,35 +146,15 @@ function Dashboard() {
 
                         <hr className="mt-5 mb-5"></hr>
                         {products.map((product) => (
-                            <div
+                            <ProductsList
                                 key={product._id}
-                                className="grid grid-cols-10"
-                            >
-                                <div className="col-span-6 mt-5">
-                                    <div className="w-[100px]">
-                                        <img src={product.image} />
-                                    </div>
-                                    <h2 className="mt-5">{product.title}</h2>
-                                </div>
-                                <div className="col-span-4">
-                                    <div>
-                                        <span
-                                            onClick={() =>
-                                                handleDelete(product._id)
-                                            }
-                                            className="mr-3 hover:text-red-500 cursor-pointer"
-                                        >
-                                            <FontAwesomeIcon
-                                                icon={faTrashCan}
-                                            />
-                                        </span>
-                                    </div>
-                                </div>
-                                {/* <hr className="mt-5 mb-5"></hr> */}
-                                <div className="bg-opacity-0 opacity-[0]">
-                                    a
-                                </div>
-                            </div>
+                                // handleDelete={handleDelete}
+                                handleDelete={handleDelete}
+                                page={page}
+                                product={product}
+                                setProducts={setProducts}
+                                token={token}
+                            />
                         ))}
                         <div className="flex w-[200px] ml-52">
                             {arrPage.map((page) => (
