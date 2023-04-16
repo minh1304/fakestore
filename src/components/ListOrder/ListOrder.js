@@ -11,7 +11,7 @@ import { selectUser } from '~/app/userSlice';
 function ListOrder({ data, onUpdate }) {
     const user = useSelector(selectUser);
     const [isPending, setIsPending] = useState(data.status);
-    const [isReject, setIsReject] = useState(false)
+    const [isReject, setIsReject] = useState(false);
     useEffect(() => {
         setIsPending(data.status);
     }, [data]);
@@ -39,8 +39,30 @@ function ListOrder({ data, onUpdate }) {
                 });
         }
     };
-    const handleReject = () => {
-        setIsReject(true)
+    const handleReject = (id) => {
+        setIsReject(true);
+        if (isReject) {
+            const token = user.data.token;
+            let config = {
+                method: 'patch',
+                maxBodyLength: Infinity,
+                url: `http://localhost:3000/api/v1/auth/admin/${id}/reject`,
+                headers: {
+                    'x-access-token': token,
+                },
+            };
+
+            axios
+                .request(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                    onUpdate();
+                    alert('Rejected Success!');
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+        }
     };
     return (
         <div className="mt-10 min-h-[300px] border-2 p-5">
@@ -54,10 +76,15 @@ function ListOrder({ data, onUpdate }) {
                     </div>
                     <div
                         className="text-red-500 ml-10 cursor-pointer"
-                        onClick={() => handleReject()}
+                        onClick={() => handleReject(data._id)}
                     >
                         <FontAwesomeIcon className="h-8" icon={faCircleXmark} />
                     </div>
+                </div>
+            )}
+            {isPending === "Rejected"  && (
+                <div>
+                    <p className='text-red-500 font-bold text-2xl'>Order Rejected</p>
                 </div>
             )}
             <div className="mt-3">
