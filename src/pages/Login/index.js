@@ -5,6 +5,7 @@ import { logout, selectUser, setToken, setUser } from '~/app/userSlice';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
+import { clearCart } from '~/features/cartSlice';
 
 function Login() {
     const navigate = useNavigate();
@@ -76,6 +77,7 @@ function Login() {
 
     const handleLogOut = () => {
         dispatch(logout());
+        dispatch(clearCart())
         window.location.reload();
     };
     const [isSubmitting, setSubmitting] = useState(false);

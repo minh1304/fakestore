@@ -19,14 +19,19 @@ import {
     purchased,
     removeCart,
 } from '~/features/cartSlice';
+
 import { addOrder } from '~/features/orderSlice';
+import axios from 'axios';
+import { selectUser } from '~/app/userSlice';
 // import { CartContext } from '~/context/CartProvider';
 function Cart() {
+    const user = useSelector(selectUser);
+    const token = user.data.token;
     const carts = useSelector((state) => state.allCart);
     const dispath = useDispatch();
     const cart = carts.cart;
 
-    console.log("cart nè test...:, phải làm sao phải làm sao  ",carts.cart);
+    console.log('cart nè test...:, phải làm sao phải làm sao  ', carts.cart);
     const [total, setTotal] = useState(0);
     useEffect(() => {
         const total = carts.cart.reduce((acc, curr) => {
@@ -59,15 +64,43 @@ function Cart() {
     };
     const itemAmount = total;
     const handleSubmit = (values) => {
-        
-        console.log('ahihi');
         console.log(values);
         console.log(carts.cart);
-        const test2 = carts.cart
-        const test = {...values, 'purchased': test2, 'total': total}
+        const test2 = carts.cart;
+        const test = { ...values, purchased: test2, total: total };
         console.log(test);
-        dispath(addOrder(test))
+        let data = JSON.stringify({
+            address: test.address,
+            name: test.name,
+            phoneNumber: test.phoneNumber,
+            note: test.note,
+            purchased: test.purchased,
+            total: test.total,
+            __v: 0,
+        });
 
+        let config = {
+            method: 'post',
+            maxBodyLength: Infinity,
+            url: 'http://localhost:3000/api/v1/order',
+            headers: {
+                'x-access-token': token, 
+                'Content-Type': 'application/json',
+            },
+            data: data,
+        };
+
+        axios
+            .request(config)
+            .then((response) => {
+                console.log(JSON.stringify(response.data));
+                dispath(clearCart())
+            })
+            .catch((error) => {
+                console.log(error);
+            });
+
+        // dispath(addOrder(test))
     };
     return (
         <div className="xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
@@ -266,8 +299,11 @@ function Cart() {
                                                     'Phone number must be 10 digits',
                                                 ),
                                         })}
-                                        onSubmit={(values, {setSubmitting}) => {
-                                            handleSubmit(values)
+                                        onSubmit={(
+                                            values,
+                                            { setSubmitting },
+                                        ) => {
+                                            handleSubmit(values);
                                             setSubmitting(false);
                                         }}
                                     >

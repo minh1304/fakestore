@@ -4,11 +4,13 @@ import { useDispatch } from 'react-redux';
 import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '~/app/userSlice';
 import config from '~/config';
+import { clearCart } from '~/features/cartSlice';
 function Header({ data }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const handleLogout = () => {
         dispatch(logout());
+        dispatch(clearCart())
         navigate('/');
     };
     return (
