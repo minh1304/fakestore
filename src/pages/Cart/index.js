@@ -25,8 +25,6 @@ import axios from 'axios';
 import { selectUser } from '~/app/userSlice';
 // import { CartContext } from '~/context/CartProvider';
 function Cart() {
-    const user = useSelector(selectUser);
-    const token = user.data.token;
     const carts = useSelector((state) => state.allCart);
     const dispath = useDispatch();
     const cart = carts.cart;
@@ -66,6 +64,8 @@ function Cart() {
 
     //call api get information current user
     const [currentUser, setCurrentUser] = useState({});
+    const user = useSelector(selectUser);
+
     useEffect(() => {
         if (user) {
             const token = user.data.token;
@@ -86,52 +86,60 @@ function Cart() {
                 .catch((error) => {
                     console.log(error);
                 });
+        } else {
+            console.log('User không đăng nhập');
         }
     }, [user]);
+
+
     const handleSubmit = (values) => {
-        console.log(values);
-        console.log(carts.cart);
-        const test2 = carts.cart;
-        const test = {
-            ...values,
-            purchased: test2,
-            total: total,
-            username: currentUser.username,
-        };
-        console.log(test);
-        let data = JSON.stringify({
-            address: test.address,
-            name: test.name,
-            phoneNumber: test.phoneNumber,
-            note: test.note,
-            purchased: test.purchased,
-            total: test.total,
-            username: test.username,
-            __v: 0,
-        });
-
-        let config = {
-            method: 'post',
-            maxBodyLength: Infinity,
-            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/order',
-            headers: {
-                'x-access-token': token,
-                'Content-Type': 'application/json',
-            },
-            data: data,
-        };
-
-        axios
-            .request(config)
-            .then((response) => {
-                console.log(JSON.stringify(response.data));
-                dispath(clearCart());
-            })
-            .catch((error) => {
-                console.log(error);
+        if (user != null) {
+            console.log(values);
+            console.log(carts.cart);
+            const test2 = carts.cart;
+            const test = {
+                ...values,
+                purchased: test2,
+                total: total,
+                username: currentUser.username,
+            };
+            console.log(test);
+            let data = JSON.stringify({
+                address: test.address,
+                name: test.name,
+                phoneNumber: test.phoneNumber,
+                note: test.note,
+                purchased: test.purchased,
+                total: test.total,
+                username: test.username,
+                __v: 0,
             });
 
-        dispath(addOrder(test));
+            let config = {
+                method: 'post',
+                maxBodyLength: Infinity,
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/order',
+                headers: {
+                    'x-access-token': user.data.token,
+                    'Content-Type': 'application/json',
+                },
+                data: data,
+            };
+
+            axios
+                .request(config)
+                .then((response) => {
+                    console.log(JSON.stringify(response.data));
+                    dispath(clearCart());
+                })
+                .catch((error) => {
+                    console.log(error);
+                });
+
+            dispath(addOrder(test));
+        } else {
+            alert('Đăng nhập mới được mua');
+        }
     };
     return (
         <div className="xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
