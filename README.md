@@ -5,3 +5,7 @@
 # Login Admin
 1. user name: johnd
 2. password: m38rmF$
+
+# Login User
+1. username: mor_2314,
+2. password: 83r5^_,
