@@ -9,4 +9,4 @@
 
 # Login User
 1. username: mor_2314,
-2. password: 83r5^_,
+2. password: 83r5^_
