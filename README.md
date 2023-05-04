@@ -5,7 +5,7 @@
 # Login Admin
 1. user name: johnd
 2. password: m38rmF$
-admin: /dashboard 
+3. admin:https://fake-store-five.vercel.app/dashboard
 
 # Login User
 1. username: mor_2314,
