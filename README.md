@@ -5,6 +5,7 @@
 # Login Admin
 1. user name: johnd
 2. password: m38rmF$
+admin: /dashboard 
 
 # Login User
 1. username: mor_2314,
