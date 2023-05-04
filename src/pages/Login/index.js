@@ -24,7 +24,7 @@ function Login() {
                 // 'https://api.storerestapi.com/auth/login',
 
                 //api me
-                'http://localhost:3000/api/v1/auth/login',
+                'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/login',
                 {
                     username: value.username,
                     password: value.password,
@@ -57,7 +57,7 @@ function Login() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:3000/api/v1/auth/me',
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/me',
                 headers: {
                     'x-access-token': token,
                 },
@@ -83,7 +83,7 @@ function Login() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:3000/api/v1/order/me',
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/order/me',
                 headers: {
                     'x-access-token': token,
                 },

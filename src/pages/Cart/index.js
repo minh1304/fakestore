@@ -72,7 +72,7 @@ function Cart() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:3000/api/v1/auth/me',
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/me',
                 headers: {
                     'x-access-token': token,
                 },
@@ -113,7 +113,7 @@ function Cart() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:3000/api/v1/order',
+            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/order',
             headers: {
                 'x-access-token': token,
                 'Content-Type': 'application/json',

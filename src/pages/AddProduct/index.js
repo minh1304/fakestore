@@ -30,7 +30,7 @@ function AddProduct() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:3000/api/v1/auth/admin/product/add',
+            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/product/add',
             headers: {
                 'x-access-token': token,
                 'Content-Type': 'application/json',

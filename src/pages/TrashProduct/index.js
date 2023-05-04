@@ -16,7 +16,7 @@ function TrashProduct() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:3000/api/v1/auth/admin/products/trash',
+            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/products/trash',
             headers: {
                 'x-access-token': token,
             },
@@ -38,7 +38,7 @@ function TrashProduct() {
             const configDelete = {
                 method: 'patch',
                 maxBodyLength: Infinity,
-                url: `http://localhost:3000/api/v1/auth/admin/${id}/restore`,
+                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/${id}/restore`,
                 headers: {
                     'x-access-token': token,
                 },
@@ -47,7 +47,7 @@ function TrashProduct() {
             const configGet = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:3000/api/v1/auth/admin/products/trash',
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/products/trash',
                 headers: {
                     'x-access-token': token,
                 },

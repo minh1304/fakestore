@@ -9,12 +9,12 @@ function AdjustUser() {
     // })
     const user = useSelector(selectUser);
     const token = user.data.token;
-    const [data, setData] = useState([])
+    const [data, setData] = useState([]);
     useEffect(() => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:3000/api/v1/auth/admin/users',
+            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/users',
             headers: {
                 'x-access-token': token,
             },
@@ -35,11 +35,11 @@ function AdjustUser() {
             <div className="xl:col-span-1"></div>
             <div className="xl:col-span-10 2xl:col-span-10">
                 <div className="col-span-1 ml-5">
-                    <p className='text-xl font-bold'>List user</p>
-                    <hr className='mt-5 mb-5'></hr>
-                    {data.map(account => (
+                    <p className="text-xl font-bold">List user</p>
+                    <hr className="mt-5 mb-5"></hr>
+                    {data.map((account) => (
                         // <p key={acc._id}>{acc.username}</p>
-                        <Account key={account._id} data={account}/>
+                        <Account key={account._id} data={account} />
                     ))}
                 </div>
             </div>

@@ -18,28 +18,11 @@ function DefaultLayout({ children }) {
     const dispatch = useDispatch();
     const [data, setData] = useState([]);
     const test = useSelector((state) => state.allCart.count);
-    // api from fake store
-    // useEffect(() => {
-    //     const fetchApi = async () => {
-    //         const productResult = await productApi.getProduct();
-    //         dispatch(setProduct(productResult));
-    //         setData(productResult);
-    //     };
-    //     fetchApi();
-
-    //     setTimeout(() => {
-    //         if (test !== 0) {
-    //             dispatch(clearCount());
-    //         }
-    //     }, 3000);
-    // }, [test]);
-
-    //api from nodejs by me
     useEffect(() => {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'http://localhost:3000/api/v1/products',
+            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/products',
             headers: {},
         };
 
@@ -58,7 +41,6 @@ function DefaultLayout({ children }) {
             }
         }, 3000);
     }, [test]);
-    console.log(test);
     return (
         <div className="">
             <div className={``}>

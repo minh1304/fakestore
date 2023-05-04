@@ -22,7 +22,7 @@ function ListOrder({ data, onUpdate }) {
             let config = {
                 method: 'patch',
                 maxBodyLength: Infinity,
-                url: `http://localhost:3000/api/v1/auth/admin/${id}/order`,
+                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/${id}/order`,
                 headers: {
                     'x-access-token': token,
                 },
@@ -46,7 +46,7 @@ function ListOrder({ data, onUpdate }) {
             let config = {
                 method: 'patch',
                 maxBodyLength: Infinity,
-                url: `http://localhost:3000/api/v1/auth/admin/${id}/reject`,
+                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/${id}/reject`,
                 headers: {
                     'x-access-token': token,
                 },
@@ -82,9 +82,11 @@ function ListOrder({ data, onUpdate }) {
                     </div>
                 </div>
             )}
-            {isPending === "Rejected"  && (
+            {isPending === 'Rejected' && (
                 <div>
-                    <p className='text-red-500 font-bold text-2xl'>Order Rejected</p>
+                    <p className="text-red-500 font-bold text-2xl">
+                        Order Rejected
+                    </p>
                 </div>
             )}
             <div className="mt-3">

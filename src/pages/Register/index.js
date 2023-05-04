@@ -26,7 +26,7 @@ function Register() {
         let config = {
             method: 'post',
             maxBodyLength: Infinity,
-            url: 'http://localhost:3000/api/v1/auth/register',
+            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/register',
             headers: {
                 'Content-Type': 'application/json',
             },
@@ -38,7 +38,7 @@ function Register() {
             .then((response) => {
                 console.log(response);
                 setCheckErr(false);
-                alert('Register Success!!')
+                alert('Register Success!!');
                 navigate('/login');
             })
             .catch((error) => {

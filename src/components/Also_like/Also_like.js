@@ -17,7 +17,7 @@ function Also_like({ data, name, state_load }) {
     // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // fetch(`http://localhost:3000/api/v1/products/category/${data}`)
+        // fetch(`https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/category/${data}`)
         //     .then((categories) => categories.json())
         //     .then((categories) => {
         //         setCategories(categories);
@@ -28,7 +28,7 @@ function Also_like({ data, name, state_load }) {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `http://localhost:3000/api/v1/products/category/${data}`,
+                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/category/${data}`,
                 headers: {},
             };
 
@@ -47,14 +47,12 @@ function Also_like({ data, name, state_load }) {
         setTimeout(() => {
             setLoading(false);
         }, 5 * 1000);
-    }, [data,name]);
+    }, [data, name]);
 
     categories.map((category) => {
-        if(category._id === name)
-        {
-            console.log("Bằng rồi");
-        }
-        else list.push(category);
+        if (category._id === name) {
+            console.log('Bằng rồi');
+        } else list.push(category);
     });
     console.log('list còn lại: ', list);
     return (

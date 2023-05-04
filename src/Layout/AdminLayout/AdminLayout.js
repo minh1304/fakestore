@@ -26,7 +26,7 @@ function AdminLayout({ children }) {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:3000/api/v1/auth/me',
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/me',
                 headers: {
                     'x-access-token': token,
                 },

@@ -19,7 +19,7 @@ function Order() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:3000/api/v1/order',
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/order',
                 headers: {
                     'x-access-token': token,
                 },

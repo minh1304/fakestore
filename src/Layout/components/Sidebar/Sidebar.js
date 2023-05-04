@@ -27,7 +27,7 @@ function Sidebar() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'http://localhost:3000/api/v1/products/categories',
+                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/categories',
                 headers: {},
             };
             axios

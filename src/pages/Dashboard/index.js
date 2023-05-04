@@ -28,7 +28,7 @@ function Dashboard() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:3000/api/v1/auth/admin/products`,
+            url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/products`,
             headers: {
                 'x-access-token': token,
             },
@@ -55,7 +55,7 @@ function Dashboard() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: `http://localhost:3000/api/v1/auth/admin/products?page=${page}`,
+            url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/products?page=${page}`,
             headers: {
                 'x-access-token': token,
             },
@@ -86,7 +86,7 @@ function Dashboard() {
             const configDelete = {
                 method: 'delete',
                 maxBodyLength: Infinity,
-                url: `http://localhost:3000/api/v1/auth/admin/${id}/force`,
+                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/${id}/force`,
                 headers: {
                     'x-access-token': token,
                 },
@@ -95,7 +95,7 @@ function Dashboard() {
             const configGet = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `http://localhost:3000/api/v1/auth/admin/products?page=${page}`,
+                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/products?page=${page}`,
                 headers: {
                     'x-access-token': token,
                 },

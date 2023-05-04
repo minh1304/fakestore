@@ -31,7 +31,7 @@ function Detail() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `http://localhost:3000/api/v1/products/${name}`,
+                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/${name}`,
                 headers: {},
             };
 
