@@ -17,7 +17,7 @@ function Also_like({ data, name, state_load }) {
     // const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        // fetch(`https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/category/${data}`)
+        // fetch(`https://fakestoresinglecontainer.azurewebsites.net/api/product/category/${data}`)
         //     .then((categories) => categories.json())
         //     .then((categories) => {
         //         setCategories(categories);
@@ -28,14 +28,15 @@ function Also_like({ data, name, state_load }) {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/category/${data}`,
+                url: `https://fakestoresinglecontainer.azurewebsites.net/api/product/category/${data}`,
                 headers: {},
             };
 
             axios
                 .request(config)
                 .then((response) => {
-                    setCategories(response.data.products);
+                    
+                    setCategories(response.data.Products);
                     setLoading(true);
                 })
                 .catch((error) => {
@@ -46,11 +47,11 @@ function Also_like({ data, name, state_load }) {
         }
         setTimeout(() => {
             setLoading(false);
-        }, 5 * 1000);
+        }, 2 * 1000);
     }, [data, name]);
 
     categories.map((category) => {
-        if (category._id === name) {
+        if (category.Id == name) {
             console.log('Bằng rồi');
         } else list.push(category);
     });

@@ -3,6 +3,7 @@ import axios from 'axios';
 import { useDispatch, useSelector } from 'react-redux';
 import { logout, selectUser, setToken, setUser } from '~/app/userSlice';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
+import { FaShoppingCart, FaRegClock, FaEye, FaEyeSlash, FaBan} from 'react-icons/fa';
 import * as Yup from 'yup';
 import { useNavigate } from 'react-router-dom';
 import { clearCart } from '~/features/cartSlice';
@@ -10,36 +11,34 @@ import ListMyOrder from './ListMyOrder';
 
 function Login() {
     const navigate = useNavigate();
-    //user: chỉ lưu token
     const user = useSelector(selectUser);
-    //current user: thông tin của ng dùng
     const [currentUser, setCurrentUser] = useState({});
     const [myOrders, setMyOrders] = useState([]);
+    const [myOrdersCompleted, setMyOrdersCompleted] = useState([]);
+    const [showCompletedOrders, setShowCompletedOrders] = useState(false); 
+    const [myOrdersCanceled, setMyOrdersCanceled] = useState([]);
+    const [showCanceledOrders, setShowCanceledOrders] = useState(false); 
+
     const dispatch = useDispatch();
     const [err, setErr] = useState(false);
+
     const loginUser = (value) => {
         axios
             .post(
-                //api fake
-                // 'https://api.storerestapi.com/auth/login',
-
-                //api me
-                'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/login',
+                'https://fakestoresinglecontainer.azurewebsites.net/api/auth/login',
                 {
                     username: value.username,
                     password: value.password,
                 },
                 {
                     headers: {
-                        'Content-Type': 'application/x-www-form-urlencoded',
+                        'Content-Type': 'application/json',
                     },
-                },
+                }
             )
             .then((response) => {
-                console.log(response);
                 dispatch(setToken(response.data.token));
-                dispatch(setUser(response));
-                // navigate('/dashboard');
+                dispatch(setUser(response.data));
                 navigate('/');
             })
             .catch((error) => {
@@ -52,212 +51,249 @@ function Login() {
 
     useEffect(() => {
         if (user) {
-            //call api get information current user
-            const token = user.data.token;
+            const token = user;
             let config = {
                 method: 'get',
-                maxBodyLength: Infinity,
-                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/me',
+                url: 'https://fakestoresinglecontainer.azurewebsites.net/api/auth/me',
                 headers: {
-                    'x-access-token': token,
+                    'Authorization': `Bearer ${token}`,
                 },
             };
 
             axios
                 .request(config)
                 .then((response) => {
-                    setCurrentUser(response.data);
+                    setCurrentUser(response.data.Value);
                 })
                 .catch((error) => {
                     console.log(error);
                 });
         }
     }, [user]);
-    console.log(currentUser.username);
-
-    // console.log(user);
 
     useEffect(() => {
         if (user) {
-            const token = user.data.token;
-            let config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/order/me',
-                headers: {
-                    'x-access-token': token,
-                },
+            const token = user;
+            const fetchOrders = async () => {
+                try {
+                    const response = await axios.get('https://fakestoresinglecontainer.azurewebsites.net/api/User/GetAllOrder', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    setMyOrders(response.data);
+                } catch (error) {
+                    console.error('Failed to fetch orders:', error);
+                }
+            };
+            //Completed Orders
+            const fetchOrdersCompleted = async () => {
+                try {
+                    const response = await axios.get('https://fakestoresinglecontainer.azurewebsites.net/api/User/getOrdersCompleted', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    setMyOrdersCompleted(response.data);
+                } catch (error) {
+                    console.error('Failed to fetch orders:', error);
+                }
+            };
+            // Canceled Orders
+            const fetchOrdersCanceled = async () => {
+                try {
+                    const response = await axios.get('https://fakestoresinglecontainer.azurewebsites.net/api/User/getOrdersCanceled', {
+                        headers: {
+                            'Authorization': `Bearer ${token}`,
+                            'Content-Type': 'application/json'
+                        }
+                    });
+                    setMyOrdersCanceled(response.data);
+                } catch (error) {
+                    console.error('Failed to fetch orders:', error);
+                }
             };
 
-            axios
-                .request(config)
-                .then((response) => {
-                    setMyOrders(response.data.products);
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            fetchOrders();
+            fetchOrdersCompleted();
+            fetchOrdersCanceled();
         }
     }, [user]);
+
     const handleLogOut = () => {
         dispatch(logout());
         dispatch(clearCart());
-        window.location.reload();
+        navigate('/login');
     };
-    const [isSubmitting, setSubmitting] = useState(false);
+
+    const handleOrderCancel = (orderId) => {
+        setMyOrders((prevOrders) =>
+            prevOrders.filter((order) => order.id !== orderId) // Remove cancelled order
+        );
+    };
+    const toggleCompletedOrders = () => {
+        setShowCompletedOrders(!showCompletedOrders);
+    };
+    const toggleCanceledOrders = () => {
+        setShowCanceledOrders(!showCanceledOrders);
+    };
     return (
-        <div>
-            <div className="grid lg:grid-cols-6">
-                <div className="col-span-2"></div>
-                <div className="col-span-2 z-20">
-                    {user ? (
-                        // <div>
-                        <div className="mt-12 border-2 border-gray-300 w-[300px] h-[450px]">
-                            <div className="text-center">
-                                <p className="mt-7 text-2xl font-bold">
-                                    Information
-                                </p>
-                            </div>
-                            <div className="m-3">
-                                <p>User name: {currentUser.username}</p>
-                                <p>email: {currentUser.email}</p>
-                                <p>Phone: {currentUser.phone}</p>
-                                <p>Role: {currentUser.role}</p>
-                            </div>
-                            <div className="mt-20 text-center ">
-                                <button
-                                    onClick={handleLogOut}
-                                    className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700"
-                                    type="submit"
-                                    disabled={isSubmitting}
-                                >
-                                    Logout
-                                </button>
-                            </div>
+        <div className="flex flex-col items-center p-6 bg-gray-100 min-h-screen">
+            <div className="w-full max-w-md bg-white shadow-lg rounded-lg p-4 relative z-10">
+                {user ? (
+                    <div className="">
+                        <div className="text-gray-700 mb-4">
+                            <p className="text-lg font-semibold">User Info</p>
+                            <p className="text-gray-600">User: {currentUser.UserName}</p>
+                            <p className="text-gray-600">Email: {currentUser.UserEmail}</p>
                         </div>
-                    ) : (
-                        // </div>
-                        <Formik
-                            initialValues={{
-                                username: '',
-                                password: '',
-                            }}
-                            validationSchema={Yup.object({
-                                username: Yup.string().required(
-                                    'Please fill out this field',
-                                ),
-                                password: Yup.string()
-                                    .min(
-                                        6,
-                                        'Passwords must be at least 6 characters',
-                                    )
-                                    .required('Please fill out this field'),
-                            })}
-                            onSubmit={(values, { setSubmitting }) => {
-                                loginUser(values);
-                                console.log(values);
-                                setSubmitting(false);
-                            }}
+                        <button
+                            onClick={handleLogOut}
+                            className="mt-4 bg-red-500 w-full py-1 text-white font-semibold rounded-md hover:bg-red-700 w-200"
                         >
-                            {({ isSubmitting }) => (
-                                <div className="mt-12 border-2 border-gray-300 h-[450px]  ">
-                                    <div className="text-center">
-                                        <p className="mt-7 text-3xl font-bold">
-                                            Login
-                                        </p>
-                                    </div>
-                                    <Form>
-                                        <div className="w-[300px] mx-auto">
-                                            <div className="mt-5 ">
-                                                <label
-                                                    className="font-semibold "
-                                                    // htmlFor="email"
-                                                >
-                                                    Username
-                                                </label>
-                                                <div className="mt-2">
-                                                    <div className="mt-2">
-                                                        <Field
-                                                            className="w-[298.66px] h-10 bg-gray-100 relative z-10"
-                                                            type="text"
-                                                            name="username"
-                                                            placeholder="bob"
-                                                        />
-                                                    </div>
-                                                    <div className="mt-1 text-red-500">
-                                                        <ErrorMessage name="username" />
-                                                    </div>
-                                                </div>
-                                            </div>
-
-                                            <div className="mt-5 ">
-                                                <label
-                                                    className="font-semibold"
-                                                    htmlFor="password"
-                                                >
-                                                    Password
-                                                </label>
-                                                <div className="mt-2">
-                                                    <div className="mt-2">
-                                                        <Field
-                                                            className="w-[298.66px] h-10 bg-gray-100  relative z-10"
-                                                            type="password"
-                                                            name="password"
-                                                            placeholder="
-                                                        Please enter a password"
-                                                        />
-                                                    </div>
-                                                    <div className="mt-1 text-red-500">
-                                                        <ErrorMessage name="password" />
-                                                    </div>
-                                                </div>
-                                            </div>
-                                            {err && (
-                                                <div className="mt-3">
-                                                    <p className="text-red-500">
-                                                        The user name or
-                                                        password is incorrect,
-                                                        please type again
-                                                    </p>
-                                                </div>
-                                            )}
-
-                                            <div className="mt-5 text-center ">
-                                                <button
-                                                    className="bg-red-500 w-[100px] h-[40px] text-white font-semibold rounded-md hover:bg-red-700 relative z-10"
-                                                    type="submit"
-                                                    disabled={isSubmitting}
-                                                >
-                                                    Login
-                                                </button>
-                                                <div className="mt-5 text-black/60">
-                                                    <span>
-                                                        Don't have an account?
-                                                        <a
-                                                            href="/register"
-                                                            className="text-blue-500"
-                                                        >
-                                                            {' '}
-                                                            Register here
-                                                        </a>
-                                                    </span>
-                                                </div>
-                                            </div>
+                            Logout
+                        </button>
+                    </div>
+                ) : (
+                    <Formik
+                        initialValues={{
+                            username: '',
+                            password: '',
+                        }}
+                        validationSchema={Yup.object({
+                            username: Yup.string().required('Please fill out this field'),
+                            password: Yup.string()
+                                .min(6, 'Passwords must be at least 6 characters')
+                                .required('Please fill out this field'),
+                        })}
+                        onSubmit={(values, { setSubmitting }) => {
+                            loginUser(values);
+                            setSubmitting(false);
+                        }}
+                    >
+                        {({ isSubmitting }) => (
+                            <div className="text-center">
+                                <p className="text-2xl font-bold mb-4">Login</p>
+                                <Form>
+                                    <div className="space-y-3">
+                                        <div>
+                                            <label className="block text-left font-semibold mb-1">Username</label>
+                                            <Field
+                                                className="w-full p-1 border border-gray-300 rounded-md bg-gray-100"
+                                                type="text"
+                                                name="username"
+                                                placeholder="bob"
+                                            />
+                                            <ErrorMessage
+                                                name="username"
+                                                component="div"
+                                                className="text-red-500 text-left mt-1"
+                                            />
                                         </div>
-                                    </Form>
-                                </div>
-                            )}
-                        </Formik>
-                    )}
-                </div>
-
-                <div className="col-span-2"></div>
+                                        <div>
+                                            <label className="block text-left font-semibold mb-1">Password</label>
+                                            <Field
+                                                className="w-full p-1 border border-gray-300 rounded-md bg-gray-100"
+                                                type="password"
+                                                name="password"
+                                                placeholder="Enter your password"
+                                            />
+                                            <ErrorMessage
+                                                name="password"
+                                                component="div"
+                                                className="text-red-500 text-left mt-1"
+                                            />
+                                        </div>
+                                        {err && (
+                                            <div className="text-red-500 text-left mt-2">
+                                                Incorrect username or password. Please try again.
+                                            </div>
+                                        )}
+                                        <button
+                                            className="mt-4 w-full bg-red-500 py-1 text-white font-semibold rounded-md hover:bg-red-700"
+                                            type="submit"
+                                            disabled={isSubmitting}
+                                        >
+                                            Login
+                                        </button>
+                                        <div className="mt-3 text-gray-600">
+                                            <span>
+                                                Don't have an account?
+                                                <a href="/register" className="text-blue-500 ml-1">
+                                                    Register here
+                                                </a>
+                                            </span>
+                                        </div>
+                                    </div>
+                                </Form>
+                            </div>
+                        )}
+                    </Formik>
+                )}
             </div>
             {user && (
-                <div>
-                    {myOrders?.map((order) => (
-                        <ListMyOrder data={order} />
-                    ))}
+                <div className="w-full max-w-4xl mt-6">
+                    <div className="ml-6 flex items-center mb-4">
+                        <FaRegClock className="text-2xl text-gray-600 mr-2" />
+                        <h2 className="text-xl font-semibold text-gray-700">Order Completed</h2>
+                        <button
+                            onClick={toggleCompletedOrders}
+                            className="ml-4 bg-gray-500 text-white py-1 px-3 rounded-md hover:bg-gray-700 flex items-center justify-center"
+                        >
+                            {showCompletedOrders ? (
+                                <FaEyeSlash className="text-xl" />
+                            ) : (
+                                <FaEye className="text-xl" />
+                            )}
+                        </button>
+                    </div>
+                    {showCompletedOrders && (
+                        myOrdersCompleted.length > 0 ? (
+                            myOrdersCompleted.map((order) => (
+                                <ListMyOrder key={order.id} data={order} onOrderCancel={handleOrderCancel} />
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-600">You have no completed orders yet.</p>
+                        )
+                    )}
+
+                    <div className="ml-6 flex items-center mb-4">
+                        <FaBan className="text-2xl text-gray-600 mr-2" />
+                        <h2 className="text-xl font-semibold text-gray-700">Order Canceled</h2>
+                        <button
+                            onClick={toggleCanceledOrders}
+                            className="ml-4 bg-gray-500 text-white py-1 px-3 rounded-md hover:bg-gray-700 flex items-center justify-center"
+                        >
+                            {showCanceledOrders ? (
+                                <FaEyeSlash className="text-xl" />
+                            ) : (
+                                <FaEye className="text-xl" />
+                            )}
+                        </button>
+                    </div>
+                    {showCanceledOrders && (
+                        myOrdersCanceled.length > 0 ? (
+                            myOrdersCanceled.map((order) => (
+                                <ListMyOrder key={order.id} data={order} onOrderCancel={handleOrderCancel} />
+                            ))
+                        ) : (
+                            <p className="text-center text-gray-600">You have no cancelled orders yet.</p>
+                        )
+                    )}
+
+                    <div className="ml-6 flex items-center mb-4">
+                        <FaShoppingCart className="text-2xl text-gray-600 mr-2" />
+                        <h2 className="text-xl font-semibold text-gray-700">Your Orders:</h2>
+                    </div>
+                    {myOrders.length > 0 ? (
+                        myOrders.map((order) => (
+                            <ListMyOrder key={order.id} data={order} onOrderCancel={handleOrderCancel}/>
+                        ))
+                    ) : (
+                        <p className="text-center text-gray-600">You have no orders yet.</p>
+                    )}
                 </div>
             )}
         </div>

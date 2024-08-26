@@ -1,4 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
+
 const initialState = {
     cart: [],
     count: 0,
@@ -9,7 +10,6 @@ const initialState = {
 const cartSlice = createSlice({
     name: 'cart',
     initialState,
-    count: 0,
     reducers: {
         purchased: (state, action) => {
             state.purchased = action.payload;
@@ -18,43 +18,45 @@ const cartSlice = createSlice({
             state.count += 1;
             const newItem = { ...action.payload, amount: 1 };
             const cartIndex = state.cart.findIndex(
-                (cart) => cart.id === newItem.id,
+                (cart) => cart.Id === newItem.Id,
             );
             if (cartIndex >= 0) {
                 state.cart[cartIndex].amount += 1;
+                state.totalPrice += state.cart[cartIndex].Price;
             } else {
                 state.cart.push(newItem);
+                state.totalPrice += newItem.Price;
             }
         },
         removeCart: (state, action) => {
-            state.cart = state.cart.filter(
-                (item) => item.id !== action.payload,
-            );
+            const itemIndex = state.cart.findIndex(item => item.Id === action.payload);
+            if (itemIndex >= 0) {
+                state.totalPrice -= state.cart[itemIndex].Price * state.cart[itemIndex].amount;
+                state.count -= state.cart[itemIndex].amount;
+                state.cart.splice(itemIndex, 1);
+            }
         },
         increase: (state, action) => {
-            state.cart = state.cart.map((item) => {
-                if (item.id === action.payload) {
-                    return { ...item, amount: item.amount + 1 };
-                }
-                return item;
-            });
+            const item = state.cart.find(item => item.Id === action.payload);
+            if (item) {
+                item.amount += 1;
+                state.totalPrice += item.Price;
+            }
         },
         decrease: (state, action) => {
-            state.cart = state.cart.map((item) => {
-                if (item.id === action.payload) {
-                    return { ...item, amount: item.amount - 1 };
-                }
-                return item;
-            });
+            const item = state.cart.find(item => item.Id === action.payload);
+            if (item && item.amount > 1) {
+                item.amount -= 1;
+                state.totalPrice -= item.Price;
+            }
         },
         clearCart: (state) => {
             state.cart = [];
             state.count = 0;
-            return state;
+            state.totalPrice = 0;
         },
         clearCount: (state) => {
             state.count = 0;
-            return state;
         },
     },
 });

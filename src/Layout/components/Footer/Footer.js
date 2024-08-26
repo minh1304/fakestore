@@ -18,7 +18,7 @@ function Footer() {
                                 Company
                             </h4>
                             <p className="text-gray-400">
-                                Quater 6, Linh Trung, Thu Dức, <br />
+                                45A Nguyen Lam, Phu Nhuan <br />
                                 Ho Chi Minh <br />
                                 Viet Nam <br />
                                 <br />
@@ -145,7 +145,7 @@ function Footer() {
                                 className="mt-1 pr-1"
                                 icon={faCopyright}
                             />
-                            <strong className="uppercase">MT shop</strong>
+                            <strong className="uppercase">MV shop</strong>
                         </div>
                     </div>
                     <div className="text-center text-xl text-white mb-2 overflow-y-hidden">

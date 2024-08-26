@@ -22,7 +22,7 @@ function ListOrder({ data, onUpdate }) {
             let config = {
                 method: 'patch',
                 maxBodyLength: Infinity,
-                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/${id}/order`,
+                url: `https://fakestoresinglecontainer.azurewebsites.net/api/auth/admin/${id}/order`,
                 headers: {
                     'x-access-token': token,
                 },
@@ -46,7 +46,7 @@ function ListOrder({ data, onUpdate }) {
             let config = {
                 method: 'patch',
                 maxBodyLength: Infinity,
-                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/${id}/reject`,
+                url: `https://fakestoresinglecontainer.azurewebsites.net/api/auth/admin/${id}/reject`,
                 headers: {
                     'x-access-token': token,
                 },

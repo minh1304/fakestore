@@ -27,13 +27,13 @@ function Sidebar() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/categories',
+                url: 'https://fakestoresinglecontainer.azurewebsites.net/api/product/categories',
                 headers: {},
             };
             axios
                 .request(config)
                 .then((response) => {
-                    setCategories(response.data.data);
+                    setCategories(response.data);
                 })
                 .catch((error) => {
                     console.log(error);
@@ -75,7 +75,7 @@ function Sidebar() {
                     }`}
                 >
                     {categories.map((link, index) => (
-                        <Menu key={index} data={link} />
+                        <Menu key={index} data={link.name} />
                     ))}
                     {/* <Button>Get Started</Button> */}
                 </ul>

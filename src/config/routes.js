@@ -11,6 +11,10 @@ const routes = {
     addProduct: '/dashboard/addProduct',
     trashProduct: '/dashboard/trashProduct',
     adjustUser: '/dashboard/adjustUser',
+    editProduct: '/product/edit/:id',
+    addCategory: '/dashboard/addCategory',
+    orderDetail: '/dashboard/order/:id',
+
 };
 
 export default routes;

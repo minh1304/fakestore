@@ -23,14 +23,14 @@ function List() {
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/products/category/${name}`,
+                url: `https://fakestoresinglecontainer.azurewebsites.net/api/product/category/${name}`,
                 headers: {},
             };
 
             axios
                 .request(config)
                 .then((response) => {
-                    setData(response.data.products);
+                    setData(response.data.Products);
                     setLoading(true);
                 })
                 .catch((error) => {

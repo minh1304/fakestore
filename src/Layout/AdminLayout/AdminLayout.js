@@ -1,109 +1,63 @@
-import Sidebar from '../components/Sidebar';
 import { useEffect, useState } from 'react';
-// import CartProvider from '~/context/CartProvider';
-import Footer from '../components/Footer';
 import axios from 'axios';
-import * as productApi from '~/apiServices/productApi';
 import { useSelector } from 'react-redux';
-import { setProduct } from '~/features/productSlice';
-import Header from '../components/Header';
 import { selectUser } from '~/app/userSlice';
 import { Link } from 'react-router-dom';
 import config from '~/config';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faCircleCheck } from '@fortawesome/free-regular-svg-icons';
-
-// Initialize Firebase
+import Header from '../components/Header';
+import Footer from '../components/Footer';
 
 function AdminLayout({ children }) {
     const user = useSelector(selectUser);
     const [currentUser, setCurrentUser] = useState({});
-    const [isAdmin, setIsAdmin] = useState();
+    const [isAdmin, setIsAdmin] = useState(false);
+
     useEffect(() => {
         if (user) {
-            //call api get information current user
-            const token = user.data.token;
-            let config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/me',
-                headers: {
-                    'x-access-token': token,
-                },
-            };
-
-            axios
-                .request(config)
-                .then((response) => {
-                    setCurrentUser(response.data);
-                    if (response.data.role === 'admin') {
-                        setIsAdmin(true);
-                        // console.log('admin nè');
-                    } else {
-                        setIsAdmin(false);
-                        console.log('K phải admin');
-                    }
-                })
-                .catch((error) => {
-                    console.log(error);
-                });
+            console.log(user)
+            const token = user; // Assuming the token is inside user.data
+            axios.get('https://fakestoresinglecontainer.azurewebsites.net/api/auth/me', {
+                headers: { 'Authorization': `Bearer ${token}` },
+            })
+            .then((response) => {
+                setCurrentUser(response.data.Value);
+                setIsAdmin(response.data.Value.Role === 'Admin');
+            })
+            .catch((error) => {
+                console.error(error);
+            });
         }
     }, [user]);
 
-    // console.log(currentUser);
     return (
-        <div>
+        <div className="flex flex-col min-h-screen">
+            <Header data={currentUser} />
             {isAdmin ? (
-                <div>
-                    {/* <div>
-                        <div
-                            class={`fixed top-[50%] left-[50%] translate-x-[-50%] translate-y-[-50%] bottom-0 right-0 flex items-center justify-center`}
-                        >
-                            <div
-                                class={`bg-black/60 rounded-md p-10 transform transition `}
-                            >
-                                <div>
-                                    <FontAwesomeIcon
-                                        className="text-green-500 text-4xl"
-                                        icon={faCircleCheck}
-                                    />
-                                </div>
-                                <div className="text-white text-lg">
-                                    Product added to cart
-                                </div>
-                            </div>
-                        </div>
-                    </div> */}
-                    <Header data={currentUser} />
-                    <div className="mt-[82px] flex">
-                        <div className="text-black h-[210px] w-[300px] fixed ">
-                            <div className="text-black uppercase text-xl font-semibold ml-10 mt-5 mb-5">
-                                <Link to={config.routes.dashboard}>
-                                    Product
-                                </Link>
-                            </div>
-                            <hr />
-                            <div className="text-black uppercase text-xl font-semibold ml-10 mt-5 mb-5">
-                                <Link to={config.routes.order}>Order</Link>
-                            </div>
-                            <hr />
-                            <div className="text-black uppercase text-xl font-semibold ml-10 mt-5 mb-5">
-                                <Link to={config.routes.adjustUser}>User</Link>
-                            </div>
-                        </div>
-                        <div className="ml-[500px]">
-                            <div className="overflow-y-auto top-0 left-0 bg-white">
-                                <div className="mt-5 max-w-7xl mx-auto">
-                                    <div>{children}</div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <Footer />{' '}
+                <div className="flex flex-1 mt-20">
+                    <nav className="w-64 bg-gray-800 text-white p-5">
+                        <h2 className="text-2xl font-semibold mb-6">Admin Panel</h2>
+                        <ul>
+                            <li className="mb-4 hover:bg-gray-400 cursor-pointer">
+                                <Link to={config.routes.dashboard} className='ml-6'>Product</Link>
+                            </li>
+                            <li className="mb-4 hover:bg-gray-400 cursor-pointer">
+                                <Link to={config.routes.order} className='ml-6'>Order</Link>
+                            </li>
+                            {/* <li className="mb-4 hover:bg-gray-400 cursor-pointer">
+                                <Link to={config.routes.adjustUser} className='ml-6'>User</Link>
+                            </li> */}
+                        </ul>
+                    </nav>
+                    <main className="flex-1 bg-gray-100 p-6">
+                        {children}
+                    </main>
                 </div>
             ) : (
-                <h1 className="mt-10 ml-10 text-3xl">Not have access</h1>
+                <div className="flex items-center justify-center flex-1">
+                    <h1 className="text-3xl">Access Denied</h1>
+                </div>
             )}
+            <Footer />
         </div>
     );
 }

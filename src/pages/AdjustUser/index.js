@@ -14,7 +14,7 @@ function AdjustUser() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/users',
+            url: 'https://fakestoresinglecontainer.azurewebsites.net/api/auth/admin/users',
             headers: {
                 'x-access-token': token,
             },

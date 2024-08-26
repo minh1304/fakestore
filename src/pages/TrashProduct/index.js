@@ -16,9 +16,9 @@ function TrashProduct() {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/products/trash',
+            url: 'https://fakestoresinglecontainer.azurewebsites.net/api/auth/admin/product/trash',
             headers: {
-                'x-access-token': token,
+                'Authorization': `Bearer ${token}`,
             },
         };
 
@@ -38,7 +38,7 @@ function TrashProduct() {
             const configDelete = {
                 method: 'patch',
                 maxBodyLength: Infinity,
-                url: `https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/${id}/restore`,
+                url: `https://fakestoresinglecontainer.azurewebsites.net/api/auth/admin/${id}/restore`,
                 headers: {
                     'x-access-token': token,
                 },
@@ -47,9 +47,9 @@ function TrashProduct() {
             const configGet = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/admin/products/trash',
+                url: 'https://fakestoresinglecontainer.azurewebsites.net/api/auth/admin/product/trash',
                 headers: {
-                    'x-access-token': token,
+                    'Authorization': `Bearer ${token}`,
                 },
             };
             const [deleteResponse, getResponse] = await axios.all([

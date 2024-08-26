@@ -5,52 +5,47 @@ import { Link, useNavigate } from 'react-router-dom';
 import { logout } from '~/app/userSlice';
 import config from '~/config';
 import { clearCart } from '~/features/cartSlice';
+
 function Header({ data }) {
     const navigate = useNavigate();
     const dispatch = useDispatch();
+
     const handleLogout = () => {
         dispatch(logout());
-        dispatch(clearCart())
+        dispatch(clearCart());
         navigate('/');
     };
+
     return (
-        <div className="h-[82px] bg-black overflow-hidden grid grid-cols-10 fixed w-full z-50">
-            <div className="h-[82px] ml-[0px] text-center col-span-2 ">
-                <Link to={config.routes.dashboard}>
-                    <img
-                        className="w-[100px] md:ml-16 mt-2"
-                        src="https://seeklogo.com/images/O/off-white-virgilabloh-logo-766416FD87-seeklogo.com.png"
-                        alt="logo"
-                    />
-                </Link>
-            </div>
-            <div className="col-span-5"></div>
-            <div className="ml-5 translate-y-7 col-span-3 md:ml-32 lg:ml-52">
-                <span>
-                    <FontAwesomeIcon
-                        className="text-white text-xl"
-                        icon={faUser}
-                    />
-                </span>
-                <span className="ml-3 text-white font-bold">
-                    AD: {data.username}
-                </span>
-                <div className="w-[130px]">
-                    <div
-                        className=" h-[28px] text-white relative group cursor-pointer"
-                        onClick={() => handleLogout()}
-                    >
-                        <FontAwesomeIcon
-                            className="text-white absolute top-1 left-0"
-                            icon={faRightFromBracket}
+        <header className="bg-black text-white h-20 flex items-center fixed top-0 left-0 w-full z-50">
+            <div className="flex items-center w-full max-w-screen-xl mx-auto px-4">
+                <div className="flex items-center w-1/4">
+                    <Link to={config.routes.dashboard}>
+                        <img
+                            className="w-24 h-auto"
+                            src="https://seeklogo.com/images/O/off-white-virgilabloh-logo-766416FD87-seeklogo.com.png"
+                            alt="logo"
                         />
-                        <p className="absolute top-0 group-hover:left-10 left-40 transition-all bg-white  text-black w-[85px] rounded-md overflow-hidden">
-                            <span className="p-2">Log out</span>
-                        </p>
+                    </Link>
+                </div>
+                <div className="flex items-center justify-end w-3/4 space-x-4">
+                    <div className="flex items-center space-x-2">
+                        <FontAwesomeIcon
+                            className="text-xl"
+                            icon={faUser}
+                        />
+                        <span className="font-bold">AD: {data.UserName}</span>
                     </div>
+                    <button
+                        className="relative flex items-center space-x-2 text-white bg-black hover:text-gray-400"
+                        onClick={handleLogout}
+                    >
+                        <FontAwesomeIcon icon={faRightFromBracket} />
+                        <span>Log out</span>
+                    </button>
                 </div>
             </div>
-        </div>
+        </header>
     );
 }
 

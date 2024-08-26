@@ -16,6 +16,9 @@ import AdjustUser from '~/pages/AdjustUser';
 import Order from '~/pages/Order';
 import AddProduct from '~/pages/AddProduct';
 import TrashProduct from '~/pages/TrashProduct';
+import EditProduct from '~/pages/EditProduct';
+import AddCategory from '~/pages/AddCategory';
+import OrderDetail from '~/pages/OrderDetail';
 // import Personal from '~/pages/Personal';
 const publicRoutes = [
     { path: config.routes.home, component: Home },
@@ -47,11 +50,25 @@ const publicRoutes = [
         component: TrashProduct,
         layout: AdminLayout,
     },
+    {
+        path: config.routes.editProduct,
+        component: EditProduct,
+        layout: AdminLayout,
+    },
+    {
+        path: config.routes.addCategory,
+        component: AddCategory,
+        layout: AdminLayout,
+    },
+    {
+        path: config.routes.orderDetail,
+        component: OrderDetail,
+        layout: AdminLayout,
+    },
 
     // { path: config.routes.login, component: Login, layout: null  },
 ];
 
-//Khi không đăng nhập
 const privateRoutes = [];
 
 export { publicRoutes, privateRoutes };

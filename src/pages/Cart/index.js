@@ -9,7 +9,7 @@ import {
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { Formik, Field, Form, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import {
@@ -26,7 +26,9 @@ import { selectUser } from '~/app/userSlice';
 // import { CartContext } from '~/context/CartProvider';
 function Cart() {
     const carts = useSelector((state) => state.allCart);
-    const dispath = useDispatch();
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+
     const cart = carts.cart;
 
     console.log('cart nè test...:, phải làm sao phải làm sao  ', carts.cart);
@@ -49,16 +51,17 @@ function Cart() {
         // console.log('remove', item);
         console.log(itemId);
         const action = removeCart(itemId);
-        dispath(action);
+        dispatch(action);
     };
     const decreaseAmount = (item) => {
-        if (item.amount === 1) handleRemove(item.id);
-        const action = decrease(item.id);
-        dispath(action);
+        if (item.amount === 1) handleRemove(item.Id);
+        const action = decrease(item.Id);
+        dispatch(action);
     };
     const increaseAmount = (itemId) => {
+        console.log(itemId);
         const action = increase(itemId);
-        dispath(action);
+        dispatch(action);
     };
     const itemAmount = total;
 
@@ -68,13 +71,13 @@ function Cart() {
 
     useEffect(() => {
         if (user) {
-            const token = user.data.token;
+            const token = user;
             let config = {
                 method: 'get',
                 maxBodyLength: Infinity,
-                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/auth/me',
+                url: 'https://fakestoresinglecontainer.azurewebsites.net/api/auth/me',
                 headers: {
-                    'x-access-token': token,
+                    'Authorization': `Bearer ${token}`,
                 },
             };
 
@@ -93,53 +96,49 @@ function Cart() {
 
 
     const handleSubmit = (values) => {
+        const token = user;
         if (user != null) {
-            console.log(values);
-            console.log(carts.cart);
-            const test2 = carts.cart;
-            const test = {
-                ...values,
-                purchased: test2,
-                total: total,
-                username: currentUser.username,
+            const products = carts.cart.map(item => ({
+                productId: item.Id,
+                quantity: item.amount
+            }));
+        
+            const orderData = {
+                phoneNumber: values.phoneNumber,
+                address: values.address,
+                note: values.note,
+                name: values.name,
+                products: products
             };
-            console.log(test);
-            let data = JSON.stringify({
-                address: test.address,
-                name: test.name,
-                phoneNumber: test.phoneNumber,
-                note: test.note,
-                purchased: test.purchased,
-                total: test.total,
-                username: test.username,
-                __v: 0,
-            });
-
+        
+            console.log("Order Data:", orderData); // Log order data to check its structure
+        
             let config = {
                 method: 'post',
-                maxBodyLength: Infinity,
-                url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/order',
+                url: 'https://fakestoresinglecontainer.azurewebsites.net/api/user/order',
                 headers: {
-                    'x-access-token': user.data.token,
-                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`, 
+                    'Content-Type': 'application/json'
                 },
-                data: data,
+                data: orderData 
             };
-
-            axios
-                .request(config)
+        
+            axios.request(config)
                 .then((response) => {
-                    console.log(JSON.stringify(response.data));
-                    dispath(clearCart());
+                    console.log("Response Data:", response.data); 
+                    dispatch(clearCart());
+                    navigate('/login');
                 })
                 .catch((error) => {
-                    console.log(error);
+                    console.error("Request Error:", error.response ? error.response.data : error.message); 
                 });
-
-            dispath(addOrder(test));
+        
+                dispatch(addOrder(orderData));
+                alert('Order added!!');
         } else {
-            alert('Đăng nhập mới được mua');
+            alert('Please log in to place an order');
         }
+        
     };
     return (
         <div className="xl:grid xl:grid-cols-12 2xl:grid 2xl:grid-cols-10">
@@ -177,16 +176,16 @@ function Cart() {
                                         <div className="col-span-1 w-[100px] min-h-[100px]">
                                             <img
                                                 className="bg-cover"
-                                                src={item.image}
+                                                src={item.Image}
                                                 alt="item-img"
                                             />
                                         </div>
                                         <div className="col-span-4 ml-10">
                                             <p
-                                                key={item.title}
+                                                key={item.Title}
                                                 className="text-black font-bold h-[50px]"
                                             >
-                                                {item.title}
+                                                {item.Title}
                                             </p>
                                             <div className="grid grid-cols-2">
                                                 <div className="flex col-span-1">
@@ -197,7 +196,7 @@ function Cart() {
                                                         />
                                                     </p>
                                                     <p className="font-bold text-gray-500">
-                                                        {item.price}
+                                                        {item.Price}
                                                     </p>
                                                 </div>
                                                 <div className="flex col-span-1">
@@ -219,7 +218,7 @@ function Cart() {
                                                         className="cursor-pointer w-5  hover:text-primary"
                                                         onClick={() =>
                                                             increaseAmount(
-                                                                item.id,
+                                                                item.Id,
                                                             )
                                                         }
                                                     >
@@ -236,7 +235,7 @@ function Cart() {
                                             <div
                                                 className="h-[50px] relative"
                                                 onClick={() =>
-                                                    handleRemove(item.id)
+                                                    handleRemove(item.Id)
                                                 }
                                             >
                                                 <p className="h-7 w-7 absolute top-0 right-5 text-center rounded-md text-gray-500 pt-[2px] duration-200 hover:text-primary">
@@ -253,7 +252,7 @@ function Cart() {
                                                 </p>
                                                 <p className="font-bold">
                                                     {(
-                                                        item.amount * item.price
+                                                        item.amount * item.Price
                                                     ).toFixed(2)}
                                                 </p>
                                             </div>

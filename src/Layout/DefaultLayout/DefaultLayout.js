@@ -22,14 +22,14 @@ function DefaultLayout({ children }) {
         let config = {
             method: 'get',
             maxBodyLength: Infinity,
-            url: 'https://weak-puce-sawfish-boot.cyclic.app/api/v1/products',
+            url: 'https://fakestoresinglecontainer.azurewebsites.net/api/product',
             headers: {},
         };
 
         axios
             .request(config)
             .then((response) => {
-                const productResult = response.data.products;
+                const productResult = response.data;
                 dispatch(setProduct(productResult));
             })
             .catch((error) => {

@@ -1,60 +1,73 @@
 import { useState, useEffect } from 'react';
+import { useParams, useNavigate, Link } from 'react-router-dom';
 import axios from 'axios';
 import { useSelector } from 'react-redux';
 import { selectUser } from '~/app/userSlice';
+import { Formik, Form, Field, ErrorMessage } from 'formik';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faArrowLeft } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate } from 'react-router-dom';
 import config from '~/config';
-import { Formik, Form, Field, ErrorMessage } from 'formik';
+
 import * as Yup from 'yup';
 
-function AddProduct() {
+function EditProduct() {
+    const { id } = useParams();
     const navigate = useNavigate();
     const user = useSelector(selectUser);
     const token = user;
-    
+
+    const [product, setProduct] = useState(null);
     const [categories, setCategories] = useState([]);
     const [imagePreview, setImagePreview] = useState('');
 
     useEffect(() => {
-        const fetchApi = async () => {
-            let config = {
-                method: 'get',
-                maxBodyLength: Infinity,
-                url: 'https://fakestoresinglecontainer.azurewebsites.net/api/product/categories',
-                headers: {},
-            };
-            axios
-                .request(config)
-                .then((response) => {
-                    setCategories(response.data);
-                })
-                .catch((error) => {
-                    console.log(error);
+        const fetchProductDetails = async () => {
+            try {
+                const response = await axios.get(`https://fakestoresinglecontainer.azurewebsites.net/api/Product/${id}`, {
+                    headers: {
+                        'Authorization': `Bearer ${token}`,
+                        'Content-Type': 'application/json',
+                    },
                 });
+                setProduct(response.data);
+                setImagePreview(response.data.Image);
+            } catch (error) {
+                console.error('Failed to fetch product details:', error);
+            }
         };
-        fetchApi();
-    }, []);
-    console.log(categories);
-    const handleAddProduct = (values) => {
+
+        const fetchCategories = async () => {
+            try {
+                const response = await axios.get('https://fakestoresinglecontainer.azurewebsites.net/api/product/categories');
+                setCategories(response.data);
+            } catch (error) {
+                console.error('Failed to fetch categories:', error);
+            }
+        };
+
+        fetchProductDetails();
+        fetchCategories();
+    }, [id, token]);
+
+    const handleEditProduct = (values) => {
+        const userConfirmed = window.confirm("Are you sure you want to save these changes?");
+        
+        if (!userConfirmed) {
+            return navigate(`/dashboard`);
+        }
         const data = JSON.stringify({
             title: values.title,
             price: values.price,
             description: values.description,
-            categoryID: values.category,
             image: values.image,
-            //Default
-            rating: {
-                rate : 6,
-                count: 100
-            }
+            categoryID: parseInt(values.category, 10), // Ensure category is an integer
+            rating: product.rating,
         });
 
         const config = {
-            method: 'post',
+            method: 'put',
             maxBodyLength: Infinity,
-            url: 'https://fakestoresinglecontainer.azurewebsites.net/api/admin/product',
+            url: `https://fakestoresinglecontainer.azurewebsites.net/api/admin/product/${id}`,
             headers: {
                 'Authorization': `Bearer ${token}`,
                 'Content-Type': 'application/json',
@@ -65,11 +78,12 @@ function AddProduct() {
         axios
             .request(config)
             .then((response) => {
-                alert("Added Product Success!")
+                console.log(response.data);
+                alert("Edit Product Success!")
                 navigate('/dashboard');
             })
-            .catch((error) => { 
-                console.log(error);
+            .catch((error) => {
+                console.error('Failed to update product:', error);
             });
     };
 
@@ -91,20 +105,20 @@ function AddProduct() {
                     <Link to={config.routes.dashboard} className="text-gray-500 hover:text-gray-700">
                         <FontAwesomeIcon icon={faArrowLeft} />
                     </Link>
-                    <p className="ml-4 text-xl font-bold">Add Product</p>
+                    <p className="ml-4 text-xl font-bold">Edit Product</p>
                 </div>
-
-                <Formik
+                {product ? (
+                    <Formik
                     initialValues={{
-                        title: '',
-                        price: '',
-                        description: '',
-                        category: '',
-                        image: '',
+                        title: product.Title,
+                        price: product.Price,
+                        description: product.Description,
+                        category: product.CategoryID,
+                        image: product.Image,
                     }}
                     validationSchema={ProductSchema}
                     onSubmit={(values, { setSubmitting }) => {
-                        handleAddProduct(values);
+                        handleEditProduct(values);
                         setSubmitting(false);
                     }}
                 >
@@ -121,7 +135,7 @@ function AddProduct() {
                                     />
                                     <ErrorMessage name="title" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
-
+                
                                 <div>
                                     <label htmlFor="price" className="block text-sm font-medium text-gray-700">Price</label>
                                     <Field
@@ -132,7 +146,7 @@ function AddProduct() {
                                     />
                                     <ErrorMessage name="price" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
-
+                
                                 <div>
                                     <label htmlFor="description" className="block text-sm font-medium text-gray-700">Description</label>
                                     <Field
@@ -143,7 +157,7 @@ function AddProduct() {
                                     />
                                     <ErrorMessage name="description" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
-
+                
                                 <div>
                                     <label htmlFor="category" className="block text-sm font-medium text-gray-700">Category</label>
                                     <Field
@@ -153,14 +167,15 @@ function AddProduct() {
                                         className="mt-1 block w-full px-3 py-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring focus:ring-opacity-50"
                                     >
                                         <option value="">Select a category</option>
-                                        {categories.map((category, index) => (
-                                            <option key={index} value={category.id}>
+                                        {categories.map((category) => (
+                                            <option key={category.id} value={category.id}>
                                                 {category.name}
                                             </option>
                                         ))}
                                     </Field>
                                     <ErrorMessage name="category" component="div" className="text-red-500 text-sm mt-1" />
                                 </div>
+                
                                 <div>
                                     <label htmlFor="image" className="block text-sm font-medium text-gray-700">Image URL</label>
                                     <Field
@@ -184,7 +199,7 @@ function AddProduct() {
                                         </div>
                                     )}
                                 </div>
-
+                
                                 <div className="text-center mt-6">
                                     <button
                                         type="submit"
@@ -198,9 +213,13 @@ function AddProduct() {
                         </Form>
                     )}
                 </Formik>
+                
+                ) : (
+                    <p>Loading...</p>
+                )}
             </div>
         </div>
     );
 }
 
-export default AddProduct;
+export default EditProduct;

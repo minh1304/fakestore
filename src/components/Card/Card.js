@@ -48,26 +48,26 @@ function Card({ data }) {
                                 <div className="pt-5 m-auto h-[270px] w-[155px] overflow-y-hidden transition-all group-hover:scale-110">
                                     <img
                                         className="object-cover"
-                                        src={data.image}
+                                        src={data.Image}
                                         alt="img"
                                     />
                                 </div>
 
                                 <div className="group-hover:bottom-[30px] transition-all absolute -bottom-10 left-0 text-white z-20">
-                                    <Link to={`/categories/${data.category}`}>
+                                    <Link to={`/categories/${data.Category}`}>
                                         <p className="ml-3 mb-2 text-sm opacity-80 hover:text-black">
-                                            {data.category}
+                                            {data.Category}
                                         </p>
                                     </Link>
-                                    <Link to={`/product/${data._id}`}>
+                                    <Link to={`/product/${data.Id}`}>
                                         <p className="ml-3 mb-2 text-lg font-bold overflow-hidden opacity-85 text-white hover:text-primary">
-                                            {data.price}{' '}
+                                            {data.Price}{' '}
                                             <FontAwesomeIcon
                                                 icon={faDollarSign}
                                             />{' '}
                                         </p>
                                         <p className="ml-3 mb-16 text-lg font-bold h-[56px] overflow-hidden opacity-85 hover:text-primary">
-                                            {data.title}
+                                            {data.Title}
                                         </p>
                                     </Link>
                                     <div
