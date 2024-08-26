@@ -46,7 +46,7 @@ function AddProduct() {
             image: values.image,
             //Default
             rating: {
-                rate : 6,
+                rate : 4,
                 count: 100
             }
         });
